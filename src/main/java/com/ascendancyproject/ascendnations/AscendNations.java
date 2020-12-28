@@ -18,6 +18,9 @@ public final class AscendNations extends JavaPlugin {
 
         // Register commands.
         this.getCommand("nation").setExecutor(new CommandNation());
+
+        // Register events.
+        new PlayerDataEvents(this);
     }
 
     @Override
