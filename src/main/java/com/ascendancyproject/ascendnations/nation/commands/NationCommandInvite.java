@@ -40,7 +40,7 @@ public class NationCommandInvite extends NationCommand {
 
         Player invitee = Bukkit.getPlayer(args[1]);
         if (invitee == null) {
-            sender.sendMessage(Language.format("errorNationInviteNoInviteeFound", new String[]{"inviteeName", args[1]}));
+            sender.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
             return;
         }
 
