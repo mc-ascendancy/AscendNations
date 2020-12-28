@@ -21,6 +21,13 @@ public class Nation {
         PersistentData.instance.getNations().put(uuid, this);
     }
 
+    public void disband() {
+        for (UUID memberUUID : members.keySet())
+            PersistentData.instance.getPlayers().get(memberUUID).setNationUUID(null);
+
+        PersistentData.instance.getNations().remove(uuid);
+    }
+
     public UUID getUUID() {
         return uuid;
     }

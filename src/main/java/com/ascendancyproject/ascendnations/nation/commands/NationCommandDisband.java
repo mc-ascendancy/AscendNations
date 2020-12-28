@@ -22,8 +22,7 @@ public class NationCommandDisband extends NationCommand {
             return;
         }
 
-        PersistentData.instance.getNations().remove(playerData.getNationUUID());
-        playerData.setNationUUID(null);
+        PersistentData.instance.getNations().get(playerData.getNationUUID()).disband();
     }
 
     public String getName() {
