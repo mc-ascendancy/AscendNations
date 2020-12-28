@@ -28,6 +28,12 @@ public class Nation {
         PersistentData.instance.getNations().remove(uuid);
     }
 
+    public boolean lacksPermissions(UUID playerUUID, NationRole minimumRole) {
+        NationMember nationMember = members.get(playerUUID);
+
+        return nationMember.getRole().ordinal() < minimumRole.ordinal();
+    }
+
     public UUID getUUID() {
         return uuid;
     }

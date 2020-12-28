@@ -7,6 +7,7 @@ import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationInvitation;
 import com.ascendancyproject.ascendnations.nation.NationInvitationManager;
+import com.ascendancyproject.ascendnations.nation.NationRole;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -29,6 +30,11 @@ public class NationCommandInvite extends NationCommand {
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
         if (nation == null) {
             sender.sendMessage(Language.getLine("errorNationInviteNotInNation"));
+            return;
+        }
+
+        if (nation.lacksPermissions(player.getUniqueId(), NationRole.Commander)) {
+            sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", NationRole.Commander.name()}));
             return;
         }
 

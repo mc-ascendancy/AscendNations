@@ -5,6 +5,7 @@ import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
+import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,6 +21,12 @@ public class NationCommandDisband extends NationCommand {
         }
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
+
+        if (nation.lacksPermissions(player.getUniqueId(), NationRole.Chancellor)) {
+            sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", NationRole.Chancellor.name()}));
+            return;
+        }
+
         String name = nation.getName();
         nation.disband();
 
