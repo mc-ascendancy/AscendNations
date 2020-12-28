@@ -2,9 +2,11 @@
 	"errorNotPlayer": "You must be a player to use the [commandName] command!",
 	"errorNoSubcommandProvided": "You must specify which subcommand you want to use!\n\nFor help, try: /nation help",
 	"errorBadSubcommand": "I could not find that subcommand!\nFor help, try: /nation help",
+	"errorCanNotRunOnYourself": "You can not run this command on yourself.",
 	"errorNationBadPermissions": "You must be at least a [minimumRole] to execute that command.",
 	"errorNationNotInNation": "You must be in a nation to execute that command.",
 	"errorNationNoPlayerFound": "No user found with the name [playerName]!",
+	"errorNationPlayerNotInNation": "[playerName] is not in your nation.",
 	"nationCreated": "Successfully formed [nationName].",
 	"errorNationCreateNoNameProvided": "You must provide a name for your nation.\nFormat: /nation create [name]\nExample: /nation create My Cool Nation",
 	"errorNationCreateAlreadyInNation": "You must leave your current nation before creating a new one!",
@@ -18,5 +20,13 @@
 	"errorNationJoinManual": "This is an automated command, ask someone to invite you, then click on the accept button.",
 	"errorNationJoinExpired": "This invitation has expired; ask for a new one!",
 	"nationLeave": "Left [nationName]!",
-	"errorNationLeaveIsChancellor": "You may not leave a nation which you are the chancellor of.\nYou may either appoint a new chancellor with: /nation appoint [name].\nOr you may disband your nation with: /nation disband"
+	"errorNationLeaveIsChancellor": "You may not leave a nation which you are the chancellor of.\nYou may either appoint a new chancellor with: /nation appoint [name].\nOr you may disband your nation with: /nation disband",
+	"nationPromote": "Successfully promoted [promotedName] to Commander.",
+	"nationPromoteReceived": "[promoterName] promoted you to Commander!",
+	"errorNationPromoteBadUsername": "Bad username provided.\nTo promote a user please specify their name!\nFormat: /nation promote [username]\nExample: /nation promote connor7000",
+	"errorNationPromoteAlreadyCommander": "[playerName] is already a Commander.",
+	"nationDemote": "Successfully demoted [demotedName] to Citizen.",
+	"nationDemoteReceived": "[demoterName] demoted you to Citizen.",
+	"errorNationDemoteBadUsername": "Bad username provided.\nTo demote a user please specify their name!\nFormat: /nation demote [username]\nExample: /nation demote connor7000",
+	"errorNationDemoteAlreadyCitizen": "[playerName] is already a Citizen."
 }
