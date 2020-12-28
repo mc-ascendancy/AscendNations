@@ -1,0 +1,8 @@
+name: AscendNations
+version: ${project.version}
+main: com.ascendancyproject.ascendnations.AscendNations
+api-version: 1.16
+prefix: Ascend Nations
+authors: [ Froogo ]
+description: Nation system for Ascendancy Project.
+website: https://github.com/mc-ascendancy/AscendNations
