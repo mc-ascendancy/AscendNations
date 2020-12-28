@@ -1,5 +1,17 @@
 package com.ascendancyproject.ascendnations.nation;
 
 public class NationMember {
-    // TODO: add relevant member data, such as their permissions in the structure defined in issue #3.
+    private NationRole role;
+    
+    public NationMember(NationRole role) {
+        this.role = role;
+    }
+
+    public NationRole getRole() {
+        return role;
+    }
+
+    public void setRole(NationRole role) {
+        this.role = role;
+    }
 }

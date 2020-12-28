@@ -4,10 +4,7 @@ import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
-import com.ascendancyproject.ascendnations.nation.Nation;
-import com.ascendancyproject.ascendnations.nation.NationInvitation;
-import com.ascendancyproject.ascendnations.nation.NationInvitationManager;
-import com.ascendancyproject.ascendnations.nation.NationMember;
+import com.ascendancyproject.ascendnations.nation.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,7 +31,7 @@ public class NationCommandJoin extends NationCommand {
         Nation nation = PersistentData.instance.getNations().get(invitation.getNationUUID());
 
         playerData.setNationUUID(nation.getUUID());
-        nation.getMembers().put(player.getUniqueId(), new NationMember());
+        nation.getMembers().put(player.getUniqueId(), new NationMember(NationRole.Citizen));
 
         NationInvitationManager.invitations.remove(invitationUUID);
 

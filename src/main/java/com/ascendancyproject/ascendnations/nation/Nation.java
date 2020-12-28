@@ -16,7 +16,7 @@ public class Nation {
         this.name = name;
         members = new HashMap<>();
 
-        members.put(creator.getUniqueId(), new NationMember());
+        members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
 
         PersistentData.instance.getNations().put(uuid, this);
     }
