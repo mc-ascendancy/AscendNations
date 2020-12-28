@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.commands.NationCommandCreate;
 import com.ascendancyproject.ascendnations.nation.commands.NationCommandDisband;
 import org.bukkit.command.Command;
@@ -25,7 +26,7 @@ public class CommandNation implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             // TODO: update this in accordance with issue #4.
-            sender.sendMessage(String.format("You must be a player to utilise the %s command!", label));
+            sender.sendMessage(Language.format("errorNotPlayer", new String[]{"[commandName]", label}));
             return true;
         }
 
