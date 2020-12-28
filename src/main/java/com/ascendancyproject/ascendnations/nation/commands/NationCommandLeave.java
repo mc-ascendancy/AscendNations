@@ -17,7 +17,7 @@ public class NationCommandLeave extends NationCommand {
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
 
         if (playerData.getNationUUID() == null) {
-            sender.sendMessage(Language.getLine("errorNationLeaveNotInNation"));
+            sender.sendMessage(Language.getLine("errorNationNotInNation"));
             return;
         }
 

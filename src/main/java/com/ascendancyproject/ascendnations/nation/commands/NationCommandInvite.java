@@ -29,7 +29,7 @@ public class NationCommandInvite extends NationCommand {
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
         if (nation == null) {
-            sender.sendMessage(Language.getLine("errorNationInviteNotInNation"));
+            sender.sendMessage(Language.getLine("errorNationNotInNation"));
             return;
         }
 
