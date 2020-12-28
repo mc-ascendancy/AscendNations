@@ -2,10 +2,7 @@ package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.language.Language;
-import com.ascendancyproject.ascendnations.nation.commands.NationCommandCreate;
-import com.ascendancyproject.ascendnations.nation.commands.NationCommandDisband;
-import com.ascendancyproject.ascendnations.nation.commands.NationCommandInvite;
-import com.ascendancyproject.ascendnations.nation.commands.NationCommandJoin;
+import com.ascendancyproject.ascendnations.nation.commands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +21,7 @@ public class CommandNation implements CommandExecutor {
         new NationCommandDisband().register(commandMap);
         new NationCommandInvite().register(commandMap);
         new NationCommandJoin().register(commandMap);
+        new NationCommandLeave().register(commandMap);
     }
 
     @Override
