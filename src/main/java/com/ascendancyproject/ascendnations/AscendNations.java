@@ -18,6 +18,7 @@ public final class AscendNations extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        // Save persistent data before exiting.
+        PersistentData.instance.save(new File(getDataFolder(), PersistentData.location));
     }
 }
