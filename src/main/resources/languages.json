@@ -6,5 +6,15 @@
 	"errorNationCreateNoNameProvided": "You must provide a name for your nation.\nFormat: /nation create [name]\nExample: /nation create My Cool Nation",
 	"errorNationCreateAlreadyInNation": "You must leave your current nation before creating a new one!",
 	"nationDisbanded": "Successfully disbanded [nationName].",
-	"errorNationDisbandNotInNation": "You must be in a nation to disband one!"
+	"errorNationDisbandNotInNation": "You must be in a nation to disband one!",
+	"nationInvite": "Successfully invited [inviteeName]!",
+	"nationInviteInvited": "You have been invited to join [nationName] by [inviterName]!",
+	"nationInviteInvitedClickable": "&n&lClick here to join!",
+	"errorNationInviteBadUsername": "Bad username provided.\nTo invite a user to your nation please specify their name!\nFormat: /nation invite [username]\nExample: /nation invite connor7000",
+	"errorNationInviteNotInNation": "You must be in a nation to invite people!",
+	"errorNationInviteNoInviteeFound": "No user found with the name [inviteeName]!",
+	"errorNationInviteInviteeInNation": "[inviteeName] is already in a nation!",
+	"nationJoin": "Joined [nationName]!",
+	"errorNationJoinManual": "This is an automated command, ask someone to invite you, then click on the accept button.",
+	"errorNationJoinExpired": "This invitation has expired; ask for a new one!"
 }

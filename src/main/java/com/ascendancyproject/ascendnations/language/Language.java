@@ -3,11 +3,13 @@ package com.ascendancyproject.ascendnations.language;
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.bukkit.ChatColor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Language {
     public static final String location = "languages.json";
@@ -25,6 +27,9 @@ public class Language {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        for (Map.Entry<String, String> entry : lines.entrySet())
+            entry.setValue(ChatColor.translateAlternateColorCodes('&', entry.getValue()));
     }
 
     public static String format(String key, String[]... replacements) {

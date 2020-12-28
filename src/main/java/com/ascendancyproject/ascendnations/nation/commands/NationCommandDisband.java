@@ -14,11 +14,6 @@ public class NationCommandDisband extends NationCommand {
         Player player = (Player) sender;
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
 
-        if (playerData == null) {
-            playerData = new PlayerData();
-            PersistentData.instance.getPlayers().put(player.getUniqueId(), playerData);
-        }
-
         if (playerData.getNationUUID() == null) {
             sender.sendMessage(Language.getLine("errorNationDisbandNotInNation"));
             return;
