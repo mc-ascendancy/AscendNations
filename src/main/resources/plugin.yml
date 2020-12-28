@@ -6,3 +6,10 @@ prefix: Ascend Nations
 authors: [ Froogo ]
 description: Nation system for Ascendancy Project.
 website: https://github.com/mc-ascendancy/AscendNations
+
+commands:
+  nation:
+    description: Create, disband, invite, and claim your nation.
+    usage: /<command> [create] [disband] [invite] [claim] [power]
+    aliases:
+      - nations
