@@ -3,6 +3,8 @@ package com.ascendancyproject.ascendnations.nation.commands;
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
+import com.ascendancyproject.ascendnations.language.Language;
+import com.ascendancyproject.ascendnations.nation.Nation;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,11 +20,15 @@ public class NationCommandDisband extends NationCommand {
         }
 
         if (playerData.getNationUUID() == null) {
-            // TODO: message player error reason.
+            sender.sendMessage(Language.getLine("errorNationDisbandNotInNation"));
             return;
         }
 
-        PersistentData.instance.getNations().get(playerData.getNationUUID()).disband();
+        Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
+        String name = nation.getName();
+        nation.disband();
+
+        sender.sendMessage(Language.format("nationDisbanded", new String[]{"nationName", name}));
     }
 
     public String getName() {

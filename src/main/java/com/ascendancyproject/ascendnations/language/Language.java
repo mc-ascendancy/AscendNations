@@ -31,7 +31,7 @@ public class Language {
         String msg = lines.get(key);
 
         for (String[] replacement : replacements)
-            msg = msg.replace(replacement[0], replacement[1]);
+            msg = msg.replace("[" + replacement[0] + "]", replacement[1]);
 
         return msg;
     }

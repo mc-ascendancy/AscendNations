@@ -26,18 +26,18 @@ public class CommandNation implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             // TODO: update this in accordance with issue #4.
-            sender.sendMessage(Language.format("errorNotPlayer", new String[]{"[commandName]", label}));
+            sender.sendMessage(Language.format("errorNotPlayer", new String[]{"commandName", label}));
             return true;
         }
 
         if (args.length == 0) {
-            // TODO: message player error reason.
+            sender.sendMessage(Language.format("errorNoSubcommandProvided", new String[]{"subcommandName", label}));
             return true;
         }
 
         NationCommand nationCommand = commandMap.get(args[0]);
         if (nationCommand == null) {
-            // TODO: message player error reason.
+            sender.sendMessage(Language.format("errorBadSubcommand", new String[]{"subcommandName", label}));
             return true;
         }
 
