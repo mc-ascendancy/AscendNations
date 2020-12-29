@@ -10,6 +10,7 @@ public class Nation {
     private final UUID uuid;
     private String name;
     private final HashMap<UUID, NationMember> members;
+    private final NationPower power;
 
     public Nation(Player creator, String name) {
         uuid = UUID.randomUUID();
@@ -17,6 +18,8 @@ public class Nation {
         members = new HashMap<>();
 
         members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
+
+        power = new NationPower(this);
 
         PersistentData.instance.getNations().put(uuid, this);
     }
@@ -44,5 +47,9 @@ public class Nation {
 
     public HashMap<UUID, NationMember> getMembers() {
         return members;
+    }
+
+    public NationPower getPower() {
+        return power;
     }
 }

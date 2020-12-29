@@ -3,6 +3,7 @@ package com.ascendancyproject.ascendnations;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.CommandNation;
 import com.ascendancyproject.ascendnations.nation.NationInvitationManager;
+import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -11,8 +12,9 @@ public final class AscendNations extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Initialise languages.
+        // Load configs.
         Language.init(new File(getDataFolder(), Language.location), this);
+        NationVariables.init(new File(getDataFolder(), NationVariables.location), this);
 
         // Initialise persistent data.
         PersistentData.init(new File(getDataFolder(), PersistentData.location), this);
