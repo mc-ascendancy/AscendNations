@@ -31,5 +31,8 @@
 	"errorNationDemoteAlreadyCitizen": "[playerName] is already a Citizen.",
 	"nationKick": "Successfully kicked [kickedName] from [nationName].",
 	"nationKickReceived": "You were kicked from [nationName] by [kickerName].",
-	"errorNationKickBadUsername": "Bad username provided.\nTo kick a user please specify their name!\nFormat: /nation kick [username]\nExample: /nation kick connor7000"
+	"errorNationKickBadUsername": "Bad username provided.\nTo kick a user please specify their name!\nFormat: /nation kick [username]\nExample: /nation kick connor7000",
+	"nationAppoint": "Successfully appointed [appointedName] as Chancellor!",
+	"nationAppointReceived": "[appointerName] appointed you as Chancellor!",
+	"errorNationAppointBadUsername": "Bad username provided.\nTo appoint a user please specify their name!\nFormat: /nation appoint [username]\nExample: /nation appoint connor7000"
 }

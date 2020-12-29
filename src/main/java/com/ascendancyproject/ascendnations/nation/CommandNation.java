@@ -25,6 +25,7 @@ public class CommandNation implements CommandExecutor {
         new NationCommandPromote().register(commandMap);
         new NationCommandDemote().register(commandMap);
         new NationCommandKick().register(commandMap);
+        new NationCommandAppoint().register(commandMap);
     }
 
     @Override
