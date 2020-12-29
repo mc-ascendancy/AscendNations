@@ -7,15 +7,19 @@ public class NationPower {
     private int memberPower;
     private int riftPower;
 
+    private int claimThreshold;
+    private int existenceThreshold;
+
     public NationPower(Nation nation) {
         recalculate(nation);
     }
 
     public void recalculate(Nation nation) {
         int pop = nation.getMembers().size();
+        NationVariables nv = NationVariables.instance;
 
-        maxMemberPower = pop * NationVariables.instance.getMaxMemberPower();
-        maxRiftPower = Math.max(pop * NationVariables.instance.getRiftModifier() - NationVariables.instance.getMinNationPopClaimRift() * NationVariables.instance.getRiftModifier(), 0);
+        maxMemberPower = pop * nv.getMaxMemberPower();
+        maxRiftPower = Math.max(pop * nv.getRiftModifier() - nv.getMinNationPopClaimRift() * nv.getRiftModifier(), 0);
 
         memberPower = 0;
         for (NationMember member : nation.getMembers().values())
@@ -23,6 +27,20 @@ public class NationPower {
 
         riftPower = 0;
         // TODO: add rift power calculation once claiming is implemented.
+
+        if (pop == 1) {
+            claimThreshold = nv.getClaimThresholdOnePlayer();
+            existenceThreshold = nv.getExistenceThresholdOnePlayer();
+        } else if (pop <= nv.getMinNationPopClaimRift()) {
+            claimThreshold = nv.getClaimThresholdSmallModifier() * pop - nv.getClaimThresholdSmallOffset();
+            existenceThreshold = nv.getExistenceThresholdSmallModifier() * pop - nv.getExistenceThresholdSmallOffset();
+        } else {
+            claimThreshold = (nv.getClaimThresholdLargeModifier() * pop)
+                    + (nv.getClaimThresholdSmallModifier() * nv.getMinNationPopClaimRift() - nv.getClaimThresholdSmallOffset())
+                    - (nv.getClaimThresholdLargeModifier() * nv.getMinNationPopClaimRift());
+
+            existenceThreshold = claimThreshold - (nv.getExistenceThresholdLargeModifierDynamic() * pop) + nv.getExistenceThresholdLargeModifierFlat();
+        }
     }
 
     public int getMaxPower() {
@@ -47,5 +65,13 @@ public class NationPower {
 
     public int getRiftPower() {
         return riftPower;
+    }
+
+    public int getClaimThreshold() {
+        return claimThreshold;
+    }
+
+    public int getExistenceThreshold() {
+        return existenceThreshold;
     }
 }

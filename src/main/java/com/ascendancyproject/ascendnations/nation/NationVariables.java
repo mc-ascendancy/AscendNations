@@ -22,6 +22,16 @@ public class NationVariables {
     private int memberBonusGainOnKill;
     private int memberPowerLostOnDeath;
 
+    private int claimThresholdOnePlayer;
+    private int claimThresholdSmallModifier;
+    private int claimThresholdSmallOffset;
+    private int claimThresholdLargeModifier;
+    private int existenceThresholdOnePlayer;
+    private int existenceThresholdSmallModifier;
+    private int existenceThresholdSmallOffset;
+    private int existenceThresholdLargeModifierDynamic;
+    private int existenceThresholdLargeModifierFlat;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -69,5 +79,41 @@ public class NationVariables {
 
     public int getMemberPowerLostOnDeath() {
         return memberPowerLostOnDeath;
+    }
+
+    public int getClaimThresholdOnePlayer() {
+        return claimThresholdOnePlayer;
+    }
+
+    public int getClaimThresholdSmallModifier() {
+        return claimThresholdSmallModifier;
+    }
+
+    public int getClaimThresholdSmallOffset() {
+        return claimThresholdSmallOffset;
+    }
+
+    public int getClaimThresholdLargeModifier() {
+        return claimThresholdLargeModifier;
+    }
+
+    public int getExistenceThresholdOnePlayer() {
+        return existenceThresholdOnePlayer;
+    }
+
+    public int getExistenceThresholdSmallModifier() {
+        return existenceThresholdSmallModifier;
+    }
+
+    public int getExistenceThresholdSmallOffset() {
+        return existenceThresholdSmallOffset;
+    }
+
+    public int getExistenceThresholdLargeModifierDynamic() {
+        return existenceThresholdLargeModifierDynamic;
+    }
+
+    public int getExistenceThresholdLargeModifierFlat() {
+        return existenceThresholdLargeModifierFlat;
     }
 }
