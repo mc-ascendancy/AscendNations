@@ -6,6 +6,7 @@ public class NationMember {
     
     public NationMember(NationRole role) {
         this.role = role;
+        power = new NationMemberPower();
     }
 
     public NationRole getRole() {
