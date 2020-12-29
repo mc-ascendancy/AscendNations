@@ -3,6 +3,7 @@ package com.ascendancyproject.ascendnations;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.CommandNation;
 import com.ascendancyproject.ascendnations.nation.NationInvitationManager;
+import com.ascendancyproject.ascendnations.nation.NationPassivePowerTicker;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +22,7 @@ public final class AscendNations extends JavaPlugin {
 
         // Initialise managers.
         NationInvitationManager.init(this);
+        new NationPassivePowerTicker(this);
 
         // Register commands.
         this.getCommand("nation").setExecutor(new CommandNation());
