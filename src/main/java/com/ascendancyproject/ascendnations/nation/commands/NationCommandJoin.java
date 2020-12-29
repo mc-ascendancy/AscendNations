@@ -32,6 +32,7 @@ public class NationCommandJoin extends NationCommand {
 
         playerData.setNationUUID(nation.getUUID());
         nation.getMembers().put(player.getUniqueId(), new NationMember(NationRole.Citizen));
+        nation.getPower().recalculate(nation);
 
         NationInvitationManager.invitations.remove(invitationUUID);
 

@@ -52,6 +52,7 @@ public class NationCommandKick extends NationCommand {
 
         kickedPlayerData.setNationUUID(null);
         nation.getMembers().remove(kicked.getUniqueId());
+        nation.getPower().recalculate(nation);
 
         sender.sendMessage(Language.format("nationKick", new String[]{"kickedName", args[1]}, new String[]{"nationName", nation.getName()}));
 

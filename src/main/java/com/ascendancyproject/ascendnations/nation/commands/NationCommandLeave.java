@@ -31,6 +31,7 @@ public class NationCommandLeave extends NationCommand {
 
         playerData.setNationUUID(null);
         nation.getMembers().remove(player.getUniqueId());
+        nation.getPower().recalculate(nation);
 
         sender.sendMessage(Language.format("nationLeave", new String[]{"nationName", nation.getName()}));
     }
