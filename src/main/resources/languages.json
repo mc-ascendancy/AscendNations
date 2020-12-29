@@ -36,5 +36,6 @@
 	"nationAppointReceived": "[appointerName] appointed you as Chancellor!",
 	"errorNationAppointBadUsername": "Bad username provided.\nTo appoint a user please specify their name!\nFormat: /nation appoint [username]\nExample: /nation appoint connor7000",
 	"nationPower": "&nYour Nation Power&r: [nationPower]/[maxNationPower]\nMember: [memberPower]/[maxMemberPower]\nRift: [riftPower]/[maxRiftPower]\n&nYour Power&r: [playerPower]/[maxPlayerPower]\nPassive: [playerPassivePower]/[maxPlayerPassivePower]\nBonus: [playerBonusPower]/[maxPlayerBonusPower]",
-	"nationPassivePowerIncremented": "Your passive power just got increased to [passivePower]/[maxPassivePower]!\nYour overall power is now [totalPower]/[maxTotalPower]."
+	"nationPassivePowerIncremented": "Your passive power just got increased to [passivePower]/[maxPassivePower]!\nYour overall power is now [totalPower]/[maxTotalPower].",
+	"nationStatus": "&nNation Power&r: [nationPower]\nNation Claim Threshold: [nationClaimThreshold]\nNation Existence Threshold: [nationExistenceThreshold]"
 }
