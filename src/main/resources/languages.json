@@ -28,5 +28,8 @@
 	"nationDemote": "Successfully demoted [demotedName] to Citizen.",
 	"nationDemoteReceived": "[demoterName] demoted you to Citizen.",
 	"errorNationDemoteBadUsername": "Bad username provided.\nTo demote a user please specify their name!\nFormat: /nation demote [username]\nExample: /nation demote connor7000",
-	"errorNationDemoteAlreadyCitizen": "[playerName] is already a Citizen."
+	"errorNationDemoteAlreadyCitizen": "[playerName] is already a Citizen.",
+	"nationKick": "Successfully kicked [kickedName] from [nationName].",
+	"nationKickReceived": "You were kicked from [nationName] by [kickerName].",
+	"errorNationKickBadUsername": "Bad username provided.\nTo kick a user please specify their name!\nFormat: /nation kick [username]\nExample: /nation kick connor7000"
 }
