@@ -12,6 +12,8 @@ public class Nation {
     private String name;
     private final HashMap<UUID, NationMember> members;
     private final NationPower power;
+
+    private Long home;
     private final HashSet<Long> chunks;
 
     public Nation(Player creator, String name) {
@@ -52,6 +54,14 @@ public class Nation {
 
     public NationPower getPower() {
         return power;
+    }
+
+    public Long getHome() {
+        return home;
+    }
+
+    public void setHome(Long home) {
+        this.home = home;
     }
 
     public HashSet<Long> getChunks() {

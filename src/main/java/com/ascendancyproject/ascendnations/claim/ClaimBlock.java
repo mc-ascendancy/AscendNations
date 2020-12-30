@@ -1,8 +1,10 @@
 package com.ascendancyproject.ascendnations.claim;
 
 import com.ascendancyproject.ascendnations.language.Language;
+import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,6 +13,18 @@ import java.util.Arrays;
 
 public class ClaimBlock {
     private static ItemStack homeBlock;
+
+    public static void placeHome(Block block, Player player, Nation nation) {
+        if (nation.getHome() != null) {
+            player.sendMessage(Language.getLine("errorClaimHomeAlreadyClaimed"));
+            return;
+        }
+
+        ClaimChunks.claim(nation, block.getLocation());
+        nation.setHome(block.getBlockKey());
+
+        player.sendMessage(Language.getLine("claimHome"));
+    }
 
     public static void giveHome(Player player) {
         if (homeBlock == null) {

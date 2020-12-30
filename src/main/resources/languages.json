@@ -47,5 +47,6 @@
 	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]",
 	"chunkClaim": "Claimed chunk!",
 	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed.",
-	"blockProtected": "This block is protected by [nationName]."
+	"blockProtected": "This block is protected by [nationName].",
+	"claimHome": "Claimed home!"
 }
