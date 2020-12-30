@@ -4,6 +4,7 @@ import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
+import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationRole;
@@ -29,7 +30,7 @@ public class NationCommandClaim extends NationCommand {
         }
 
         if (args.length == 1) {
-            claim();
+            claim(player, nation);
             return;
         }
 
@@ -51,8 +52,13 @@ public class NationCommandClaim extends NationCommand {
         }
     }
 
-    private void claim() {
-        // TODO: claim.
+    private void claim(Player player, Nation nation) {
+        if (ClaimChunks.claim(nation, player.getLocation())) {
+            player.sendMessage(Language.getLine("chunkClaim"));
+        } else {
+            // Chunk already claimed.
+            player.sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
+        }
     }
 
     private void claimAuto() {

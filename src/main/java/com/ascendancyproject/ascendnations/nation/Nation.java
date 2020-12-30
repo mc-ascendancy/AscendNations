@@ -4,6 +4,7 @@ import com.ascendancyproject.ascendnations.PersistentData;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.UUID;
 
 public class Nation {
@@ -11,15 +12,15 @@ public class Nation {
     private String name;
     private final HashMap<UUID, NationMember> members;
     private final NationPower power;
+    private final HashSet<Long> chunks;
 
     public Nation(Player creator, String name) {
         uuid = UUID.randomUUID();
         this.name = name;
         members = new HashMap<>();
-
         members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
-
         power = new NationPower(this);
+        chunks = new HashSet<>();
 
         PersistentData.instance.getNations().put(uuid, this);
     }
@@ -51,5 +52,9 @@ public class Nation {
 
     public NationPower getPower() {
         return power;
+    }
+
+    public HashSet<Long> getChunks() {
+        return chunks;
     }
 }

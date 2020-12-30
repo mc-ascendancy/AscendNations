@@ -44,5 +44,7 @@
 	"errorGiveBlockInventoryFull": "Your inventory is full, so you did not get a [blockName]&r.\nYou can claim another with /nation claim [home] [outpost]",
 	"errorGiveBlockAlreadyOwned": "You already have a [blockName] in your inventory.",
 	"removeBlock": "Removed your [blockName].\nYou can claim another with /nation claim [home] [outpost]",
-	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]"
+	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]",
+	"chunkClaim": "Claimed chunk!",
+	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed."
 }

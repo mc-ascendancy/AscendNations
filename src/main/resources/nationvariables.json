@@ -16,5 +16,5 @@
 	"existenceThresholdSmallOffset": 2,
 	"existenceThresholdLargeModifierDynamic": 6,
 	"existenceThresholdLargeModifierFlat": 10,
-	"claimBlockHomeType": "COMMAND_BLOCK"
+	"claimBlockHomeType": "LIME_TERRACOTTA"
 }
