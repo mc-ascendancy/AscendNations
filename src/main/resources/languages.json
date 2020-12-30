@@ -43,5 +43,6 @@
 	"giveBlock": "You have been given a [blockName]&r!\nWhere you place this block will become your nation's home/outpost.\nIf you lose this block, you can get another with /nation claim [home] [outpost]",
 	"errorGiveBlockInventoryFull": "Your inventory is full, so you did not get a [blockName]&r.\nYou can claim another with /nation claim [home] [outpost]",
 	"errorGiveBlockAlreadyOwned": "You already have a [blockName] in your inventory.",
-	"removeBlock": "Removed your [blockName].\nYou can claim another with /nation claim [home] [outpost]"
+	"removeBlock": "Removed your [blockName].\nYou can claim another with /nation claim [home] [outpost]",
+	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]"
 }
