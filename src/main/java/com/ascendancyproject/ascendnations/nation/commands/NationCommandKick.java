@@ -45,7 +45,7 @@ public class NationCommandKick extends NationCommand {
         }
 
         PlayerData kickedPlayerData = PersistentData.instance.getPlayers().get(kicked.getUniqueId());
-        if (kickedPlayerData.getNationUUID() != nation.getUUID()) {
+        if (!kickedPlayerData.getNationUUID().equals(nation.getUUID())) {
             sender.sendMessage(Language.format("errorNationPlayerNotInNation", new String[]{"playerName", args[1]}));
             return;
         }
