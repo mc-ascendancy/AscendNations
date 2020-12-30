@@ -53,6 +53,11 @@ public class NationCommandClaim extends NationCommand {
     }
 
     private void claim(Player player, Nation nation) {
+        if (!ClaimChunks.hasNeighbour(nation.getUUID(), player.getLocation())) {
+            player.sendMessage(Language.getLine("errorChunkClaimNoNeighbour"));
+            return;
+        }
+
         if (ClaimChunks.claim(nation, player.getLocation())) {
             player.sendMessage(Language.getLine("chunkClaim"));
         } else {
