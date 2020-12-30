@@ -1,0 +1,41 @@
+package com.ascendancyproject.ascendnations.claim;
+
+import com.ascendancyproject.ascendnations.AscendNations;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+
+public class ClaimBlockEvents implements Listener {
+    public ClaimBlockEvents(AscendNations plugin) {
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    @EventHandler
+    public void onPlayerDropItem(PlayerDropItemEvent event) {
+        if (!ClaimBlock.isClaimBlock(event.getItemDrop().getItemStack().getType()))
+            return;
+
+        ClaimBlock.removedBlock(event.getPlayer(), event.getItemDrop().getItemStack());
+        event.getItemDrop().remove();
+    }
+
+    @EventHandler
+    public void onItemSpawn(ItemSpawnEvent event) {
+        if (!ClaimBlock.isClaimBlock(event.getEntity().getItemStack().getType()))
+            return;
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onInventoryMoveItem(InventoryClickEvent event) {
+        if (event.getCurrentItem() == null || !ClaimBlock.isClaimBlock(event.getCurrentItem().getType()))
+            return;
+
+        ClaimBlock.removedBlock((Player) event.getWhoClicked(), event.getCurrentItem());
+        event.setCurrentItem(null);
+    }
+}

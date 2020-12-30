@@ -15,5 +15,6 @@
 	"existenceThresholdSmallModifier": 3,
 	"existenceThresholdSmallOffset": 2,
 	"existenceThresholdLargeModifierDynamic": 6,
-	"existenceThresholdLargeModifierFlat": 10
+	"existenceThresholdLargeModifierFlat": 10,
+	"claimBlockHomeType": "COMMAND_BLOCK"
 }

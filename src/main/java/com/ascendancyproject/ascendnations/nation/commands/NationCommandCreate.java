@@ -3,6 +3,7 @@ package com.ascendancyproject.ascendnations.nation.commands;
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
+import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import org.apache.commons.lang.ArrayUtils;
@@ -29,6 +30,8 @@ public class NationCommandCreate extends NationCommand {
         playerData.setNationUUID(nation.getUUID());
 
         sender.sendMessage(Language.format("nationCreated", new String[]{"nationName", nation.getName()}));
+
+        ClaimBlock.giveHome(player);
     }
 
     public String getName() {

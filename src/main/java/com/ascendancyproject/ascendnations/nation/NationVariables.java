@@ -3,6 +3,7 @@ package com.ascendancyproject.ascendnations.nation;
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.bukkit.Material;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +33,9 @@ public class NationVariables {
     private int existenceThresholdLargeModifierDynamic;
     private int existenceThresholdLargeModifierFlat;
 
+    private String claimBlockHomeType;
+    private Material claimBlockHome;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -43,6 +47,8 @@ public class NationVariables {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        instance.claimBlockHome = Material.getMaterial(instance.claimBlockHomeType);
     }
 
     public int getMaxNationPop() {
@@ -115,5 +121,9 @@ public class NationVariables {
 
     public int getExistenceThresholdLargeModifierFlat() {
         return existenceThresholdLargeModifierFlat;
+    }
+
+    public Material getClaimBlockHome() {
+        return claimBlockHome;
     }
 }
