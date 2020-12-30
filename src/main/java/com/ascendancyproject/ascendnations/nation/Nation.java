@@ -40,6 +40,10 @@ public class Nation {
         return nationMember.getRole().ordinal() < minimumRole.ordinal();
     }
 
+    public boolean hasClaims() {
+        return chunks.size() < power.getChunksClaimable();
+    }
+
     public UUID getUUID() {
         return uuid;
     }

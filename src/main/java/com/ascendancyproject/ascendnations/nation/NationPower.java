@@ -10,6 +10,9 @@ public class NationPower {
     private int claimThreshold;
     private int existenceThreshold;
 
+    private int chunksClaimable;
+    private int outpostsClaimable;
+
     public NationPower(Nation nation) {
         recalculate(nation);
     }
@@ -41,6 +44,9 @@ public class NationPower {
 
             existenceThreshold = claimThreshold - (nv.getExistenceThresholdLargeModifierDynamic() * pop) + nv.getExistenceThresholdLargeModifierFlat();
         }
+
+        chunksClaimable = (int)(pop * nv.getChunksPerMember());
+        outpostsClaimable = (int)(pop * nv.getOutpostsPerMember());
     }
 
     public int getMaxPower() {
@@ -73,5 +79,13 @@ public class NationPower {
 
     public int getExistenceThreshold() {
         return existenceThreshold;
+    }
+
+    public int getChunksClaimable() {
+        return chunksClaimable;
+    }
+
+    public int getOutpostsClaimable() {
+        return outpostsClaimable;
     }
 }

@@ -53,13 +53,20 @@ public class NationCommandClaim extends NationCommand {
     }
 
     private void claim(Player player, Nation nation) {
+        if (!nation.hasClaims()) {
+            player.sendMessage(Language.format("errorChunkClaimNoClaims", new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())}));
+            return;
+        }
+
         if (!ClaimChunks.hasNeighbour(nation.getUUID(), player.getLocation())) {
             player.sendMessage(Language.getLine("errorChunkClaimNoNeighbour"));
             return;
         }
 
         if (ClaimChunks.claim(nation, player.getLocation())) {
-            player.sendMessage(Language.getLine("chunkClaim"));
+            player.sendMessage(Language.format("chunkClaim",
+                    new String[]{"chunksClaimed",Integer.toString(nation.getChunks().size())},
+                    new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}));
         } else {
             // Chunk already claimed.
             player.sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));

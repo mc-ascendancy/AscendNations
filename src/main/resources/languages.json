@@ -45,9 +45,10 @@
 	"errorGiveBlockAlreadyOwned": "You already have a [blockName] in your inventory.",
 	"removeBlock": "Removed your [blockName].\nYou can claim another with /nation claim [home] [outpost]",
 	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]",
-	"chunkClaim": "Claimed chunk!",
+	"chunkClaim": "Claimed chunk [chunksClaimed]/[chunksClaimable]!",
 	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed.",
 	"errorChunkClaimNoNeighbour": "This chunk is not connected to any of your existing claims.",
+	"errorChunkClaimNoClaims": "You have already claimed [chunksClaimed]/[chunksClaimed] chunks.",
 	"blockProtected": "This block is protected by [nationName].",
 	"blockProtectedClaim": "You can not break claim blocks.",
 	"claimHome": "Claimed home!"

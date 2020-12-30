@@ -33,6 +33,9 @@ public class NationVariables {
     private int existenceThresholdLargeModifierDynamic;
     private int existenceThresholdLargeModifierFlat;
 
+    private float chunksPerMember;
+    private float outpostsPerMember;
+
     private String claimBlockHomeType;
     private Material claimBlockHome;
 
@@ -121,6 +124,14 @@ public class NationVariables {
 
     public int getExistenceThresholdLargeModifierFlat() {
         return existenceThresholdLargeModifierFlat;
+    }
+
+    public float getChunksPerMember() {
+        return chunksPerMember;
+    }
+
+    public float getOutpostsPerMember() {
+        return outpostsPerMember;
     }
 
     public Material getClaimBlockHome() {
