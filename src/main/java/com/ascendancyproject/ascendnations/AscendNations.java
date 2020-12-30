@@ -2,6 +2,7 @@ package com.ascendancyproject.ascendnations;
 
 import com.ascendancyproject.ascendnations.claim.ClaimBlockEvents;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
+import com.ascendancyproject.ascendnations.claim.ClaimProtectionEvents;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.CommandNation;
 import com.ascendancyproject.ascendnations.nation.NationInvitationManager;
@@ -33,6 +34,7 @@ public final class AscendNations extends JavaPlugin {
         // Register events.
         new PlayerDataEvents(this);
         new ClaimBlockEvents(this);
+        new ClaimProtectionEvents(this);
     }
 
     @Override

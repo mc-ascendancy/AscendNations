@@ -46,5 +46,6 @@
 	"removeBlock": "Removed your [blockName].\nYou can claim another with /nation claim [home] [outpost]",
 	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]",
 	"chunkClaim": "Claimed chunk!",
-	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed."
+	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed.",
+	"blockProtected": "This block is protected by [nationName]."
 }
