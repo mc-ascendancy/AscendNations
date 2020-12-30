@@ -15,8 +15,12 @@ public class NationMemberPower {
         ticksUntilPassiveGain -= ticksSinceLastCheck;
 
         if (ticksUntilPassiveGain <= 0) {
-            passivePower = Math.min(passivePower + 1, NationVariables.instance.getMaxMemberPassivePower());
             ticksUntilPassiveGain += NationVariables.instance.getMemberPassiveGainFrequency();
+
+            if (passivePower >= NationVariables.instance.getMaxMemberPassivePower())
+                return false;
+
+            passivePower++;
             return true;
         }
 
