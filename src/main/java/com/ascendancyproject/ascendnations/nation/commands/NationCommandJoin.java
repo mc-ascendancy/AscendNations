@@ -30,6 +30,11 @@ public class NationCommandJoin extends NationCommand {
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
         Nation nation = PersistentData.instance.getNations().get(invitation.getNationUUID());
 
+        if (!nation.hasMemberSlots()) {
+            sender.sendMessage(Language.format("errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()}));
+            return;
+        }
+
         playerData.setNationUUID(nation.getUUID());
         nation.getMembers().put(player.getUniqueId(), new NationMember(NationRole.Citizen));
         nation.getPower().recalculate(nation);

@@ -40,6 +40,10 @@ public class Nation {
         return nationMember.getRole().ordinal() < minimumRole.ordinal();
     }
 
+    public boolean hasMemberSlots() {
+        return members.size() < NationVariables.instance.getMaxNationPop();
+    }
+
     public boolean hasClaims() {
         return chunks.size() < power.getChunksClaimable();
     }

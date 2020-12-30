@@ -38,6 +38,11 @@ public class NationCommandInvite extends NationCommand {
             return;
         }
 
+        if (!nation.hasMemberSlots()) {
+            sender.sendMessage(Language.format("errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()}));
+            return;
+        }
+
         Player invitee = Bukkit.getPlayer(args[1]);
         if (invitee == null) {
             sender.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
