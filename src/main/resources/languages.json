@@ -48,5 +48,6 @@
 	"chunkClaim": "Claimed chunk!",
 	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed.",
 	"blockProtected": "This block is protected by [nationName].",
+	"blockProtectedClaim": "You can not break claim blocks.",
 	"claimHome": "Claimed home!"
 }
