@@ -57,6 +57,14 @@ public class Nation {
         return outposts.size() < power.getOutpostsClaimable();
     }
 
+    public boolean isOverclaimable() {
+        return power.getTotal() < power.getClaimThreshold() && power.getLockoutExpiry() != 0L && power.getLockoutExpiry() < System.currentTimeMillis();
+    }
+
+    public boolean isDestroyable() {
+        return power.getTotal() < power.getExistenceThreshold() && power.getLockoutExpiry() != 0L && power.getLockoutExpiry() < System.currentTimeMillis();
+    }
+
     public UUID getUUID() {
         return uuid;
     }

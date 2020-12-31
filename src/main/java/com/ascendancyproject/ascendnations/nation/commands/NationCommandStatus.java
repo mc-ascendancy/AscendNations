@@ -30,7 +30,7 @@ public class NationCommandStatus extends NationCommand {
         if (nation.getPower().getLockoutExpiry() == 0L) {
             protection = NationVariables.instance.getLockoutDuration();
             statusColour = Language.getLine("nationStatusSafe");
-        } else if (np.getLockoutExpiry() < System.currentTimeMillis()) {
+        } else if (np.getLockoutExpiry() > System.currentTimeMillis()) {
             protection = nation.getPower().getLockoutExpiry() - System.currentTimeMillis();
             statusColour = Language.getLine("nationStatusWarning");
         } else {
