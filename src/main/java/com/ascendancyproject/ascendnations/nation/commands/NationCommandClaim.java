@@ -11,6 +11,7 @@ import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "claim",
@@ -19,7 +20,8 @@ import org.jetbrains.annotations.NotNull;
         minimumRole = NationRole.Commander
 )
 public class NationCommandClaim extends NationCommand {
-    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
+    @Override
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length == 1) {
             claim(player, nation);
             return;

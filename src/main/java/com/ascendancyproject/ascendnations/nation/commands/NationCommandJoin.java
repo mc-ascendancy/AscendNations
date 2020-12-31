@@ -8,6 +8,7 @@ import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -18,7 +19,8 @@ import java.util.UUID;
         requiresNation = false
 )
 public class NationCommandJoin extends NationCommand {
-    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
+    @Override
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
             player.sendMessage(Language.getLine("errorNationJoinManual"));
             return;

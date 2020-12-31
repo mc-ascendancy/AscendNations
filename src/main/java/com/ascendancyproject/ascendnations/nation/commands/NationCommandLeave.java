@@ -9,6 +9,7 @@ import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "leave",
@@ -16,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
         aliases = {"leave"}
 )
 public class NationCommandLeave extends NationCommand {
-    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
+    @Override
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (member.getRole() == NationRole.Chancellor) {
             player.sendMessage(Language.getLine("errorNationLeaveIsChancellor"));
             return;

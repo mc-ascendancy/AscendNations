@@ -11,6 +11,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -21,7 +22,8 @@ import java.util.UUID;
         minimumRole = NationRole.Commander
 )
 public class NationCommandInvite extends NationCommand {
-    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
+    @Override
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
             player.sendMessage(Language.getLine("errorNationInviteBadUsername"));
             return;

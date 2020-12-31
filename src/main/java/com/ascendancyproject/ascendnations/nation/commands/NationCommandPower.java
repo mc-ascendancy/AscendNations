@@ -7,6 +7,7 @@ import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "power",
@@ -14,7 +15,8 @@ import org.jetbrains.annotations.NotNull;
         aliases = {"power"}
 )
 public class NationCommandPower extends NationCommand {
-    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
+    @Override
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         NationPower np = nation.getPower();
         NationMemberPower mp = member.getPower();
 

@@ -10,6 +10,7 @@ import com.ascendancyproject.ascendnations.nation.NationMember;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "create",
@@ -18,7 +19,8 @@ import org.jetbrains.annotations.NotNull;
         requiresNation = false
 )
 public class NationCommandCreate extends NationCommand {
-    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
+    @Override
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length < 2) {
             player.sendMessage(Language.getLine("errorNationCreateNoNameProvided"));
             return;
