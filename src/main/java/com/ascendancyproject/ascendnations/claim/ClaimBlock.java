@@ -72,7 +72,7 @@ public class ClaimBlock {
             homeBlock.setItemMeta(meta);
         }
 
-        give(player, homeBlock);
+        give(player, homeBlock, ClaimBlockType.Home);
     }
 
     public static void giveOutpost(Player player) {
@@ -89,14 +89,19 @@ public class ClaimBlock {
             outpostBlock.setItemMeta(meta);
         }
 
-        give(player, outpostBlock);
+        give(player, outpostBlock, ClaimBlockType.Outpost);
     }
 
-    private static void give(Player player, ItemStack block) {
-        // TODO: check meta instead of type.
-        if (player.getInventory().contains(block)) {
-            player.sendMessage(Language.format("errorGiveBlockAlreadyOwned", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
-            return;
+    private static void give(Player player, ItemStack block, ClaimBlockType type) {
+        for (ItemStack itemStack : player.getInventory().getContents()) {
+            if (itemStack != null && itemStack.getItemMeta().getPersistentDataContainer().has(nbtKey, PersistentDataType.INTEGER)) {
+                ClaimBlockType foundType = ClaimBlockType.values()[itemStack.getItemMeta().getPersistentDataContainer().get(nbtKey, PersistentDataType.INTEGER)];
+
+                if (type.equals(foundType)) {
+                    player.sendMessage(Language.format("errorGiveBlockAlreadyOwned", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
+                    return;
+                }
+            }
         }
 
         if (!player.getInventory().addItem(block).isEmpty()) {
