@@ -30,15 +30,17 @@ public class NationCommandStatus extends NationCommand {
         if (nation.getPower().getLockoutExpiry() == 0L) {
             protection = NationVariables.instance.getLockoutDuration();
             statusColour = Language.getLine("nationStatusSafe");
-        } else {
+        } else if (np.getLockoutExpiry() < System.currentTimeMillis()) {
             protection = nation.getPower().getLockoutExpiry() - System.currentTimeMillis();
             statusColour = Language.getLine("nationStatusWarning");
+        } else {
+            protection = 0L;
+            statusColour = Language.getLine("nationStatusDanger");
         }
 
-        String protectionString = Duration.ofMillis(protection).toString()
-                .substring(2)
-                .replaceAll("(\\d[HMS])(?!$)", "$1 ")
-                .toLowerCase();
+        String protectionString = protection != 0L ?
+                Duration.ofMillis(protection).toString().substring(2).replaceAll("(\\d[HMS])(?!$)", "$1 ").toLowerCase() :
+                Language.getLine("nationStatusProtectionExpired");
 
         player.sendMessage(Language.format("nationStatus",
                 new String[]{"nationPower", Integer.toString(np.getTotal())},

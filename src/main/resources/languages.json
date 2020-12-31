@@ -40,6 +40,7 @@
 	"nationPower": "&nYour Nation Power&r: [nationPower]/[maxNationPower]\nMember: [memberPower]/[maxMemberPower]\nRift: [riftPower]/[maxRiftPower]\n&nYour Power&r: [playerPower]/[maxPlayerPower]\nPassive: [playerPassivePower]/[maxPlayerPassivePower]\nBonus: [playerBonusPower]/[maxPlayerBonusPower]",
 	"nationPassivePowerIncremented": "Your passive power just got increased to [passivePower]/[maxPassivePower]!\nYour overall power is now [totalPower]/[maxTotalPower].",
 	"nationStatus": "&nNation Power&r: [nationPower]\nNation Claim Threshold: [nationClaimThreshold]\nNation Existence Threshold: [nationExistenceThreshold]\nChunks: [nationChunkCount]/[nationChunkMax]\nOutposts: [nationOutpostCount]/[nationOutpostMax]\nProtection: [status][nationProtectionDuration]",
+	"nationStatusProtectionExpired": "EXPIRED",
 	"nationStatusSafe": "&2",
 	"nationStatusWarning": "&6",
 	"nationStatusDanger": "&4",
