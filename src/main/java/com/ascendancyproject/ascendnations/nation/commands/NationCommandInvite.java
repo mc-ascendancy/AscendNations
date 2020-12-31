@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
@@ -13,6 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+@NationCommandAnnotation(
+        name = "invite",
+        description = "Invite your friends to your nation!",
+        aliases = {"invite"},
+        minimumRole = NationRole.Commander
+)
 public class NationCommandInvite extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
@@ -47,22 +54,5 @@ public class NationCommandInvite extends NationCommand {
         TextComponent textComponent = new TextComponent(Language.getLine("nationInviteInvitedClickable"));
         textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nation join " + invitationUUID.toString()));
         invitee.sendMessage(textComponent);
-    }
-
-    public String getName() {
-        return "invite";
-    }
-
-    public String getDescription() {
-        return "Invite your friends to your nation!";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"invite"};
-    }
-
-    @Override
-    public NationRole minimumRole() {
-        return NationRole.Commander;
     }
 }

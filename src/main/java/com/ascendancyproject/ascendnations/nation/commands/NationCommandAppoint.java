@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
@@ -11,6 +12,12 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@NationCommandAnnotation(
+        name = "appoint",
+        description = "Appoint a new Chancellor for your nation.",
+        aliases = {"appoint"},
+        minimumRole = NationRole.Chancellor
+)
 public class NationCommandAppoint extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
@@ -42,22 +49,5 @@ public class NationCommandAppoint extends NationCommand {
 
         if (appointed.isOnline())
             ((Player) appointed).sendMessage(Language.format("nationAppointReceived", new String[]{"appointerName", player.getName()}));
-    }
-
-    public String getName() {
-        return "appoint";
-    }
-
-    public String getDescription() {
-        return "Appoint a new Chancellor for your nation.";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"appoint"};
-    }
-
-    @Override
-    public NationRole minimumRole() {
-        return NationRole.Chancellor;
     }
 }

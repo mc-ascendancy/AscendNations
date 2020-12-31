@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
@@ -12,6 +13,12 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@NationCommandAnnotation(
+        name = "kick",
+        description = "Kick players from your nation.",
+        aliases = {"kick"},
+        minimumRole = NationRole.Chancellor
+)
 public class NationCommandKick extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
@@ -44,22 +51,5 @@ public class NationCommandKick extends NationCommand {
 
         if (kicked.isOnline())
             ((Player) kicked).sendMessage(Language.format("nationKickReceived", new String[]{"kickerName", player.getName()}, new String[]{"nationName", nation.getName()}));
-    }
-
-    public String getName() {
-        return "kick";
-    }
-
-    public String getDescription() {
-        return "Kick players from your nation.";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"kick"};
-    }
-
-    @Override
-    public NationRole minimumRole() {
-        return NationRole.Chancellor;
     }
 }

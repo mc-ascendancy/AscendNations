@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
@@ -52,11 +53,13 @@ public class CommandNation implements CommandExecutor {
             return true;
         }
 
+        NationCommandAnnotation annotation = nationCommand.getAnnotation();
+
         Player player = (Player) sender;
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
-        if (nation == null && nationCommand.requiresNation()) {
+        if (nation == null && annotation.requiresNation()) {
             sender.sendMessage(Language.getLine("errorNationNotInNation"));
             return true;
         }
@@ -64,8 +67,8 @@ public class CommandNation implements CommandExecutor {
         NationMember member = null;
 
         if (nation != null) {
-            if (nation.lacksPermissions(player.getUniqueId(), nationCommand.minimumRole())) {
-                sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", nationCommand.minimumRole().name()}));
+            if (nation.lacksPermissions(player.getUniqueId(), annotation.minimumRole())) {
+                sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", annotation.minimumRole().name()}));
                 return true;
             }
 

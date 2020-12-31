@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
@@ -11,6 +12,12 @@ import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@NationCommandAnnotation(
+        name = "claim",
+        description = "Claim territory for your nation.",
+        aliases = {"claim"},
+        minimumRole = NationRole.Commander
+)
 public class NationCommandClaim extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length == 1) {
@@ -59,22 +66,5 @@ public class NationCommandClaim extends NationCommand {
 
     private void claimAuto() {
         // TODO: claim auto.
-    }
-
-    public String getName() {
-        return "claim";
-    }
-
-    public String getDescription() {
-        return "Claim territory for your nation.";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"claim"};
-    }
-
-    @Override
-    public NationRole minimumRole() {
-        return NationRole.Commander;
     }
 }

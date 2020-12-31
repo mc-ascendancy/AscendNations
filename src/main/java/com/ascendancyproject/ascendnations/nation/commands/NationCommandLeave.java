@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
@@ -9,6 +10,11 @@ import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@NationCommandAnnotation(
+        name = "leave",
+        description = "Leave your current nation.",
+        aliases = {"leave"}
+)
 public class NationCommandLeave extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (member.getRole() == NationRole.Chancellor) {
@@ -21,17 +27,5 @@ public class NationCommandLeave extends NationCommand {
         nation.getPower().recalculate(nation);
 
         player.sendMessage(Language.format("nationLeave", new String[]{"nationName", nation.getName()}));
-    }
-
-    public String getName() {
-        return "leave";
-    }
-
-    public String getDescription() {
-        return "Leave your current nation.";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"leave"};
     }
 }

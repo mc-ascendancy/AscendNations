@@ -1,12 +1,18 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@NationCommandAnnotation(
+        name = "power",
+        description = "Calculate your nation's power.",
+        aliases = {"power"}
+)
 public class NationCommandPower extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         NationPower np = nation.getPower();
@@ -26,17 +32,5 @@ public class NationCommandPower extends NationCommand {
                 new String[]{"playerBonusPower", Integer.toString(mp.getBonusPower())},
                 new String[]{"maxPlayerBonusPower", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
         ));
-    }
-
-    public String getName() {
-        return "power";
-    }
-
-    public String getDescription() {
-        return "Calculate your nation's power.";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"power"};
     }
 }

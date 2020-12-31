@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
@@ -11,6 +12,12 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@NationCommandAnnotation(
+        name = "promote",
+        description = "Promote players to chancellor in your nation.",
+        aliases = {"promote"},
+        minimumRole = NationRole.Chancellor
+)
 public class NationCommandPromote extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
@@ -46,22 +53,5 @@ public class NationCommandPromote extends NationCommand {
 
         if (promoted.isOnline())
             ((Player) promoted).sendMessage(Language.format("nationPromoteReceived", new String[]{"promoterName", player.getName()}));
-    }
-
-    public String getName() {
-        return "promote";
-    }
-
-    public String getDescription() {
-        return "Promote players to chancellor in your nation.";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"promote"};
-    }
-
-    @Override
-    public NationRole minimumRole() {
-        return NationRole.Chancellor;
     }
 }

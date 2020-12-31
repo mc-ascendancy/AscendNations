@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
@@ -10,6 +11,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+@NationCommandAnnotation(
+        name = "join",
+        description = "Join your friends' nation!",
+        aliases = {"join"},
+        requiresNation = false
+)
 public class NationCommandJoin extends NationCommand {
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
@@ -44,22 +51,5 @@ public class NationCommandJoin extends NationCommand {
         NationInvitationManager.invitations.remove(invitationUUID);
 
         player.sendMessage(Language.format("nationJoin", new String[]{"nationName", nation.getName()}));
-    }
-
-    public String getName() {
-        return "join";
-    }
-
-    public String getDescription() {
-        return "Join your friend's nation!";
-    }
-
-    public String[] getAliases() {
-        return new String[]{"join"};
-    }
-
-    @Override
-    public boolean requiresNation() {
-        return false;
     }
 }
