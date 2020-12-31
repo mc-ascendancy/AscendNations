@@ -9,7 +9,6 @@ import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.Chunk;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +47,7 @@ public class NationCommandUnclaim extends NationCommand {
             return;
         }
 
-        if (key.equals(nation.getHome())) {
+        if (key.equals(nation.getHomeChunk())) {
             player.sendMessage(Language.getLine("errorChunkUnclaimHome"));
             return;
         }
@@ -83,13 +82,11 @@ public class NationCommandUnclaim extends NationCommand {
     private HashSet<Long> getTouched(Chunk remove, Nation nation) {
         Long rKey = remove.getChunkKey();
 
-        Vector home = new Vector(Block.getBlockKeyX(nation.getHome()) / 16, 0, Block.getBlockKeyZ(nation.getHome()) / 16);
-
         HashSet<Long> touched = new HashSet<>();
-        touched.add(Chunk.getChunkKey(home.getBlockX(), home.getBlockZ()));
+        touched.add(nation.getHomeChunk());
 
         Queue<Vector> q = new LinkedList<>();
-        q.add(home);
+        q.add(nation.getHomeVector());
 
         while (!q.isEmpty()) {
             for (Vector vector : getNeighbours(q.poll())) {

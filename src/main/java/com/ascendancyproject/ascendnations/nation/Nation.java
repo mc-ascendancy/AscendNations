@@ -1,7 +1,10 @@
 package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.PersistentData;
+import org.bukkit.Chunk;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,6 +69,14 @@ public class Nation {
 
     public Long getHome() {
         return home;
+    }
+
+    public Long getHomeChunk() {
+        return Chunk.getChunkKey(Block.getBlockKeyX(home) / 16, Block.getBlockKeyZ(home) / 16);
+    }
+
+    public Vector getHomeVector() {
+        return new Vector(Block.getBlockKeyX(home) / 16, 0, Block.getBlockKeyZ(home) / 16);
     }
 
     public void setHome(Long home) {
