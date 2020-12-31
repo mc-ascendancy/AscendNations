@@ -114,6 +114,10 @@ public class ClaimBlock {
 
     public static boolean isClaimBlock(ItemStack itemStack) {
         ItemMeta meta = itemStack.getItemMeta();
+
+        if (meta == null)
+            return false;
+
         PersistentDataContainer data = meta.getPersistentDataContainer();
         return data.has(nbtKey, PersistentDataType.INTEGER);
     }

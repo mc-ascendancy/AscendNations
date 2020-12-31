@@ -75,7 +75,7 @@ public class ClaimBlockEvents implements Listener {
     }
 
     @EventHandler
-    public void onInventoryMoveItem(InventoryClickEvent event) {
+    public void onInventoryClick(InventoryClickEvent event) {
         if (event.getCurrentItem() == null || !ClaimBlock.isClaimBlock(event.getCurrentItem()))
             return;
 
