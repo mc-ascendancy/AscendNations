@@ -29,24 +29,32 @@ public class ClaimBlockEvents implements Listener {
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
         if (nation == null) {
+            event.setCancelled(true);
             event.getPlayer().sendMessage(Language.getLine("errorNationNotInNation"));
             return;
         }
 
         if (nation.lacksPermissions(event.getPlayer().getUniqueId(), NationRole.Commander)) {
+            event.setCancelled(true);
             event.getPlayer().sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", NationRole.Commander.name()}));
             return;
         }
 
         if (ClaimChunks.chunks.containsKey(event.getBlock().getChunk().getChunkKey())) {
+            event.setCancelled(true);
             event.getPlayer().sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
             return;
         }
 
+        boolean success;
+
         if (event.getBlock().getType() == NationVariables.instance.getClaimBlockHome())
-            ClaimBlock.placeHome(event.getBlock(), event.getPlayer(), nation);
+            success = ClaimBlock.placeHome(event.getBlock(), event.getPlayer(), nation);
         else
-            ClaimBlock.placeOutpost(event.getBlock(), event.getPlayer(), nation);
+            success = ClaimBlock.placeOutpost(event.getBlock(), event.getPlayer(), nation);
+
+        if (!success)
+            event.setCancelled(true);
     }
 
     @EventHandler
