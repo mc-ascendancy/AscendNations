@@ -66,7 +66,7 @@ public class ClaimProtectionEvents implements Listener {
 
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
 
-        if (playerData.getNationUUID().equals(nationUUID))
+        if (nationUUID.equals(playerData.getNationUUID()))
             return false;
 
         Nation nation = PersistentData.instance.getNations().get(nationUUID);
