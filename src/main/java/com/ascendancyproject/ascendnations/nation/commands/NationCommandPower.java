@@ -1,31 +1,18 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
-import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.*;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class NationCommandPower extends NationCommand {
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player) sender;
-        PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
-
-        if (playerData.getNationUUID() == null) {
-            sender.sendMessage(Language.getLine("errorNationNotInNation"));
-            return;
-        }
-
-        Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
-        NationMember nationMember = nation.getMembers().get(player.getUniqueId());
-
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         NationPower np = nation.getPower();
-        NationMemberPower mp = nationMember.getPower();
+        NationMemberPower mp = member.getPower();
 
-        sender.sendMessage(Language.format("nationPower",
+        player.sendMessage(Language.format("nationPower",
                 new String[]{"nationPower", Integer.toString(np.getTotal())},
                 new String[]{"maxNationPower", Integer.toString(np.getMaxPower())},
                 new String[]{"memberPower", Integer.toString(np.getMemberPower())},

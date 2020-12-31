@@ -4,61 +4,43 @@ import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
-import com.ascendancyproject.ascendnations.nation.Nation;
-import com.ascendancyproject.ascendnations.nation.NationInvitation;
-import com.ascendancyproject.ascendnations.nation.NationInvitationManager;
-import com.ascendancyproject.ascendnations.nation.NationRole;
+import com.ascendancyproject.ascendnations.nation.*;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class NationCommandInvite extends NationCommand {
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
-            sender.sendMessage(Language.getLine("errorNationInviteBadUsername"));
-            return;
-        }
-
-        Player player = (Player) sender;
-        PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
-
-        Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
-        if (nation == null) {
-            sender.sendMessage(Language.getLine("errorNationNotInNation"));
-            return;
-        }
-
-        if (nation.lacksPermissions(player.getUniqueId(), NationRole.Commander)) {
-            sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", NationRole.Commander.name()}));
+            player.sendMessage(Language.getLine("errorNationInviteBadUsername"));
             return;
         }
 
         if (!nation.hasMemberSlots()) {
-            sender.sendMessage(Language.format("errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()}));
+            player.sendMessage(Language.format("errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()}));
             return;
         }
 
         Player invitee = Bukkit.getPlayer(args[1]);
         if (invitee == null) {
-            sender.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
+            player.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
             return;
         }
 
         PlayerData inviteePlayerData = PersistentData.instance.getPlayers().get(invitee.getUniqueId());
         if (inviteePlayerData.getNationUUID() != null) {
-            sender.sendMessage(Language.format("errorNationInviteInviteeInNation", new String[]{"inviteeName", args[1]}));
+            player.sendMessage(Language.format("errorNationInviteInviteeInNation", new String[]{"inviteeName", args[1]}));
             return;
         }
 
         NationInvitation invitation = new NationInvitation(player.getUniqueId(), nation.getUUID());
         UUID invitationUUID = NationInvitationManager.createInvitation(invitation);
 
-        sender.sendMessage(Language.format("nationInvite", new String[]{"inviteeName", args[1]}));
+        player.sendMessage(Language.format("nationInvite", new String[]{"inviteeName", args[1]}));
 
         invitee.sendMessage(Language.format("nationInviteInvited", new String[]{"inviterName", player.getName()}, new String[]{"nationName", nation.getName()}));
 
@@ -77,5 +59,10 @@ public class NationCommandInvite extends NationCommand {
 
     public String[] getAliases() {
         return new String[]{"invite"};
+    }
+
+    @Override
+    public NationRole minimumRole() {
+        return NationRole.Commander;
     }
 }

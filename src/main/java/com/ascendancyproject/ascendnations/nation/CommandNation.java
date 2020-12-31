@@ -1,6 +1,8 @@
 package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.NationCommand;
+import com.ascendancyproject.ascendnations.PersistentData;
+import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.commands.*;
 import org.bukkit.command.Command;
@@ -50,7 +52,27 @@ public class CommandNation implements CommandExecutor {
             return true;
         }
 
-        nationCommand.execute(sender, command, label, args);
+        Player player = (Player) sender;
+        PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
+
+        Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
+        if (nation == null && nationCommand.requiresNation()) {
+            sender.sendMessage(Language.getLine("errorNationNotInNation"));
+            return true;
+        }
+
+        NationMember member = null;
+
+        if (nation != null) {
+            if (nation.lacksPermissions(player.getUniqueId(), nationCommand.minimumRole())) {
+                sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", nationCommand.minimumRole().name()}));
+                return true;
+            }
+
+            member = nation.getMembers().get(player.getUniqueId());
+        }
+
+        nationCommand.execute(player, playerData, nation, member, args);
         return true;
     }
 }

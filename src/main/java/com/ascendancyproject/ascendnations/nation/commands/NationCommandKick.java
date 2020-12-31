@@ -5,48 +5,34 @@ import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
+import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class NationCommandKick extends NationCommand {
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
-            sender.sendMessage(Language.getLine("errorNationKickBadUsername"));
-            return;
-        }
-
-        Player player = (Player) sender;
-        PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
-
-        Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
-        if (nation == null) {
-            sender.sendMessage(Language.getLine("errorNationNotInNation"));
-            return;
-        }
-
-        if (nation.lacksPermissions(player.getUniqueId(), NationRole.Chancellor)) {
-            sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", NationRole.Chancellor.name()}));
+            player.sendMessage(Language.getLine("errorNationKickBadUsername"));
             return;
         }
 
         OfflinePlayer kicked = Bukkit.getOfflinePlayerIfCached(args[1]);
         if (kicked == null) {
-            sender.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
+            player.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
             return;
         }
 
         if (kicked.getUniqueId() == player.getUniqueId()) {
-            sender.sendMessage(Language.getLine("errorCannotRunOnYourself"));
+            player.sendMessage(Language.getLine("errorCannotRunOnYourself"));
             return;
         }
 
         PlayerData kickedPlayerData = PersistentData.instance.getPlayers().get(kicked.getUniqueId());
         if (!kickedPlayerData.getNationUUID().equals(nation.getUUID())) {
-            sender.sendMessage(Language.format("errorNationPlayerNotInNation", new String[]{"playerName", args[1]}));
+            player.sendMessage(Language.format("errorNationPlayerNotInNation", new String[]{"playerName", args[1]}));
             return;
         }
 
@@ -54,7 +40,7 @@ public class NationCommandKick extends NationCommand {
         nation.getMembers().remove(kicked.getUniqueId());
         nation.getPower().recalculate(nation);
 
-        sender.sendMessage(Language.format("nationKick", new String[]{"kickedName", args[1]}, new String[]{"nationName", nation.getName()}));
+        player.sendMessage(Language.format("nationKick", new String[]{"kickedName", args[1]}, new String[]{"nationName", nation.getName()}));
 
         if (kicked.isOnline())
             ((Player) kicked).sendMessage(Language.format("nationKickReceived", new String[]{"kickerName", player.getName()}, new String[]{"nationName", nation.getName()}));
@@ -70,5 +56,10 @@ public class NationCommandKick extends NationCommand {
 
     public String[] getAliases() {
         return new String[]{"kick"};
+    }
+
+    @Override
+    public NationRole minimumRole() {
+        return NationRole.Chancellor;
     }
 }

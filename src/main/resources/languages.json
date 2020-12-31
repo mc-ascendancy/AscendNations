@@ -20,6 +20,7 @@
 	"nationJoin": "Joined [nationName]!",
 	"errorNationJoinManual": "This is an automated command, ask someone to invite you, then click on the accept button.",
 	"errorNationJoinExpired": "This invitation has expired; ask for a new one!",
+	"errorNationJoinAlreadyInNation": "You are already in a nation.",
 	"nationLeave": "Left [nationName]!",
 	"errorNationLeaveIsChancellor": "You may not leave a nation which you are the chancellor of.\nYou may either appoint a new chancellor with: /nation appoint [name].\nOr you may disband your nation with: /nation disband",
 	"nationPromote": "Successfully promoted [promotedName] to Commander.",

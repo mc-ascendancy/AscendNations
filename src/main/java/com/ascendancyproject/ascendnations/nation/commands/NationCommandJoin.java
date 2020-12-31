@@ -5,16 +5,20 @@ import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.*;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class NationCommandJoin extends NationCommand {
-    public void execute(CommandSender sender, Command command, String label, String[] args) {
+    public void execute(@NotNull Player player, @NotNull PlayerData playerData, Nation nation, NationMember member, String[] args) {
         if (args.length != 2) {
-            sender.sendMessage(Language.getLine("errorNationJoinManual"));
+            player.sendMessage(Language.getLine("errorNationJoinManual"));
+            return;
+        }
+
+        if (nation != null) {
+            player.sendMessage(Language.getLine("errorNationJoinAlreadyInNation"));
             return;
         }
 
@@ -22,16 +26,14 @@ public class NationCommandJoin extends NationCommand {
         NationInvitation invitation = NationInvitationManager.invitations.get(invitationUUID);
 
         if (invitation == null || invitation.hasExpired()) {
-            sender.sendMessage(Language.getLine("errorNationJoinExpired"));
+            player.sendMessage(Language.getLine("errorNationJoinExpired"));
             return;
         }
 
-        Player player = (Player) sender;
-        PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
-        Nation nation = PersistentData.instance.getNations().get(invitation.getNationUUID());
+        nation = PersistentData.instance.getNations().get(invitation.getNationUUID());
 
         if (!nation.hasMemberSlots()) {
-            sender.sendMessage(Language.format("errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()}));
+            player.sendMessage(Language.format("errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()}));
             return;
         }
 
@@ -41,7 +43,7 @@ public class NationCommandJoin extends NationCommand {
 
         NationInvitationManager.invitations.remove(invitationUUID);
 
-        sender.sendMessage(Language.format("nationJoin", new String[]{"nationName", nation.getName()}));
+        player.sendMessage(Language.format("nationJoin", new String[]{"nationName", nation.getName()}));
     }
 
     public String getName() {
@@ -54,5 +56,10 @@ public class NationCommandJoin extends NationCommand {
 
     public String[] getAliases() {
         return new String[]{"join"};
+    }
+
+    @Override
+    public boolean requiresNation() {
+        return false;
     }
 }
