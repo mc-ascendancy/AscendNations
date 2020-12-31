@@ -2,8 +2,10 @@ package com.ascendancyproject.ascendnations.claim;
 
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.nation.Nation;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -14,9 +16,14 @@ public class ClaimChunks {
     public static void init() {
         chunks = new HashMap<>();
 
-        for (Nation nation : PersistentData.instance.getNations().values())
+        World world = Bukkit.getWorld("world");
+
+        for (Nation nation : PersistentData.instance.getNations().values()) {
             for (Long chunk : nation.getChunks())
                 chunks.put(chunk, nation.getUUID());
+
+            world.getBlockAtKey(nation.getHome()).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
+        }
     }
 
     public static boolean hasNeighbour(UUID nationUUID, Location location) {

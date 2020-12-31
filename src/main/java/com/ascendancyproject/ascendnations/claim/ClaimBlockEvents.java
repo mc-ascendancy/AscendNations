@@ -22,7 +22,7 @@ public class ClaimBlockEvents implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (!ClaimBlock.isClaimBlock(event.getBlock().getType()))
+        if (!ClaimBlock.isClaimBlock(event.getItemInHand()))
             return;
 
         PlayerData playerData = PersistentData.instance.getPlayers().get(event.getPlayer().getUniqueId());
@@ -44,7 +44,7 @@ public class ClaimBlockEvents implements Listener {
 
     @EventHandler
     public void onPlayerDropItem(PlayerDropItemEvent event) {
-        if (!ClaimBlock.isClaimBlock(event.getItemDrop().getItemStack().getType()))
+        if (!ClaimBlock.isClaimBlock(event.getItemDrop().getItemStack()))
             return;
 
         ClaimBlock.removedBlock(event.getPlayer(), event.getItemDrop().getItemStack());
@@ -53,7 +53,7 @@ public class ClaimBlockEvents implements Listener {
 
     @EventHandler
     public void onItemSpawn(ItemSpawnEvent event) {
-        if (!ClaimBlock.isClaimBlock(event.getEntity().getItemStack().getType()))
+        if (!ClaimBlock.isClaimBlock(event.getEntity().getItemStack()))
             return;
 
         event.setCancelled(true);
@@ -61,7 +61,7 @@ public class ClaimBlockEvents implements Listener {
 
     @EventHandler
     public void onInventoryMoveItem(InventoryClickEvent event) {
-        if (event.getCurrentItem() == null || !ClaimBlock.isClaimBlock(event.getCurrentItem().getType()))
+        if (event.getCurrentItem() == null || !ClaimBlock.isClaimBlock(event.getCurrentItem()))
             return;
 
         ClaimBlock.removedBlock((Player) event.getWhoClicked(), event.getCurrentItem());

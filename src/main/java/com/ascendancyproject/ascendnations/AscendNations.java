@@ -13,9 +13,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 
 public final class AscendNations extends JavaPlugin {
+    private static AscendNations instance;
 
     @Override
     public void onEnable() {
+        instance = this;
+
         // Load configs.
         Language.init(new File(getDataFolder(), Language.location), this);
         NationVariables.init(new File(getDataFolder(), NationVariables.location), this);
@@ -41,5 +44,9 @@ public final class AscendNations extends JavaPlugin {
     public void onDisable() {
         // Save persistent data before exiting.
         PersistentData.instance.save(new File(getDataFolder(), PersistentData.location));
+    }
+
+    public static AscendNations getInstance() {
+        return instance;
     }
 }

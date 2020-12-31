@@ -50,11 +50,11 @@ public class ClaimProtectionEvents implements Listener {
     }
 
     private boolean blockProtected(Block block) {
-        return ClaimBlock.isClaimBlock(block.getType()) || ClaimChunks.chunks.containsKey(block.getLocation().getChunk().getChunkKey());
+        return ClaimBlock.isClaimBlock(block) || ClaimChunks.chunks.containsKey(block.getLocation().getChunk().getChunkKey());
     }
 
     private boolean blockProtectedPlayer(Block block, Player player) {
-        if (ClaimBlock.isClaimBlock(block.getType())) {
+        if (ClaimBlock.isClaimBlock(block)) {
             player.sendMessage(Language.getLine("blockProtectedClaim"));
             return true;
         }
