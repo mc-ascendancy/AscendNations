@@ -33,8 +33,12 @@ public class ClaimChunks {
                 || checkChunk(nationUUID, location.getChunk().getX(), location.getChunk().getZ() + 1);
     }
 
-    private static boolean checkChunk(UUID nationUUID, int x, int y) {
-        UUID chunkUUID = ClaimChunks.chunks.get(Chunk.getChunkKey(x, y));
+    public static boolean checkChunk(UUID nationUUID, int x, int z) {
+        return checkChunk(nationUUID, Chunk.getChunkKey(x, z));
+    }
+
+    public static boolean checkChunk(UUID nationUUID, Long key) {
+        UUID chunkUUID = ClaimChunks.chunks.get(key);
         return chunkUUID != null && chunkUUID.equals(nationUUID);
     }
 
