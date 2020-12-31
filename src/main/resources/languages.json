@@ -42,10 +42,14 @@
 	"nationStatus": "&nNation Power&r: [nationPower]\nNation Claim Threshold: [nationClaimThreshold]\nNation Existence Threshold: [nationExistenceThreshold]",
 	"blockHomeName": "Home Block",
 	"blockHomeLore": "Where you place this block\nwill become your nation's home.",
+	"blockOutpostName": "Outpost Block",
+	"blockOutpostLore": "Where you place this block\nwill become one of your\nnation's outposts.",
 	"giveBlock": "You have been given a [blockName]&r!\nWhere you place this block will become your nation's home/outpost.\nIf you lose this block, you can get another with /nation claim [home] [outpost]",
 	"errorGiveBlockInventoryFull": "Your inventory is full, so you did not get a [blockName]&r.\nYou can claim another with /nation claim [home] [outpost]",
 	"errorGiveBlockAlreadyOwned": "You already have a [blockName] in your inventory.",
 	"removeBlock": "Removed your [blockName].\nYou can claim another with /nation claim [home] [outpost]",
+	"errorNationClaimHomeClaimed": "You have already claimed your home.",
+	"errorNationClaimMaxOutposts": "You have already claimed [outpostCount]/[outpostCount] outposts.",
 	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]",
 	"chunkClaim": "Claimed chunk [chunksClaimed]/[chunksClaimable]!",
 	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed.",
@@ -59,5 +63,8 @@
 	"blockProtected": "This block is protected by [nationName].",
 	"blockProtectedClaim": "You can not break claim blocks.",
 	"claimHome": "Claimed home!",
-	"errorClaimHomeAlreadyClaimed": "You already have a home."
+	"errorClaimHomeClaimed": "You already have a home.",
+	"claimOutpost": "Claimed outpost!\nYou have now claimed [outpostsClaimed]/[outpostsCap] outposts.",
+	"errorClaimOutpostNoHome": "You must claim a home first.",
+	"errorClaimOutpostMaxClaimed": "You have already claimed [outpostCount]/[outpostCount] outposts."
 }

@@ -23,6 +23,9 @@ public class ClaimChunks {
                 chunks.put(chunk, nation.getUUID());
 
             world.getBlockAtKey(nation.getHome()).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
+
+            for (Long outpost : nation.getOutposts())
+                world.getBlockAtKey(outpost).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Outpost));
         }
     }
 
@@ -42,14 +45,9 @@ public class ClaimChunks {
         return chunkUUID != null && chunkUUID.equals(nationUUID);
     }
 
-    public static boolean claim(Nation nation, Location location) {
+    public static void claim(Nation nation, Location location) {
         Long key = location.getChunk().getChunkKey();
-
-        if (chunks.containsKey(key))
-            return false;
-
         chunks.put(key, nation.getUUID());
         nation.getChunks().add(key);
-        return true;
     }
 }

@@ -18,5 +18,6 @@
 	"existenceThresholdLargeModifierFlat": 10,
 	"chunksPerMember": 15,
 	"outpostsPerMember": 0.5,
-	"claimBlockHomeType": "LIME_TERRACOTTA"
+	"claimBlockHomeType": "LIME_TERRACOTTA",
+	"claimBlockOutpostType": "RED_TERRACOTTA"
 }

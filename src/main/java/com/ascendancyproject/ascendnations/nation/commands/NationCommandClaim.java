@@ -33,11 +33,26 @@ public class NationCommandClaim extends NationCommand {
                 break;
 
             case "home":
+                if (nation.getHome() != null) {
+                    player.sendMessage(Language.getLine("errorClaimHomeClaimed"));
+                    return;
+                }
+
                 ClaimBlock.giveHome(player);
                 break;
 
             case "outpost":
-                // TODO: give outpost.
+                if (nation.getHome() == null) {
+                    player.sendMessage(Language.getLine("errorClaimOutpostNoHome"));
+                    return;
+                }
+
+                if (!nation.hasOutpostClaims()) {
+                    player.sendMessage(Language.format("errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())}));
+                    return;
+                }
+
+                ClaimBlock.giveOutpost(player);
                 break;
 
             default:
@@ -51,19 +66,21 @@ public class NationCommandClaim extends NationCommand {
             return;
         }
 
+        if (ClaimChunks.chunks.containsKey(player.getChunk().getChunkKey())) {
+            player.sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
+            return;
+        }
+
         if (!ClaimChunks.hasNeighbour(nation.getUUID(), player.getLocation())) {
             player.sendMessage(Language.getLine("errorChunkClaimNoNeighbour"));
             return;
         }
 
-        if (ClaimChunks.claim(nation, player.getLocation())) {
-            player.sendMessage(Language.format("chunkClaim",
-                    new String[]{"chunksClaimed",Integer.toString(nation.getChunks().size())},
-                    new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}));
-        } else {
-            // Chunk already claimed.
-            player.sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
-        }
+        ClaimChunks.claim(nation, player.getLocation());
+
+        player.sendMessage(Language.format("chunkClaim",
+                new String[]{"chunksClaimed",Integer.toString(nation.getChunks().size())},
+                new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}));
     }
 
     private void claimAuto() {

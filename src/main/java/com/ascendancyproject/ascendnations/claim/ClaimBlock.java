@@ -4,6 +4,7 @@ import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -18,9 +19,11 @@ public class ClaimBlock {
     private static final NamespacedKey nbtKey = new NamespacedKey(AscendNations.getInstance(), ClaimBlockMetadata.key);
 
     private static ItemStack homeBlock;
+    private static ItemStack outpostBlock;
 
     public static void placeHome(Block block, Player player, Nation nation) {
         if (nation.getHome() != null) {
+            block.setType(Material.AIR);
             player.sendMessage(Language.getLine("errorClaimHomeAlreadyClaimed"));
             return;
         }
@@ -31,6 +34,30 @@ public class ClaimBlock {
         block.setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
 
         player.sendMessage(Language.getLine("claimHome"));
+    }
+
+    public static void placeOutpost(Block block, Player player, Nation nation) {
+        if (nation.getHome() == null) {
+            block.setType(Material.AIR);
+            player.sendMessage(Language.getLine("errorClaimOutpostNoHome"));
+            return;
+        }
+
+        if (!nation.hasOutpostClaims()) {
+            block.setType(Material.AIR);
+            player.sendMessage(Language.format("errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())}));
+            return;
+        }
+
+        ClaimChunks.claim(nation, block.getLocation());
+        nation.getOutposts().add(block.getBlockKey());
+
+        block.setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Outpost));
+
+        player.sendMessage(Language.format("claimOutpost",
+                new String[]{"outpostsClaimed", Integer.toString(nation.getOutposts().size())},
+                new String[]{"outpostsCap", Integer.toString(nation.getPower().getOutpostsClaimable())}
+        ));
     }
 
     public static void giveHome(Player player) {
@@ -50,7 +77,25 @@ public class ClaimBlock {
         give(player, homeBlock);
     }
 
+    public static void giveOutpost(Player player) {
+        if (outpostBlock == null) {
+            outpostBlock = new ItemStack(NationVariables.instance.getClaimBlockOutpost());
+
+            ItemMeta meta = outpostBlock.getItemMeta();
+            meta.setDisplayName(Language.getLine("blockOutpostName"));
+            meta.setLore(Arrays.asList(Language.getLine("blockOutpostLore").split("\n")));
+
+            PersistentDataContainer data = meta.getPersistentDataContainer();
+            data.set(nbtKey, PersistentDataType.INTEGER, ClaimBlockType.Outpost.ordinal());
+
+            outpostBlock.setItemMeta(meta);
+        }
+
+        give(player, outpostBlock);
+    }
+
     private static void give(Player player, ItemStack block) {
+        // TODO: check meta instead of type.
         if (player.getInventory().contains(block)) {
             player.sendMessage(Language.format("errorGiveBlockAlreadyOwned", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
             return;

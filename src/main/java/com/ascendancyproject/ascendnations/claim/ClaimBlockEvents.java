@@ -38,8 +38,15 @@ public class ClaimBlockEvents implements Listener {
             return;
         }
 
+        if (ClaimChunks.chunks.containsKey(event.getBlock().getChunk().getChunkKey())) {
+            event.getPlayer().sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
+            return;
+        }
+
         if (event.getBlock().getType() == NationVariables.instance.getClaimBlockHome())
             ClaimBlock.placeHome(event.getBlock(), event.getPlayer(), nation);
+        else
+            ClaimBlock.placeOutpost(event.getBlock(), event.getPlayer(), nation);
     }
 
     @EventHandler

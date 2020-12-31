@@ -38,6 +38,8 @@ public class NationVariables {
 
     private String claimBlockHomeType;
     private Material claimBlockHome;
+    private String claimBlockOutpostType;
+    private Material claimBlockOutpost;
 
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
@@ -52,6 +54,7 @@ public class NationVariables {
         }
 
         instance.claimBlockHome = Material.getMaterial(instance.claimBlockHomeType);
+        instance.claimBlockOutpost = Material.getMaterial(instance.claimBlockOutpostType);
     }
 
     public int getMaxNationPop() {
@@ -136,5 +139,9 @@ public class NationVariables {
 
     public Material getClaimBlockHome() {
         return claimBlockHome;
+    }
+
+    public Material getClaimBlockOutpost() {
+        return claimBlockOutpost;
     }
 }

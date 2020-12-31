@@ -1,14 +1,18 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
+import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
+import com.ascendancyproject.ascendnations.claim.ClaimBlockMetadata;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.Chunk;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -77,16 +81,40 @@ public class NationCommandUnclaim extends NationCommand {
 
             player.sendMessage(Language.getLine("chunkUnclaim"));
         }
+
+        for (Iterator<Long> it = nation.getOutposts().iterator(); it.hasNext();) {
+            Long outpost = it.next();
+            Long outpostChunk = nation.getOutpostChunk(outpost);
+
+            if (outpostChunk.equals(key)) {
+                it.remove();
+                Block block = remove.getWorld().getBlockAtKey(outpost);
+
+                block.setType(Material.AIR);
+                block.removeMetadata(ClaimBlockMetadata.key, AscendNations.getInstance());
+
+                break;
+            }
+        }
     }
 
     private HashSet<Long> getTouched(Chunk remove, Nation nation) {
         Long rKey = remove.getChunkKey();
 
         HashSet<Long> touched = new HashSet<>();
-        touched.add(nation.getHomeChunk());
-
         Queue<Vector> q = new LinkedList<>();
+
+        touched.add(nation.getHomeChunk());
         q.add(nation.getHomeVector());
+
+        for (Long outpost : nation.getOutposts()) {
+            Long outpostChunk = nation.getOutpostChunk(outpost);
+
+            if (!outpostChunk.equals(rKey)) {
+                touched.add(outpostChunk);
+                q.add(nation.getOutpostVector(outpost));
+            }
+        }
 
         while (!q.isEmpty()) {
             for (Vector vector : getNeighbours(q.poll())) {

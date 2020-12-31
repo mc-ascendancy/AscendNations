@@ -17,6 +17,7 @@ public class Nation {
     private final NationPower power;
 
     private Long home;
+    private final HashSet<Long> outposts;
     private final HashSet<Long> chunks;
 
     public Nation(Player creator, String name) {
@@ -25,6 +26,7 @@ public class Nation {
         members = new HashMap<>();
         members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
         power = new NationPower(this);
+        outposts = new HashSet<>();
         chunks = new HashSet<>();
 
         PersistentData.instance.getNations().put(uuid, this);
@@ -49,6 +51,10 @@ public class Nation {
 
     public boolean hasClaims() {
         return chunks.size() < power.getChunksClaimable();
+    }
+
+    public boolean hasOutpostClaims() {
+        return outposts.size() < power.getOutpostsClaimable();
     }
 
     public UUID getUUID() {
@@ -81,6 +87,18 @@ public class Nation {
 
     public void setHome(Long home) {
         this.home = home;
+    }
+
+    public HashSet<Long> getOutposts() {
+        return outposts;
+    }
+
+    public Long getOutpostChunk(Long outpost) {
+        return Chunk.getChunkKey(Block.getBlockKeyX(outpost) / 16, Block.getBlockKeyZ(outpost) / 16);
+    }
+
+    public Vector getOutpostVector(Long outpost) {
+        return new Vector(Block.getBlockKeyX(outpost) / 16, 0, Block.getBlockKeyZ(outpost) / 16);
     }
 
     public HashSet<Long> getChunks() {
