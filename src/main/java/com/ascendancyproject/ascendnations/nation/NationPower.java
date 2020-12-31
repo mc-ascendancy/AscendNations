@@ -13,6 +13,8 @@ public class NationPower {
     private int chunksClaimable;
     private int outpostsClaimable;
 
+    private long lockoutExpiry;
+
     public NationPower(Nation nation) {
         recalculate(nation);
     }
@@ -47,6 +49,18 @@ public class NationPower {
 
         chunksClaimable = (int)(pop * nv.getChunksPerMember());
         outpostsClaimable = (int)(pop * nv.getOutpostsPerMember());
+
+        boolean shouldLockout = nation.getChunks().size() > chunksClaimable
+                || nation.getOutposts().size() > outpostsClaimable
+                || claimThreshold > getTotal();
+
+        if (lockoutExpiry == 0L) {
+            if (shouldLockout) {
+                lockoutExpiry = System.currentTimeMillis() + nv.getLockoutDuration();
+            }
+        } else if (!shouldLockout) {
+            lockoutExpiry = 0L;
+        }
     }
 
     public int getMaxPower() {
@@ -87,5 +101,9 @@ public class NationPower {
 
     public int getOutpostsClaimable() {
         return outpostsClaimable;
+    }
+
+    public long getLockoutExpiry() {
+        return lockoutExpiry;
     }
 }

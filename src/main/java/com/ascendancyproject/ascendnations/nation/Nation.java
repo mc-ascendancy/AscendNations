@@ -25,9 +25,9 @@ public class Nation {
         this.name = name;
         members = new HashMap<>();
         members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
-        power = new NationPower(this);
         outposts = new HashSet<>();
         chunks = new HashSet<>();
+        power = new NationPower(this);
 
         PersistentData.instance.getNations().put(uuid, this);
     }

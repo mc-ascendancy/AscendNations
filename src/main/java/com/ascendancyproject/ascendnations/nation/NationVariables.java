@@ -41,6 +41,8 @@ public class NationVariables {
     private String claimBlockOutpostType;
     private Material claimBlockOutpost;
 
+    private long lockoutDuration;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -143,5 +145,9 @@ public class NationVariables {
 
     public Material getClaimBlockOutpost() {
         return claimBlockOutpost;
+    }
+
+    public long getLockoutDuration() {
+        return lockoutDuration;
     }
 }
