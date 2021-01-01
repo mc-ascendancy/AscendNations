@@ -1,18 +1,15 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
-import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
-import com.ascendancyproject.ascendnations.claim.ClaimBlockMetadata;
+import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import org.bukkit.Chunk;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -88,10 +85,7 @@ public class NationCommandUnclaim extends NationCommand {
 
             if (outpostChunk.equals(key)) {
                 it.remove();
-                Block block = remove.getWorld().getBlockAtKey(outpost);
-
-                block.setType(Material.AIR);
-                block.removeMetadata(ClaimBlockMetadata.key, AscendNations.getInstance());
+                ClaimBlock.removeBlock(remove.getWorld().getBlockAtKey(outpost));
 
                 break;
             }

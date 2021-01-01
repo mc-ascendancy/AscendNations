@@ -1,7 +1,11 @@
 package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.PersistentData;
+import com.ascendancyproject.ascendnations.claim.ClaimBlock;
+import com.ascendancyproject.ascendnations.claim.ClaimChunks;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -36,6 +40,17 @@ public class Nation {
         for (UUID memberUUID : members.keySet())
             PersistentData.instance.getPlayers().get(memberUUID).setNationUUID(null);
 
+        for (Long chunk : chunks)
+            ClaimChunks.chunks.remove(chunk);
+
+        World world = Bukkit.getWorld("world");
+
+        if (home != null)
+            ClaimBlock.removeBlock(world.getBlockAtKey(home));
+
+        for (Long outpost : outposts)
+            ClaimBlock.removeBlock(world.getBlockAtKey(outpost));
+
         PersistentData.instance.getNations().remove(uuid);
     }
 
@@ -63,6 +78,17 @@ public class Nation {
 
     public boolean isDestroyable() {
         return power.getTotal() < power.getExistenceThreshold() && power.getLockoutExpiry() != 0L && power.getLockoutExpiry() < System.currentTimeMillis();
+    }
+
+    public boolean isClaimChunk(Long key) {
+        if (key.equals(getHomeChunk()))
+            return true;
+
+        for (Long outpost : outposts)
+            if (key.equals(getOutpostChunk(outpost)))
+                return true;
+
+        return false;
     }
 
     public UUID getUUID() {

@@ -4,6 +4,7 @@ import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -128,5 +129,10 @@ public class ClaimBlock {
 
     public static void removedBlock(Player player, ItemStack block) {
         player.sendMessage(Language.format("removeBlock", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
+    }
+
+    public static void removeBlock(Block block) {
+        block.setType(Material.AIR);
+        block.removeMetadata(ClaimBlockMetadata.key, AscendNations.getInstance());
     }
 }
