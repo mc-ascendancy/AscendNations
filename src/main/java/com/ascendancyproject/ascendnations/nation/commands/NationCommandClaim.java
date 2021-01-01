@@ -2,16 +2,21 @@ package com.ascendancyproject.ascendnations.nation.commands;
 
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.NationCommandAnnotation;
+import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
+import com.ascendancyproject.ascendnations.claim.Overclaim;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
+import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 @NationCommandAnnotation(
         name = "claim",
@@ -66,20 +71,45 @@ public class NationCommandClaim extends NationCommand {
             return;
         }
 
-        if (ClaimChunks.chunks.containsKey(player.getChunk().getChunkKey())) {
-            player.sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
+        if (!ClaimChunks.hasNeighbour(nation.getUUID(), player.getLocation())) {
+            player.sendMessage(Language.getLine("errorChunkClaimNoNeighbour"));
             return;
         }
 
-        if (!ClaimChunks.hasNeighbour(nation.getUUID(), player.getLocation())) {
-            player.sendMessage(Language.getLine("errorChunkClaimNoNeighbour"));
+        Long key = player.getChunk().getChunkKey();
+
+        UUID defendingNationUUID = ClaimChunks.chunks.get(key);
+        if (defendingNationUUID != null) {
+            if (defendingNationUUID.equals(nation.getUUID())) {
+                player.sendMessage(Language.getLine("errorChunkClaimAlreadyOwnedByYou"));
+                return;
+            }
+
+            Nation defendingNation = PersistentData.instance.getNations().get(defendingNationUUID);
+
+            if (defendingNation.isClaimChunk(key)) {
+                if (!defendingNation.isDestroyable()) {
+                    player.sendMessage(Language.format("errorChunkClaimAlreadyOwnedClaim", new String[]{"defendingNationName", defendingNation.getName()}));
+                    return;
+                }
+
+                new Overclaim(player, key.equals(defendingNation.getHomeChunk()) ? NationVariables.instance.getOverclaimDurationHome() : NationVariables.instance.getOverclaimDurationOutpost(), key, nation, defendingNation);
+                return;
+            }
+
+            if (!defendingNation.isOverclaimable()) {
+                player.sendMessage(Language.format("errorChunkClaimAlreadyOwned", new String[]{"defendingNationName", defendingNation.getName()}));
+                return;
+            }
+
+            new Overclaim(player, NationVariables.instance.getOverclaimDuration(), key, nation, defendingNation);
             return;
         }
 
         ClaimChunks.claim(nation, player.getLocation());
 
         player.sendMessage(Language.format("chunkClaim",
-                new String[]{"chunksClaimed",Integer.toString(nation.getChunks().size())},
+                new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                 new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}));
     }
 

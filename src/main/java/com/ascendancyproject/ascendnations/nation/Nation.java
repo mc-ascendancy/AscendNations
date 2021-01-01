@@ -10,9 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.*;
 
 public class Nation {
     private final UUID uuid;
@@ -89,6 +87,59 @@ public class Nation {
                 return true;
 
         return false;
+    }
+
+    public void recalculateChunks(HashSet<Long> touched) {
+        for (Iterator<Long> it = chunks.iterator(); it.hasNext();) {
+            Long nKey = it.next();
+
+            if (!touched.contains(nKey)) {
+                ClaimChunks.chunks.remove(nKey);
+                it.remove();
+            }
+        }
+    }
+
+    public HashSet<Long> getTouched(Long rKey) {
+        HashSet<Long> touched = new HashSet<>();
+        Queue<Vector> q = new LinkedList<>();
+
+        touched.add(getHomeChunk());
+        q.add(getHomeVector());
+
+        for (Long outpost : getOutposts()) {
+            Long outpostChunk = getOutpostChunk(outpost);
+
+            if (!outpostChunk.equals(rKey)) {
+                touched.add(outpostChunk);
+                q.add(getOutpostVector(outpost));
+            }
+        }
+
+        while (!q.isEmpty()) {
+            for (Vector vector : getNeighbours(q.poll())) {
+                Long key = Chunk.getChunkKey(vector.getBlockX(), vector.getBlockZ());
+
+                if (!key.equals(rKey) && !touched.contains(key) && chunks.contains(key)) {
+                    q.add(vector);
+                    touched.add(key);
+                }
+            }
+        }
+
+        return touched;
+    }
+
+    private Vector[] getNeighbours(Vector vector) {
+        int x = vector.getBlockX();
+        int z = vector.getBlockZ();
+
+        return new Vector[]{
+                new Vector(x - 1, 0, z),
+                new Vector(x + 1, 0, z),
+                new Vector(x, 0, z - 1),
+                new Vector(x, 0, z + 1)
+        };
     }
 
     public UUID getUUID() {

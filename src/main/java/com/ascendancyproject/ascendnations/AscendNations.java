@@ -1,8 +1,6 @@
 package com.ascendancyproject.ascendnations;
 
-import com.ascendancyproject.ascendnations.claim.ClaimBlockEvents;
-import com.ascendancyproject.ascendnations.claim.ClaimChunks;
-import com.ascendancyproject.ascendnations.claim.ClaimProtectionEvents;
+import com.ascendancyproject.ascendnations.claim.*;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.CommandNation;
 import com.ascendancyproject.ascendnations.nation.NationInvitationManager;
@@ -30,6 +28,7 @@ public final class AscendNations extends JavaPlugin {
         // Initialise managers.
         NationInvitationManager.init(this);
         new NationPassivePowerTicker(this);
+        new OverclaimTicker(this);
 
         // Register commands.
         this.getCommand("nation").setExecutor(new CommandNation());
@@ -38,6 +37,7 @@ public final class AscendNations extends JavaPlugin {
         new PlayerDataEvents(this);
         new ClaimBlockEvents(this);
         new ClaimProtectionEvents(this);
+        new OverclaimEvents(this);
     }
 
     @Override

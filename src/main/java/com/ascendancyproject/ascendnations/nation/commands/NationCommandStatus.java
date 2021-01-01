@@ -1,5 +1,6 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
+import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
@@ -11,8 +12,6 @@ import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.time.Duration;
 
 @NationCommandAnnotation(
         name = "status",
@@ -38,9 +37,7 @@ public class NationCommandStatus extends NationCommand {
             statusColour = Language.getLine("nationStatusDanger");
         }
 
-        String protectionString = protection != 0L ?
-                Duration.ofMillis(protection).toString().substring(2).replaceAll("(\\d[HMS])(?!$)", "$1 ").toLowerCase() :
-                Language.getLine("nationStatusProtectionExpired");
+        String protectionString = protection != 0L ? AscendNationsHelper.durationToString(protection) : Language.getLine("nationStatusProtectionExpired");
 
         player.sendMessage(Language.format("nationStatus",
                 new String[]{"nationPower", Integer.toString(np.getTotal())},

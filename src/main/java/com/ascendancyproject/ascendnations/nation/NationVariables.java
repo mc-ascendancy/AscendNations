@@ -42,6 +42,9 @@ public class NationVariables {
     private Material claimBlockOutpost;
 
     private long lockoutDuration;
+    private long overclaimDuration;
+    private long overclaimDurationOutpost;
+    private long overclaimDurationHome;
 
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
@@ -149,5 +152,17 @@ public class NationVariables {
 
     public long getLockoutDuration() {
         return lockoutDuration;
+    }
+
+    public long getOverclaimDuration() {
+        return overclaimDuration;
+    }
+
+    public long getOverclaimDurationOutpost() {
+        return overclaimDurationOutpost;
+    }
+
+    public long getOverclaimDurationHome() {
+        return overclaimDurationHome;
     }
 }

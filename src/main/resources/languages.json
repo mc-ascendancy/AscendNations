@@ -56,7 +56,10 @@
 	"errorNationClaimMaxOutposts": "You have already claimed [outpostCount]/[outpostCount] outposts.",
 	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]",
 	"chunkClaim": "Claimed chunk [chunksClaimed]/[chunksClaimable]!",
-	"errorChunkClaimAlreadyOwned": "This chunk has already been claimed.",
+	"chunkClaimOverclaim": "Overclaimed chunk [chunksClaimed]/[chunksClaimable]!",
+	"errorChunkClaimAlreadyOwned": "This chunk is being defended by [defendingNationName] and is not currently overclaimable.",
+	"errorChunkClaimAlreadyOwnedByYou": "Your nation already owns this chunk.",
+	"errorChunkClaimAlreadyOwnedClaim": "This chunk is a home/outpost chunk being defended by [defendingNationName] and is not currently overclaimable.",
 	"errorChunkClaimNoNeighbour": "This chunk is not connected to any of your existing claims.",
 	"errorChunkClaimNoClaims": "You have already claimed [chunksClaimed]/[chunksClaimed] chunks.",
 	"chunkUnclaim": "Unclaimed chunk.",
@@ -70,5 +73,13 @@
 	"errorClaimHomeClaimed": "You already have a home.",
 	"claimOutpost": "Claimed outpost!\nYou have now claimed [outpostsClaimed]/[outpostsCap] outposts.",
 	"errorClaimOutpostNoHome": "You must claim a home first.",
-	"errorClaimOutpostMaxClaimed": "You have already claimed [outpostCount]/[outpostCount] outposts."
+	"errorClaimOutpostMaxClaimed": "You have already claimed [outpostCount]/[outpostCount] outposts.",
+	"overclaimStart": "Started overclaiming one of [defendingNationName]'s chunks.\nStay in this chunk for [duration] without taking damage.",
+	"overclaimStartBroadcast": "[attackingNationName] is overclaiming one of [defendingNationName]'s chunks!",
+	"overclaimSuccess": "Successfully overclaimed chunk!",
+	"overclaimSuccessBroadcast": "[attackingNationName] has overclaimed one of [defendingNationName]'s chunks!\n[defendingNationName] lost [chunkCount] chunks.",
+	"overclaimSuccessBroadcastHome": "[attackingNationName] overclaimed [defendingNationName]'s home!\n[defendingNationName] has been destroyed.",
+	"overclaimFailMoved": "Overclaim failed, you can not move out of the chunk.",
+	"overclaimFailDamaged": "Overclaim failed, you can not take damage.",
+	"overclaimFailBroadcast": "[attackingNationName] failed to overclaim [defendingNationName]'s chunk."
 }
