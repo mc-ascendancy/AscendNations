@@ -120,7 +120,7 @@ public class NationCommandUnclaim extends NationCommand {
             for (Vector vector : getNeighbours(q.poll())) {
                 Long key = Chunk.getChunkKey(vector.getBlockX(), vector.getBlockZ());
 
-                if (!key.equals(rKey) && !touched.contains(key) && ClaimChunks.checkChunk(nation.getUUID(), key)) {
+                if (!key.equals(rKey) && !touched.contains(key) && nation.getChunks().contains(key)) {
                     q.add(vector);
                     touched.add(key);
                 }
