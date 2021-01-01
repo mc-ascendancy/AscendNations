@@ -1,7 +1,6 @@
 package com.ascendancyproject.ascendnations.rift;
 
 import com.ascendancyproject.ascendnations.nation.Nation;
-import org.bukkit.Chunk;
 
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class Rift {
 
     public boolean isOwned(Nation nation) {
         for (RiftChunk chunk : chunks)
-            if (!nation.getChunks().contains(Chunk.getChunkKey(chunk.getX(), chunk.getZ())))
+            if (!nation.getChunks().contains(chunk.getKey()))
                 return false;
 
         return true;

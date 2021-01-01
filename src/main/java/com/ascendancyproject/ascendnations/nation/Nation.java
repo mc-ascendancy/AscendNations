@@ -63,7 +63,11 @@ public class Nation {
     }
 
     public boolean hasClaims() {
-        return chunks.size() < power.getChunksClaimable();
+        return hasClaims(1);
+    }
+
+    public boolean hasClaims(int count) {
+        return chunks.size() + count <= power.getChunksClaimable();
     }
 
     public boolean hasOutpostClaims() {

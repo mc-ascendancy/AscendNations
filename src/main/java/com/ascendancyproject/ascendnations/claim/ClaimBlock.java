@@ -27,7 +27,7 @@ public class ClaimBlock {
             return false;
         }
 
-        ClaimChunks.claim(nation, block.getLocation());
+        ClaimChunks.claim(nation, block.getChunk().getChunkKey());
         nation.setHome(block.getBlockKey());
 
         block.setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
@@ -47,7 +47,7 @@ public class ClaimBlock {
             return false;
         }
 
-        ClaimChunks.claim(nation, block.getLocation());
+        ClaimChunks.claim(nation, block.getChunk().getChunkKey());
         nation.getOutposts().add(block.getBlockKey());
 
         block.setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Outpost));

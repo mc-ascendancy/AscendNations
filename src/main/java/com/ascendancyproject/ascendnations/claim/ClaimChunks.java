@@ -45,9 +45,13 @@ public class ClaimChunks {
         return chunkUUID != null && chunkUUID.equals(nationUUID);
     }
 
-    public static void claim(Nation nation, Location location) {
-        Long key = location.getChunk().getChunkKey();
+    public static void claim(Nation nation, Long key) {
         chunks.put(key, nation.getUUID());
         nation.getChunks().add(key);
+    }
+
+    public static void claim(Nation attackingNation, Nation defendingNation, Long key) {
+        claim(attackingNation, key);
+        defendingNation.getChunks().remove(key);
     }
 }

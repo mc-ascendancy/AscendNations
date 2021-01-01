@@ -1,5 +1,7 @@
 package com.ascendancyproject.ascendnations.rift;
 
+import org.bukkit.Chunk;
+
 public class RiftChunk {
     private int x;
     private int z;
@@ -10,5 +12,9 @@ public class RiftChunk {
 
     public int getZ() {
         return z;
+    }
+
+    public Long getKey() {
+        return Chunk.getChunkKey(x, z);
     }
 }

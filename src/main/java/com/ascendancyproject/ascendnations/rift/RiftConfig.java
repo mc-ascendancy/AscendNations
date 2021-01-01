@@ -3,7 +3,6 @@ package com.ascendancyproject.ascendnations.rift;
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.bukkit.Chunk;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -34,10 +33,8 @@ public class RiftConfig {
 
         for (int i = 0; i < rifts.size(); i++) {
             for (RiftChunk chunk : rifts.get(i).getChunks()) {
-                Long key = Chunk.getChunkKey(chunk.getX(), chunk.getZ());
-
-                rifts.get(i).setCheckChunkIfEmpty(key);
-                riftMap.put(key, i);
+                rifts.get(i).setCheckChunkIfEmpty(chunk.getKey());
+                riftMap.put(chunk.getKey(), i);
             }
         }
     }

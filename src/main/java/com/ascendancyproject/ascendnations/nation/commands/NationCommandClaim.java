@@ -12,6 +12,9 @@ import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
+import com.ascendancyproject.ascendnations.rift.Rift;
+import com.ascendancyproject.ascendnations.rift.RiftChunk;
+import com.ascendancyproject.ascendnations.rift.RiftConfig;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -77,6 +80,16 @@ public class NationCommandClaim extends NationCommand {
         }
 
         Long key = player.getChunk().getChunkKey();
+        Rift rift = RiftConfig.getRift(key);
+
+        if (rift != null && !nation.hasClaims(rift.getChunks().size())) {
+            player.sendMessage(Language.format("errorChunkClaimNoClaimsRift",
+                    new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
+                    new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())},
+                    new String[]{"riftChunks", Integer.toString(rift.getChunks().size())}
+            ));
+            return;
+        }
 
         UUID defendingNationUUID = ClaimChunks.chunks.get(key);
         if (defendingNationUUID != null) {
@@ -106,12 +119,26 @@ public class NationCommandClaim extends NationCommand {
             return;
         }
 
-        ClaimChunks.claim(nation, player.getLocation());
-        nation.getPower().recalculate(nation);
+        if (rift != null) {
+            for (RiftChunk riftChunk : rift.getChunks())
+                ClaimChunks.claim(nation, riftChunk.getKey());
 
-        player.sendMessage(Language.format("chunkClaim",
-                new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
-                new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}));
+            player.sendMessage(Language.format("chunkClaimRift",
+                    new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
+                    new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())},
+                    new String[]{"riftChunks", Integer.toString(rift.getChunks().size())},
+                    new String[]{"riftPower", Integer.toString(rift.getPower())}
+            ));
+        } else {
+            ClaimChunks.claim(nation, player.getChunk().getChunkKey());
+
+            player.sendMessage(Language.format("chunkClaim",
+                    new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
+                    new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}
+            ));
+        }
+
+        nation.getPower().recalculate(nation);
     }
 
     private void claimAuto() {

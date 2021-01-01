@@ -5,6 +5,9 @@ import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
+import com.ascendancyproject.ascendnations.rift.Rift;
+import com.ascendancyproject.ascendnations.rift.RiftChunk;
+import com.ascendancyproject.ascendnations.rift.RiftConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -86,9 +89,7 @@ public class Overclaim {
                 ));
                 player.sendMessage(Language.getLine("overclaimSuccess"));
 
-                ClaimChunks.chunks.put(chunk, attackingNation.getUUID());
-                attackingNation.getChunks().add(chunk);
-
+                ClaimChunks.claim(attackingNation, chunk);
                 attackingNation.getPower().recalculate(attackingNation);
 
                 overclaims.remove(playerUUID);
@@ -110,12 +111,15 @@ public class Overclaim {
             }
         }
 
-        ClaimChunks.chunks.put(chunk, attackingNation.getUUID());
-        defendingNation.getChunks().remove(chunk);
-        attackingNation.getChunks().add(chunk);
+        Rift rift = RiftConfig.getRift(player.getChunk().getChunkKey());
+        if (rift != null)
+            for (RiftChunk riftChunk : rift.getChunks())
+                ClaimChunks.claim(attackingNation, defendingNation, riftChunk.getKey());
+        else
+            ClaimChunks.claim(attackingNation, defendingNation, chunk);
 
         HashSet<Long> touched = defendingNation.getTouched(chunk);
-        int diff = defendingNation.getChunks().size() - touched.size() + 1;
+        int diff = defendingNation.getChunks().size() - touched.size() + (rift == null ? 1 : rift.getChunks().size());
 
         defendingNation.recalculateChunks(touched);
 
