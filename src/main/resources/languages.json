@@ -73,6 +73,7 @@
 	"blockProtectedClaim": "You can not break claim blocks.",
 	"claimHome": "Claimed home!",
 	"errorClaimHomeClaimed": "You already have a home.",
+	"errorClaimSpecialOnRift": "You may not claim home/outpost on a rift.",
 	"claimOutpost": "Claimed outpost!\nYou have now claimed [outpostsClaimed]/[outpostsCap] outposts.",
 	"errorClaimOutpostNoHome": "You must claim a home first.",
 	"errorClaimOutpostMaxClaimed": "You have already claimed [outpostCount]/[outpostCount] outposts.",

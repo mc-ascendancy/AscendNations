@@ -7,6 +7,7 @@ import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationRole;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
+import com.ascendancyproject.ascendnations.rift.RiftConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,9 +41,17 @@ public class ClaimBlockEvents implements Listener {
             return;
         }
 
-        if (ClaimChunks.chunks.containsKey(event.getBlock().getChunk().getChunkKey())) {
+        Long key = event.getBlock().getChunk().getChunkKey();
+
+        if (ClaimChunks.chunks.containsKey(key)) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
+            return;
+        }
+
+        if (RiftConfig.getRift(key) != null) {
+            event.setCancelled(true);
+            event.getPlayer().sendMessage(Language.getLine("errorClaimSpecialOnRift"));
             return;
         }
 
