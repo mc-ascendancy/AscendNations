@@ -1,5 +1,8 @@
 package com.ascendancyproject.ascendnations.nation;
 
+import com.ascendancyproject.ascendnations.rift.Rift;
+import com.ascendancyproject.ascendnations.rift.RiftConfig;
+
 public class NationPower {
     private int maxMemberPower;
     private int maxRiftPower;
@@ -31,7 +34,14 @@ public class NationPower {
             memberPower += member.getPower().getTotal();
 
         riftPower = 0;
-        // TODO: add rift power calculation once claiming is implemented.
+        for (Long chunk : nation.getChunks()) {
+            Rift rift = RiftConfig.getRift(chunk);
+
+            if (rift != null && rift.isCheckChunk(chunk) && rift.isOwned(nation))
+                riftPower += rift.getPower();
+        }
+
+        riftPower = Math.min(riftPower, maxRiftPower);
 
         if (pop == 1) {
             claimThreshold = nv.getClaimThresholdOnePlayer();

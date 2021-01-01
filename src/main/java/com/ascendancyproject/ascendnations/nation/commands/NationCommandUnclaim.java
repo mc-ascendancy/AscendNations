@@ -79,5 +79,7 @@ public class NationCommandUnclaim extends NationCommand {
                 break;
             }
         }
+
+        nation.getPower().recalculate(nation);
     }
 }

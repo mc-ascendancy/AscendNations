@@ -89,6 +89,8 @@ public class Overclaim {
                 ClaimChunks.chunks.put(chunk, attackingNation.getUUID());
                 attackingNation.getChunks().add(chunk);
 
+                attackingNation.getPower().recalculate(attackingNation);
+
                 overclaims.remove(playerUUID);
                 return;
             }
@@ -116,6 +118,9 @@ public class Overclaim {
         int diff = defendingNation.getChunks().size() - touched.size() + 1;
 
         defendingNation.recalculateChunks(touched);
+
+        defendingNation.getPower().recalculate(defendingNation);
+        attackingNation.getPower().recalculate(attackingNation);
 
         Bukkit.getServer().broadcastMessage(Language.format("overclaimSuccessBroadcast",
                 new String[]{"attackingNationName", attackingNation.getName()},

@@ -107,6 +107,7 @@ public class NationCommandClaim extends NationCommand {
         }
 
         ClaimChunks.claim(nation, player.getLocation());
+        nation.getPower().recalculate(nation);
 
         player.sendMessage(Language.format("chunkClaim",
                 new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
