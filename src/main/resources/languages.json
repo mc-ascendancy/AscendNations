@@ -99,5 +99,8 @@
 	"nationOutposts": "Current outposts: [outpostCount]/[outpostMax]\n[outpostListings]\nPage [page] of [pageMax]",
 	"nationOutpostsOutpost": "&nOutpost [outpostNumber]&r\nStatus: [outpostResupplyStatus]\nTime remaining: [outpostResupplyDuration]",
 	"nationOutpostStatusSatisfied": "Safe",
-	"nationOutpostStatusInProgress": "Resupplying"
+	"nationOutpostStatusInProgress": "Resupplying",
+	"nationLockout": "[nationName] has entered lockout!\nView /nation status for more information.",
+	"nationLockoutExit": "[nationName] has exited lockout and is now safe!",
+	"nationLockoutReminder": "Reminder: [nationName] is in lockout.\nView /nation status for more information."
 }

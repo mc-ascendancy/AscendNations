@@ -42,6 +42,8 @@ public class NationVariables {
     private Material claimBlockOutpost;
 
     private long lockoutDuration;
+    private int lockoutReminderFrequency;
+
     private long overclaimDuration;
     private long overclaimDurationOutpost;
     private long overclaimDurationHome;
@@ -157,6 +159,10 @@ public class NationVariables {
 
     public long getLockoutDuration() {
         return lockoutDuration;
+    }
+
+    public int getLockoutReminderFrequency() {
+        return lockoutReminderFrequency;
     }
 
     public long getOverclaimDuration() {

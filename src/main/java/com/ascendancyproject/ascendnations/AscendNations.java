@@ -29,6 +29,7 @@ public final class AscendNations extends JavaPlugin {
         new NationPassivePowerTicker(this);
         new OverclaimTicker(this);
         new NationOutpostTicker(this);
+        new NationLockoutTicker(this);
 
         // Register commands.
         this.getCommand("nation").setExecutor(new CommandNation());
