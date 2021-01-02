@@ -51,5 +51,11 @@ public class NationCommandAppoint extends NationCommand {
 
         if (appointed.isOnline())
             ((Player) appointed).sendMessage(Language.format("nationAppointReceived", new String[]{"appointerName", player.getName()}));
+
+        nation.broadcast(Language.format("nationAppointBroadcast",
+                new String[]{"nationName", nation.getName()},
+                new String[]{"appointerName", player.getName()},
+                new String[]{"appointedName", appointed.getName()}
+        ), player.getUniqueId(), appointed.getUniqueId());
     }
 }

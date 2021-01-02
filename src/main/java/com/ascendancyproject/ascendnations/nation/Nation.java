@@ -54,8 +54,13 @@ public class Nation {
         PersistentData.instance.getNations().remove(uuid);
     }
 
-    public void broadcast(String message) {
+    public void broadcast(String message, UUID... exceptions) {
+        HashSet<UUID> exceptionSet = new HashSet<>(Arrays.asList(exceptions));
+
         for (UUID member : members.keySet()) {
+            if (exceptionSet.contains(member))
+                continue;
+
             Player player = Bukkit.getPlayer(member);
 
             if (player != null)

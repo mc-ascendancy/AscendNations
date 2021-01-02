@@ -53,5 +53,6 @@ public class NationCommandJoin extends NationCommand {
         NationInvitationManager.invitations.remove(invitationUUID);
 
         player.sendMessage(Language.format("nationJoin", new String[]{"nationName", nation.getName()}));
+        nation.broadcast(Language.format("nationJoinBroadcast", new String[]{"nationName", nation.getName()}, new String[]{"playerName", player.getName()}), player.getUniqueId());
     }
 }

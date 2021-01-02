@@ -53,5 +53,11 @@ public class NationCommandKick extends NationCommand {
 
         if (kicked.isOnline())
             ((Player) kicked).sendMessage(Language.format("nationKickReceived", new String[]{"kickerName", player.getName()}, new String[]{"nationName", nation.getName()}));
+
+        nation.broadcast(Language.format("nationKickBroadcast",
+                new String[]{"nationName", nation.getName()},
+                new String[]{"kickerName", player.getName()},
+                new String[]{"kickedName", kicked.getName()}
+        ), player.getUniqueId(), kicked.getUniqueId());
     }
 }

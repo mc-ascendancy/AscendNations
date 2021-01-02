@@ -55,5 +55,11 @@ public class NationCommandDemote extends NationCommand {
 
         if (demoted.isOnline())
             ((Player) demoted).sendMessage(Language.format("nationDemoteReceived", new String[]{"demoterName", player.getName()}));
+
+        nation.broadcast(Language.format("nationDemoteBroadcast",
+                new String[]{"nationName", nation.getName()},
+                new String[]{"demoterName", player.getName()},
+                new String[]{"demotedName", demoted.getName()}
+        ), player.getUniqueId(), demoted.getUniqueId());
     }
 }

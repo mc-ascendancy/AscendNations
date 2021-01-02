@@ -29,5 +29,6 @@ public class NationCommandLeave extends NationCommand {
         nation.getPower().recalculate(nation);
 
         player.sendMessage(Language.format("nationLeave", new String[]{"nationName", nation.getName()}));
+        nation.broadcast(Language.format("nationLeaveBroadcast", new String[]{"nationName", nation.getName()}, new String[]{"playerName", player.getName()}), player.getUniqueId());
     }
 }

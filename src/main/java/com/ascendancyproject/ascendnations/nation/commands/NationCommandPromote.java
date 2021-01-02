@@ -55,5 +55,11 @@ public class NationCommandPromote extends NationCommand {
 
         if (promoted.isOnline())
             ((Player) promoted).sendMessage(Language.format("nationPromoteReceived", new String[]{"promoterName", player.getName()}));
+
+        nation.broadcast(Language.format("nationPromoteBroadcast",
+                new String[]{"nationName", nation.getName()},
+                new String[]{"promoterName", player.getName()},
+                new String[]{"promotedName", promoted.getName()}
+        ), player.getUniqueId(), promoted.getUniqueId());
     }
 }
