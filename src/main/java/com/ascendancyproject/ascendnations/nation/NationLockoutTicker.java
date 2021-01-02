@@ -2,6 +2,7 @@ package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.PersistentData;
+import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
 
@@ -28,9 +29,17 @@ public class NationLockoutTicker {
     }
 
     private void reclaimChunks(Nation nation) {
+        int startingOutposts = nation.getOutposts().size();
         int startingChunks = nation.getChunks().size();
 
-        while (nation.getPower().getChunkLockoutExpiry() != 0) {
+        while (nation.getOutposts().size() > nation.getPower().getOutpostsClaimable()) {
+            Long outpost = nation.getOutposts().keySet().iterator().next();
+            nation.getOutposts().remove(outpost);
+            nation.getOutpostsSequential().remove(outpost);
+            ClaimChunks.unclaim(nation, nation.getOutpostChunk(outpost));
+        }
+
+        while (nation.getChunks().size() > nation.getPower().getChunksClaimable()) {
             Iterator<Long> it = nation.getChunks().iterator();
             Long remove = it.next();
             if (nation.isClaimChunk(remove) || RiftConfig.getRift(remove) != null)
@@ -38,10 +47,12 @@ public class NationLockoutTicker {
 
             HashSet<Long> touched = nation.getTouched(remove);
             nation.recalculateChunks(touched);
-
-            nation.getPower().recalculate(nation);
         }
 
-        nation.broadcast(Language.format("nationReclaimedChunks", new String[]{"chunkCount", Integer.toString(startingChunks - nation.getChunks().size())}));
+        nation.getPower().recalculate(nation);
+        nation.broadcast(Language.format("nationReclaimedChunks",
+                new String[]{"chunkCount", Integer.toString(startingChunks - nation.getChunks().size())},
+                new String[]{"outpostCount", Integer.toString(startingOutposts - nation.getOutposts().size())}
+        ));
     }
 }
