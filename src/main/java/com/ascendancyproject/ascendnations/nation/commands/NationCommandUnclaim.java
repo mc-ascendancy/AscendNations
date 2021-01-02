@@ -3,7 +3,6 @@ package com.ascendancyproject.ascendnations.nation.commands;
 import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
-import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
@@ -15,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
-import java.util.Iterator;
 
 @NationCommandAnnotation(
         name = "unclaim",
@@ -68,19 +66,7 @@ public class NationCommandUnclaim extends NationCommand {
             player.sendMessage(Language.getLine("chunkUnclaim"));
         }
 
-        for (Iterator<Long> it = nation.getOutposts().keySet().iterator(); it.hasNext();) {
-            Long outpost = it.next();
-            Long outpostChunk = nation.getOutpostChunk(outpost);
-
-            if (outpostChunk.equals(key)) {
-                it.remove();
-                nation.getOutpostsSequential().remove(outpost);
-                ClaimBlock.removeBlock(remove.getWorld().getBlockAtKey(outpost));
-
-                break;
-            }
-        }
-
+        nation.removeOutpost(key);
         nation.getPower().recalculate(nation);
     }
 }

@@ -30,5 +30,6 @@
 	"resupplySatisfiedDuration": 60000,
 	"resupplyTimeout": 120000,
 	"resupplyDistance": 5,
+	"resupplyHealth": 100,
 	"resupplyReminderFrequency": 200
 }

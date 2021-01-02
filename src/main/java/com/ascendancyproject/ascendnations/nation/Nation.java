@@ -50,8 +50,8 @@ public class Nation {
         if (home != null)
             ClaimBlock.removeBlock(world.getBlockAtKey(home));
 
-        for (Long outpost : outposts.keySet())
-            ClaimBlock.removeBlock(world.getBlockAtKey(outpost));
+        for (Map.Entry<Long, NationOutpost> outpost : outposts.entrySet())
+            outpost.getValue().destroy(this, outpost.getKey());
 
         PersistentData.instance.getNations().remove(uuid);
     }
@@ -204,12 +204,26 @@ public class Nation {
         return outposts;
     }
 
-    public Long getOutpostChunk(Long outpost) {
+    public static Long getOutpostChunk(Long outpost) {
         return Chunk.getChunkKey(Block.getBlockKeyX(outpost) / 16, Block.getBlockKeyZ(outpost) / 16);
     }
 
-    public Vector getOutpostVector(Long outpost) {
+    public static Vector getOutpostVector(Long outpost) {
         return new Vector(Block.getBlockKeyX(outpost) / 16, 0, Block.getBlockKeyZ(outpost) / 16);
+    }
+
+    public void removeOutpost(Long key) {
+        for (Iterator<Map.Entry<Long, NationOutpost>> it = outposts.entrySet().iterator(); it.hasNext();) {
+            Map.Entry<Long, NationOutpost> outpost = it.next();
+            Long outpostChunk = getOutpostChunk(outpost.getKey());
+
+            if (outpostChunk.equals(key)) {
+                outpost.getValue().destroy(this, outpost.getKey());
+                it.remove();
+
+                break;
+            }
+        }
     }
 
     public HashSet<Long> getChunks() {

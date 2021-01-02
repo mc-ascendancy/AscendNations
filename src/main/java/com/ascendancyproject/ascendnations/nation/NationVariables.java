@@ -53,6 +53,7 @@ public class NationVariables {
     private long resupplySatisfiedDuration;
     private long resupplyTimeout;
     private float resupplyDistance;
+    private double resupplyHealth;
     private int resupplyReminderFrequency;
 
     public static void init(File file, AscendNations plugin) {
@@ -197,6 +198,10 @@ public class NationVariables {
 
     public float getResupplyDistance() {
         return resupplyDistance;
+    }
+
+    public double getResupplyHealth() {
+        return resupplyHealth;
     }
 
     public int getResupplyReminderFrequency() {

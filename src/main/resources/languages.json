@@ -94,6 +94,7 @@
 	"overclaimFailDamaged": "Overclaim failed, you can not take damage.",
 	"overclaimFailBroadcast": "[attackingNationName] failed to overclaim [defendingNationName]'s chunk.",
 	"resupplySpawned": "Spawned resupply minecart for outpost [outpostNumber].\nYou have [duration] to transport it to outpost [outpostNumber].",
+	"resupplyRespawn": "Resupply minecart for outpost [outpostNumber] lost!\nYou have [duration] to transport the new one!",
 	"resupplyReminder": "Reminder: you have [duration] to resupply outpost [outpostNumber].",
 	"resupplySuccess": "Successfully resupplied outpost [outpostNumber].",
 	"resupplyFail": "Failed to resupply outpost [outpostNumber].\n[chunkCount] chunks lost.",

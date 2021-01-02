@@ -3,7 +3,6 @@ package com.ascendancyproject.ascendnations.nation;
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.PersistentData;
-import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
 
@@ -35,9 +34,8 @@ public class NationLockoutTicker {
 
         while (nation.getOutposts().size() > nation.getPower().getOutpostsClaimable()) {
             Long outpost = nation.getOutposts().keySet().iterator().next();
+            nation.getOutposts().get(outpost).destroy(nation, outpost);
             nation.getOutposts().remove(outpost);
-            nation.getOutpostsSequential().remove(outpost);
-            ClaimChunks.unclaim(nation, nation.getOutpostChunk(outpost));
         }
 
         while (nation.getChunks().size() > nation.getPower().getChunksClaimable()) {

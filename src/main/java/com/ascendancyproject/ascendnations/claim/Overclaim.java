@@ -9,12 +9,10 @@ import com.ascendancyproject.ascendnations.rift.Rift;
 import com.ascendancyproject.ascendnations.rift.RiftChunk;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.UUID;
 
 public class Overclaim {
@@ -96,20 +94,7 @@ public class Overclaim {
                 return;
             }
 
-            World world = Bukkit.getWorld("world");
-
-            for (Iterator<Long> it = defendingNation.getOutposts().keySet().iterator(); it.hasNext();) {
-                Long outpost = it.next();
-                Long outpostChunk = defendingNation.getOutpostChunk(outpost);
-
-                if (outpostChunk.equals(chunk)) {
-                    it.remove();
-                    defendingNation.getOutpostsSequential().remove(outpost);
-                    ClaimBlock.removeBlock(world.getBlockAtKey(outpost));
-
-                    break;
-                }
-            }
+            defendingNation.removeOutpost(chunk);
         }
 
         Rift rift = RiftConfig.getRift(player.getChunk().getChunkKey());

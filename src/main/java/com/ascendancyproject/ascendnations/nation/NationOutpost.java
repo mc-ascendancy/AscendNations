@@ -1,17 +1,25 @@
 package com.ascendancyproject.ascendnations.nation;
 
+import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashSet;
 import java.util.UUID;
 
 public class NationOutpost {
+    public static final NamespacedKey nbtKeyHealth = new NamespacedKey(AscendNations.getInstance(), "an-resupply-minecart-health");
+    public static final NamespacedKey nbtKeyOutpost = new NamespacedKey(AscendNations.getInstance(), "an-resupply-minecart-outpost");
+
     private int number;
 
     private long resupplyExpiry;
@@ -37,12 +45,7 @@ public class NationOutpost {
             World world = Bukkit.getWorld("world");
 
             Minecart minecart = (Minecart) world.getEntity(minecartUUID);
-            if (minecart == null) {
-                spawnMinecart(nation, true);
-                return;
-            }
-
-            if (minecart.getLocation().distance(world.getBlockAtKey(key).getLocation()) <= NationVariables.instance.getResupplyDistance()) {
+            if (minecart != null && minecart.getLocation().distance(world.getBlockAtKey(key).getLocation()) <= NationVariables.instance.getResupplyDistance()) {
                 resupplied();
                 minecart.remove();
                 return;
@@ -56,7 +59,7 @@ public class NationOutpost {
             resupplyState = NationOutpostResupply.InProgress;
             resupplyExpiry = System.currentTimeMillis() + NationVariables.instance.getResupplyTimeout();
 
-            spawnMinecart(nation, false);
+            spawnMinecart(nation, key, false);
 
             nation.broadcast(Language.format("resupplySpawned",
                     new String[]{"outpostNumber", Integer.toString(number)},
@@ -66,11 +69,8 @@ public class NationOutpost {
             return;
         }
 
-        ClaimBlock.removeBlock(Bukkit.getWorld("world").getBlockAtKey(key));
-        ClaimChunks.unclaim(nation, nation.getOutpostChunk(key));
-
+        destroy(nation, key);
         nation.getOutposts().remove(key);
-        nation.getOutpostsSequential().remove(key);
 
         HashSet<Long> touched = nation.getTouched(key);
         int diff = nation.getChunks().size() - touched.size() + 1;
@@ -96,11 +96,35 @@ public class NationOutpost {
         resupplyState = NationOutpostResupply.Satisfied;
     }
 
-    public void spawnMinecart(Nation nation, boolean respawn) {
+    public void spawnMinecart(Nation nation, Long key, boolean respawn) {
+        if (respawn)
+            nation.broadcast(Language.format("resupplyRespawn",
+                    new String[]{"outpostNumber", Integer.toString(number)},
+                    new String[]{"duration", AscendNationsHelper.durationToString(resupplyExpiry - System.currentTimeMillis())}
+            ));
+
         World world = Bukkit.getWorld("world");
 
         Minecart minecart = world.spawn(world.getBlockAtKey(nation.getHome()).getLocation().add(0, 1, 0), Minecart.class);
+
+        PersistentDataContainer data = minecart.getPersistentDataContainer();
+        data.set(nbtKeyHealth, PersistentDataType.DOUBLE, NationVariables.instance.getResupplyHealth());
+        data.set(nbtKeyOutpost, PersistentDataType.LONG, key);
+
         minecartUUID = minecart.getUniqueId();
+    }
+
+    public void destroy(Nation nation, Long key) {
+        nation.getOutpostsSequential().remove(key);
+
+        if (minecartUUID != null) {
+            Entity entity = Bukkit.getServer().getEntity(minecartUUID);
+            if (entity != null)
+                entity.remove();
+        }
+
+        ClaimChunks.unclaim(nation, Nation.getOutpostChunk(key));
+        ClaimBlock.removeBlock(Bukkit.getWorld("world").getBlockAtKey(key));
     }
 
     public int getNumber() {
@@ -113,5 +137,9 @@ public class NationOutpost {
 
     public NationOutpostResupply getResupplyState() {
         return resupplyState;
+    }
+
+    public UUID getMinecartUUID() {
+        return minecartUUID;
     }
 }
