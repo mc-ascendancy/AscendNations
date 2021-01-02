@@ -88,5 +88,9 @@
 	"resupplySpawned": "Spawned resupply minecart for outpost [outpostNumber].\nYou have [duration] to transport it to outpost [outpostNumber].",
 	"resupplyReminder": "Reminder: you have [duration] to resupply outpost [outpostNumber].",
 	"resupplySuccess": "Successfully resupplied outpost [outpostNumber].",
-	"resupplyFail": "Failed to resupply outpost [outpostNumber].\n[chunkCount] chunks lost."
+	"resupplyFail": "Failed to resupply outpost [outpostNumber].\n[chunkCount] chunks lost.",
+	"nationOutposts": "Current outposts: [outpostCount]/[outpostMax]\n[outpostListings]\nPage [page] of [pageMax]",
+	"nationOutpostsOutpost": "&nOutpost [outpostNumber]&r\nStatus: [outpostResupplyStatus]\nTime remaining: [outpostResupplyDuration]",
+	"nationOutpostStatusSatisfied": "Safe",
+	"nationOutpostStatusInProgress": "Resupplying"
 }

@@ -106,4 +106,12 @@ public class NationOutpost {
     public int getNumber() {
         return number;
     }
+
+    public long getResupplyExpiry() {
+        return resupplyExpiry;
+    }
+
+    public NationOutpostResupply getResupplyState() {
+        return resupplyState;
+    }
 }
