@@ -19,7 +19,8 @@ public class Nation {
     private final NationPower power;
 
     private Long home;
-    private final HashSet<Long> outposts;
+    private final HashMap<Long, NationOutpost> outposts;
+    private final ArrayList<Long> outpostsSequential;
     private final HashSet<Long> chunks;
 
     public Nation(Player creator, String name) {
@@ -27,7 +28,8 @@ public class Nation {
         this.name = name;
         members = new HashMap<>();
         members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
-        outposts = new HashSet<>();
+        outposts = new HashMap<>();
+        outpostsSequential = new ArrayList<>();
         chunks = new HashSet<>();
         power = new NationPower(this);
 
@@ -46,10 +48,19 @@ public class Nation {
         if (home != null)
             ClaimBlock.removeBlock(world.getBlockAtKey(home));
 
-        for (Long outpost : outposts)
+        for (Long outpost : outposts.keySet())
             ClaimBlock.removeBlock(world.getBlockAtKey(outpost));
 
         PersistentData.instance.getNations().remove(uuid);
+    }
+
+    public void broadcast(String message) {
+        for (UUID member : members.keySet()) {
+            Player player = Bukkit.getPlayer(member);
+
+            if (player != null)
+                player.sendMessage(message);
+        }
     }
 
     public boolean lacksPermissions(UUID playerUUID, NationRole minimumRole) {
@@ -86,7 +97,7 @@ public class Nation {
         if (key.equals(getHomeChunk()))
             return true;
 
-        for (Long outpost : outposts)
+        for (Long outpost : outposts.keySet())
             if (key.equals(getOutpostChunk(outpost)))
                 return true;
 
@@ -111,7 +122,7 @@ public class Nation {
         touched.add(getHomeChunk());
         q.add(getHomeVector());
 
-        for (Long outpost : getOutposts()) {
+        for (Long outpost : outposts.keySet()) {
             Long outpostChunk = getOutpostChunk(outpost);
 
             if (!outpostChunk.equals(rKey)) {
@@ -178,7 +189,11 @@ public class Nation {
         this.home = home;
     }
 
-    public HashSet<Long> getOutposts() {
+    public ArrayList<Long> getOutpostsSequential() {
+        return outpostsSequential;
+    }
+
+    public HashMap<Long, NationOutpost> getOutposts() {
         return outposts;
     }
 

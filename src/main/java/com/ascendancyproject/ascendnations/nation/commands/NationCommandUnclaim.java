@@ -68,12 +68,13 @@ public class NationCommandUnclaim extends NationCommand {
             player.sendMessage(Language.getLine("chunkUnclaim"));
         }
 
-        for (Iterator<Long> it = nation.getOutposts().iterator(); it.hasNext();) {
+        for (Iterator<Long> it = nation.getOutposts().keySet().iterator(); it.hasNext();) {
             Long outpost = it.next();
             Long outpostChunk = nation.getOutpostChunk(outpost);
 
             if (outpostChunk.equals(key)) {
                 it.remove();
+                nation.getOutpostsSequential().remove(outpost);
                 ClaimBlock.removeBlock(remove.getWorld().getBlockAtKey(outpost));
 
                 break;

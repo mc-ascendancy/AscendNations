@@ -46,6 +46,11 @@ public class NationVariables {
     private long overclaimDurationOutpost;
     private long overclaimDurationHome;
 
+    private long resupplySatisfiedDuration;
+    private long resupplyTimeout;
+    private float resupplyDistance;
+    private int resupplyReminderFrequency;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -164,5 +169,21 @@ public class NationVariables {
 
     public long getOverclaimDurationHome() {
         return overclaimDurationHome;
+    }
+
+    public long getResupplySatisfiedDuration() {
+        return resupplySatisfiedDuration;
+    }
+
+    public long getResupplyTimeout() {
+        return resupplyTimeout;
+    }
+
+    public float getResupplyDistance() {
+        return resupplyDistance;
+    }
+
+    public int getResupplyReminderFrequency() {
+        return resupplyReminderFrequency;
     }
 }

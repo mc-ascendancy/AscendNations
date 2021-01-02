@@ -24,7 +24,7 @@ public class ClaimChunks {
 
             world.getBlockAtKey(nation.getHome()).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
 
-            for (Long outpost : nation.getOutposts())
+            for (Long outpost : nation.getOutposts().keySet())
                 world.getBlockAtKey(outpost).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Outpost));
         }
     }
@@ -53,5 +53,10 @@ public class ClaimChunks {
     public static void claim(Nation attackingNation, Nation defendingNation, Long key) {
         claim(attackingNation, key);
         defendingNation.getChunks().remove(key);
+    }
+
+    public static void unclaim(Nation nation, Long key) {
+        chunks.remove(key);
+        nation.getChunks().remove(key);
     }
 }

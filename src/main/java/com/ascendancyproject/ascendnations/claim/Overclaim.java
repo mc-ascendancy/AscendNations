@@ -98,12 +98,13 @@ public class Overclaim {
 
             World world = Bukkit.getWorld("world");
 
-            for (Iterator<Long> it = defendingNation.getOutposts().iterator(); it.hasNext();) {
+            for (Iterator<Long> it = defendingNation.getOutposts().keySet().iterator(); it.hasNext();) {
                 Long outpost = it.next();
                 Long outpostChunk = defendingNation.getOutpostChunk(outpost);
 
                 if (outpostChunk.equals(chunk)) {
                     it.remove();
+                    defendingNation.getOutpostsSequential().remove(outpost);
                     ClaimBlock.removeBlock(world.getBlockAtKey(outpost));
 
                     break;

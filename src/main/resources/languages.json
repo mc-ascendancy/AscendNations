@@ -74,7 +74,7 @@
 	"claimHome": "Claimed home!",
 	"errorClaimHomeClaimed": "You already have a home.",
 	"errorClaimSpecialOnRift": "You may not claim home/outpost on a rift.",
-	"claimOutpost": "Claimed outpost!\nYou have now claimed [outpostsClaimed]/[outpostsCap] outposts.",
+	"claimOutpost": "Claimed outpost [outpostNumber]!\nYou have now claimed [outpostsClaimed]/[outpostsCap] outposts.",
 	"errorClaimOutpostNoHome": "You must claim a home first.",
 	"errorClaimOutpostMaxClaimed": "You have already claimed [outpostCount]/[outpostCount] outposts.",
 	"overclaimStart": "Started overclaiming one of [defendingNationName]'s chunks.\nStay in this chunk for [duration] without taking damage.",
@@ -84,5 +84,9 @@
 	"overclaimSuccessBroadcastHome": "[attackingNationName] overclaimed [defendingNationName]'s home!\n[defendingNationName] has been destroyed.",
 	"overclaimFailMoved": "Overclaim failed, you can not move out of the chunk.",
 	"overclaimFailDamaged": "Overclaim failed, you can not take damage.",
-	"overclaimFailBroadcast": "[attackingNationName] failed to overclaim [defendingNationName]'s chunk."
+	"overclaimFailBroadcast": "[attackingNationName] failed to overclaim [defendingNationName]'s chunk.",
+	"resupplySpawned": "Spawned resupply minecart for outpost [outpostNumber].\nYou have [duration] to transport it to outpost [outpostNumber].",
+	"resupplyReminder": "Reminder: you have [duration] to resupply outpost [outpostNumber].",
+	"resupplySuccess": "Successfully resupplied outpost [outpostNumber].",
+	"resupplyFail": "Failed to resupply outpost [outpostNumber].\n[chunkCount] chunks lost."
 }

@@ -3,6 +3,7 @@ package com.ascendancyproject.ascendnations.claim;
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
+import com.ascendancyproject.ascendnations.nation.NationOutpost;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -48,11 +49,12 @@ public class ClaimBlock {
         }
 
         ClaimChunks.claim(nation, block.getChunk().getChunkKey());
-        nation.getOutposts().add(block.getBlockKey());
+        int outpostNumber = new NationOutpost(nation, block.getBlockKey()).getNumber();
 
         block.setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Outpost));
 
         player.sendMessage(Language.format("claimOutpost",
+                new String[]{"outpostNumber", Integer.toString(outpostNumber)},
                 new String[]{"outpostsClaimed", Integer.toString(nation.getOutposts().size())},
                 new String[]{"outpostsCap", Integer.toString(nation.getPower().getOutpostsClaimable())}
         ));

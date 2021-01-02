@@ -23,5 +23,9 @@
 	"lockoutDuration": 60000,
 	"overclaimDuration": 30000,
 	"overclaimDurationOutpost": 60000,
-	"overclaimDurationHome": 120000
+	"overclaimDurationHome": 120000,
+	"resupplySatisfiedDuration": 60000,
+	"resupplyTimeout": 120000,
+	"resupplyDistance": 5,
+	"resupplyReminderFrequency": 200
 }
