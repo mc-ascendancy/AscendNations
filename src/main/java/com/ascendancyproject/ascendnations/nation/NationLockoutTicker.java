@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.AscendNations;
+import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.language.Language;
@@ -50,9 +51,12 @@ public class NationLockoutTicker {
         }
 
         nation.getPower().recalculate(nation);
+        nation.setClaimPunishmentExpiry(System.currentTimeMillis() + NationVariables.instance.getClaimPunishmentDuration());
+
         nation.broadcast(Language.format("nationReclaimedChunks",
                 new String[]{"chunkCount", Integer.toString(startingChunks - nation.getChunks().size())},
-                new String[]{"outpostCount", Integer.toString(startingOutposts - nation.getOutposts().size())}
+                new String[]{"outpostCount", Integer.toString(startingOutposts - nation.getOutposts().size())},
+                new String[]{"claimPunishmentDuration", AscendNationsHelper.durationToString(NationVariables.instance.getClaimPunishmentDuration())}
         ));
     }
 }

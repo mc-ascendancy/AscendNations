@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations.claim;
 
 import com.ascendancyproject.ascendnations.AscendNations;
+import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
@@ -38,6 +39,13 @@ public class ClaimBlockEvents implements Listener {
         if (nation.lacksPermissions(event.getPlayer().getUniqueId(), NationRole.Commander)) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", NationRole.Commander.name()}));
+            return;
+        }
+
+        if (nation.isClaimPunished()) {
+            event.getPlayer().sendMessage(Language.format("errorNationClaimReclaimPunishment",
+                    new String[]{"duration", AscendNationsHelper.durationToString(nation.getClaimPunishmentExpiry() - System.currentTimeMillis())}
+            ));
             return;
         }
 

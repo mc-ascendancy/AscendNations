@@ -23,6 +23,7 @@
 	"lockoutDuration": 60000,
 	"lockoutChunkDuration": 60000,
 	"lockoutReminderFrequency": 400,
+	"claimPunishmentDuration": 60000,
 	"overclaimDuration": 30000,
 	"overclaimDurationOutpost": 60000,
 	"overclaimDurationHome": 120000,

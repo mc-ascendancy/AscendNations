@@ -23,6 +23,8 @@ public class Nation {
     private final ArrayList<Long> outpostsSequential;
     private final HashSet<Long> chunks;
 
+    private long claimPunishmentExpiry;
+
     public Nation(Player creator, String name) {
         uuid = UUID.randomUUID();
         this.name = name;
@@ -212,5 +214,17 @@ public class Nation {
 
     public HashSet<Long> getChunks() {
         return chunks;
+    }
+
+    public boolean isClaimPunished() {
+        return claimPunishmentExpiry > System.currentTimeMillis();
+    }
+
+    public long getClaimPunishmentExpiry() {
+        return claimPunishmentExpiry;
+    }
+
+    public void setClaimPunishmentExpiry(long claimPunishmentExpiry) {
+        this.claimPunishmentExpiry = claimPunishmentExpiry;
     }
 }

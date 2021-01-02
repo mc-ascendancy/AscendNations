@@ -1,9 +1,6 @@
 package com.ascendancyproject.ascendnations.nation.commands;
 
-import com.ascendancyproject.ascendnations.NationCommand;
-import com.ascendancyproject.ascendnations.NationCommandAnnotation;
-import com.ascendancyproject.ascendnations.PersistentData;
-import com.ascendancyproject.ascendnations.PlayerData;
+import com.ascendancyproject.ascendnations.*;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.claim.Overclaim;
@@ -30,6 +27,13 @@ import java.util.UUID;
 public class NationCommandClaim extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
+        if (nation.isClaimPunished()) {
+            player.sendMessage(Language.format("errorNationClaimReclaimPunishment",
+                    new String[]{"duration", AscendNationsHelper.durationToString(nation.getClaimPunishmentExpiry() - System.currentTimeMillis())}
+            ));
+            return;
+        }
+
         if (args.length == 1) {
             claim(player, nation);
             return;

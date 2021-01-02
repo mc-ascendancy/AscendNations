@@ -62,6 +62,7 @@
 	"errorNationClaimHomeClaimed": "You have already claimed your home.",
 	"errorNationClaimMaxOutposts": "You have already claimed [outpostCount]/[outpostCount] outposts.",
 	"errorNationClaimBadArgs": "Unknown argument [args].\nFormat: /nation claim [auto] [outpost] [home]",
+	"errorNationClaimReclaimPunishment": "You must wait [duration] before being able to claim again as an auto-reclaim punishment.",
 	"chunkClaim": "Claimed chunk [chunksClaimed]/[chunksClaimable]!",
 	"chunkClaimRift": "Claimed [riftChunks] rift chunks adding [riftPower] power!\nNow using [chunksClaimed]/[chunksClaimable] claims.",
 	"chunkClaimOverclaim": "Overclaimed chunk [chunksClaimed]/[chunksClaimable]!",
@@ -106,5 +107,5 @@
 	"nationLockoutChunk": "Your member count is too low to support your current land claims.\nView /nation status for more information.",
 	"nationLockoutChunkExit": "[nationName] is now safe from auto-reclaiming.",
 	"nationLockoutChunkReminder": "Reminder: you have too many chunks claimed for your member count.\nView /nation status for more information.",
-	"nationReclaimedChunks": "[outpostCount] outposts and [chunkCount] chunks were automatically reclaimed."
+	"nationReclaimedChunks": "[outpostCount] outposts and [chunkCount] chunks were automatically reclaimed.\nYou must now wait [claimPunishmentDuration] before claiming again."
 }
