@@ -105,5 +105,6 @@
 	"nationLockoutReminder": "Reminder: [nationName] is in lockout.\nView /nation status for more information.",
 	"nationLockoutChunk": "Your member count is too low to support your current land claims.\nView /nation status for more information.",
 	"nationLockoutChunkExit": "[nationName] is now safe from auto-reclaiming.",
-	"nationLockoutChunkReminder": "Reminder: you have too many chunks claimed for your member count.\nView /nation status for more information."
+	"nationLockoutChunkReminder": "Reminder: you have too many chunks claimed for your member count.\nView /nation status for more information.",
+	"nationReclaimedChunks": "[chunkCount] chunks were automatically reclaimed."
 }
