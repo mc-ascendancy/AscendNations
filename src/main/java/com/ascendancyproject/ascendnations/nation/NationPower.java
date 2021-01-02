@@ -18,6 +18,7 @@ public class NationPower {
     private int outpostsClaimable;
 
     private long lockoutExpiry;
+    private long chunkLockoutExpiry;
 
     public NationPower(Nation nation) {
         recalculate(nation);
@@ -61,9 +62,8 @@ public class NationPower {
         chunksClaimable = (int)(pop * nv.getChunksPerMember());
         outpostsClaimable = (int)(pop * nv.getOutpostsPerMember());
 
-        boolean shouldLockout = nation.getChunks().size() > chunksClaimable
-                || nation.getOutposts().size() > outpostsClaimable
-                || claimThreshold > getTotal();
+        boolean shouldLockout = claimThreshold > getTotal();
+        boolean shouldChunkLockout = nation.getChunks().size() > chunksClaimable || nation.getOutposts().size() > outpostsClaimable;
 
         if (lockoutExpiry == 0L) {
             if (shouldLockout) {
@@ -73,6 +73,16 @@ public class NationPower {
         } else if (!shouldLockout) {
             nation.broadcast(Language.format("nationLockoutExit", new String[]{"nationName", nation.getName()}));
             lockoutExpiry = 0L;
+        }
+
+        if (chunkLockoutExpiry == 0L) {
+            if (shouldChunkLockout) {
+                nation.broadcast(Language.format("nationLockoutChunk", new String[]{"nationName", nation.getName()}));
+                chunkLockoutExpiry = System.currentTimeMillis() + nv.getLockoutChunkDuration();
+            }
+        } else if (!shouldChunkLockout) {
+            nation.broadcast(Language.format("nationLockoutChunkExit", new String[]{"nationName", nation.getName()}));
+            chunkLockoutExpiry = 0L;
         }
     }
 
@@ -118,5 +128,9 @@ public class NationPower {
 
     public long getLockoutExpiry() {
         return lockoutExpiry;
+    }
+
+    public long getChunkLockoutExpiry() {
+        return chunkLockoutExpiry;
     }
 }

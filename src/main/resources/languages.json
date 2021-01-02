@@ -46,7 +46,7 @@
 	"errorNationAppointBadUsername": "Bad username provided.\nTo appoint a user please specify their name!\nFormat: /nation appoint [username]\nExample: /nation appoint connor7000",
 	"nationPower": "&nYour Nation Power&r: [nationPower]/[maxNationPower]\nMember: [memberPower]/[maxMemberPower]\nRift: [riftPower]/[maxRiftPower]\n&nYour Power&r: [playerPower]/[maxPlayerPower]\nPassive: [playerPassivePower]/[maxPlayerPassivePower]\nBonus: [playerBonusPower]/[maxPlayerBonusPower]",
 	"nationPassivePowerIncremented": "Your passive power just got increased to [passivePower]/[maxPassivePower]!\nYour overall power is now [totalPower]/[maxTotalPower].",
-	"nationStatus": "&nNation Power&r: [nationPower]\nNation Claim Threshold: [nationClaimThreshold]\nNation Existence Threshold: [nationExistenceThreshold]\nChunks: [nationChunkCount]/[nationChunkMax]\nOutposts: [nationOutpostCount]/[nationOutpostMax]\nProtection: [status][nationProtectionDuration]",
+	"nationStatus": "&nNation Power&r: [nationPower]\nNation Claim Threshold: [nationClaimThreshold]\nNation Existence Threshold: [nationExistenceThreshold]\nChunks: [nationChunkCount]/[nationChunkMax]\nOutposts: [nationOutpostCount]/[nationOutpostMax]\nProtection: [status][nationProtectionDuration]&r\nAuto reclaim protection: [statusChunk][nationChunkProtectionDuration]",
 	"nationStatusProtectionExpired": "EXPIRED",
 	"nationStatusSafe": "&2",
 	"nationStatusWarning": "&6",
@@ -102,5 +102,8 @@
 	"nationOutpostStatusInProgress": "Resupplying",
 	"nationLockout": "[nationName] has entered lockout!\nView /nation status for more information.",
 	"nationLockoutExit": "[nationName] has exited lockout and is now safe!",
-	"nationLockoutReminder": "Reminder: [nationName] is in lockout.\nView /nation status for more information."
+	"nationLockoutReminder": "Reminder: [nationName] is in lockout.\nView /nation status for more information.",
+	"nationLockoutChunk": "Your member count is too low to support your current land claims.\nView /nation status for more information.",
+	"nationLockoutChunkExit": "[nationName] is now safe from auto-reclaiming.",
+	"nationLockoutChunkReminder": "Reminder: you have too many chunks claimed for your member count.\nView /nation status for more information."
 }

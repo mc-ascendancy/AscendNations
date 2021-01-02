@@ -39,6 +39,15 @@ public class NationCommandStatus extends NationCommand {
 
         String protectionString = protection != 0L ? AscendNationsHelper.durationToString(protection) : Language.getLine("nationStatusProtectionExpired");
 
+        String chunkProtectionString = AscendNationsHelper.durationToString(
+                nation.getPower().getChunkLockoutExpiry() == 0 ?
+                        NationVariables.instance.getLockoutChunkDuration() :
+                        nation.getPower().getChunkLockoutExpiry() - System.currentTimeMillis()
+        );
+        String statusColourChunk = nation.getPower().getChunkLockoutExpiry() == 0 ?
+                Language.getLine("nationStatusSafe") :
+                Language.getLine("nationStatusWarning");
+
         player.sendMessage(Language.format("nationStatus",
                 new String[]{"nationPower", Integer.toString(np.getTotal())},
                 new String[]{"nationClaimThreshold", Integer.toString(np.getClaimThreshold())},
@@ -48,7 +57,9 @@ public class NationCommandStatus extends NationCommand {
                 new String[]{"nationOutpostCount", Integer.toString(nation.getOutposts().size())},
                 new String[]{"nationOutpostMax", Integer.toString(nation.getPower().getOutpostsClaimable())},
                 new String[]{"nationProtectionDuration", protectionString},
-                new String[]{"status", statusColour}
+                new String[]{"nationChunkProtectionDuration", chunkProtectionString},
+                new String[]{"status", statusColour},
+                new String[]{"statusChunk", statusColourChunk}
         ));
     }
 }

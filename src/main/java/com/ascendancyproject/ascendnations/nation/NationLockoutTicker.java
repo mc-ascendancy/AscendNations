@@ -10,8 +10,12 @@ public class NationLockoutTicker {
     }
 
     private void tick() {
-        for (Nation nation : PersistentData.instance.getNations().values())
+        for (Nation nation : PersistentData.instance.getNations().values()) {
             if (nation.getPower().getLockoutExpiry() != 0)
                 nation.broadcast(Language.format("nationLockoutReminder", new String[]{"nationName", nation.getName()}));
+
+            if (nation.getPower().getChunkLockoutExpiry() != 0)
+                nation.broadcast(Language.format("nationLockoutChunkReminder", new String[]{"nationName", nation.getName()}));
+        }
     }
 }

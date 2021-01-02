@@ -21,6 +21,7 @@
 	"claimBlockHomeType": "LIME_TERRACOTTA",
 	"claimBlockOutpostType": "RED_TERRACOTTA",
 	"lockoutDuration": 60000,
+	"lockoutChunkDuration": 60000,
 	"lockoutReminderFrequency": 400,
 	"overclaimDuration": 30000,
 	"overclaimDurationOutpost": 60000,
