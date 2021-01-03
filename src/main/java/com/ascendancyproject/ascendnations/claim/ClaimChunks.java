@@ -22,7 +22,8 @@ public class ClaimChunks {
             for (Long chunk : nation.getChunks())
                 chunks.put(chunk, nation.getUUID());
 
-            world.getBlockAtKey(nation.getHome()).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
+            if (nation.getHome() != null)
+                world.getBlockAtKey(nation.getHome()).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
 
             for (Long outpost : nation.getOutposts().keySet())
                 world.getBlockAtKey(outpost).setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Outpost));
