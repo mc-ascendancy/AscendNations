@@ -18,7 +18,6 @@ import java.util.UUID;
 @NationCommandAnnotation(
         name = "invite",
         description = "Invite your friends to your nation!",
-        aliases = {"invite"},
         minimumRole = NationRole.Commander
 )
 public class NationCommandInvite extends NationCommand {

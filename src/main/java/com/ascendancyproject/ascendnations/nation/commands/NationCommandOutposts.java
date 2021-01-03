@@ -14,8 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "outposts",
-        description = "View the status of your nation's outposts.",
-        aliases = {"outposts", "outpost"}
+        description = "View the status of your nation's outposts."
 )
 public class NationCommandOutposts extends NationCommand {
     private static final int listingsPerPage = 3;

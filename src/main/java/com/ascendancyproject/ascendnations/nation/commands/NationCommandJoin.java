@@ -15,8 +15,9 @@ import java.util.UUID;
 @NationCommandAnnotation(
         name = "join",
         description = "Join your friends' nation!",
-        aliases = {"join"},
-        requiresNation = false
+        requiresNation = false,
+        requiresNoNation = true,
+        hidden = true
 )
 public class NationCommandJoin extends NationCommand {
     @Override

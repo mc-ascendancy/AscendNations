@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 @NationCommandAnnotation(
         name = "appoint",
         description = "Appoint a new Chancellor for your nation.",
-        aliases = {"appoint"},
         minimumRole = NationRole.Chancellor
 )
 public class NationCommandAppoint extends NationCommand {

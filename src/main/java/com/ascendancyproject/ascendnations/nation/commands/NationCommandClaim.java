@@ -16,12 +16,12 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @NationCommandAnnotation(
         name = "claim",
         description = "Claim territory for your nation.",
-        aliases = {"claim"},
         minimumRole = NationRole.Commander
 )
 public class NationCommandClaim extends NationCommand {
@@ -147,5 +147,20 @@ public class NationCommandClaim extends NationCommand {
 
     private void claimAuto() {
         // TODO: claim auto.
+    }
+
+    @Override
+    public @Nullable ArrayList<String> getAutocomplete(Player player, Nation nation, NationMember member) {
+        ArrayList<String> suggestions = new ArrayList<>();
+
+        suggestions.add("auto");
+
+        if (nation.getHome() == null)
+            suggestions.add("home");
+
+        if (nation.hasOutpostClaims())
+            suggestions.add("outpost");
+
+        return suggestions;
     }
 }

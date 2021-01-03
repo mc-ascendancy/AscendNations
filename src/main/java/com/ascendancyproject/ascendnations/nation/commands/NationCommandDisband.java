@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 @NationCommandAnnotation(
         name = "disband",
         description = "Disband your nation.",
-        aliases = {"disband", "dissolve"},
         minimumRole = NationRole.Chancellor
 )
 public class NationCommandDisband extends NationCommand {

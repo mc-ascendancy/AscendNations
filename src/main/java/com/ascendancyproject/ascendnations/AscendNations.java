@@ -33,6 +33,7 @@ public final class AscendNations extends JavaPlugin {
 
         // Register commands.
         this.getCommand("nation").setExecutor(new CommandNation());
+        this.getCommand("nation").setTabCompleter(new NationTabCompleter());
 
         // Register events.
         new PlayerDataEvents(this);

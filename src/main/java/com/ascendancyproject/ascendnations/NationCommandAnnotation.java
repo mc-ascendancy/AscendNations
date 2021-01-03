@@ -9,8 +9,9 @@ import java.lang.annotation.RetentionPolicy;
 public @interface NationCommandAnnotation {
     String name();
     String description();
-    String[] aliases();
+    boolean hidden() default false;
 
     boolean requiresNation() default true;
+    boolean requiresNoNation() default false;
     NationRole minimumRole() default NationRole.Citizen;
 }

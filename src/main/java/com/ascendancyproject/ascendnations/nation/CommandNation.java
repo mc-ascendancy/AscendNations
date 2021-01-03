@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 
 public class CommandNation implements CommandExecutor {
-    private final HashMap<String, NationCommand> commandMap;
+    public static HashMap<String, NationCommand> commandMap;
 
     public CommandNation() {
         commandMap = new HashMap<>();

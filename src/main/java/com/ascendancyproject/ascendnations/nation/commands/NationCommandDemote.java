@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 @NationCommandAnnotation(
         name = "demote",
         description = "Demote players from commander in your nation.",
-        aliases = {"demote"},
         minimumRole = NationRole.Chancellor
 )
 public class NationCommandDemote extends NationCommand {

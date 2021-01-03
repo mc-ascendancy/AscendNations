@@ -13,8 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "leave",
-        description = "Leave your current nation.",
-        aliases = {"leave"}
+        description = "Leave your current nation."
 )
 public class NationCommandLeave extends NationCommand {
     @Override

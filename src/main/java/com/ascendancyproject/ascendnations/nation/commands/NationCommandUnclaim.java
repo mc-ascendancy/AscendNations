@@ -18,7 +18,6 @@ import java.util.HashSet;
 @NationCommandAnnotation(
         name = "unclaim",
         description = "Unclaim your nation's territory to free up claims.",
-        aliases = {"unclaim"},
         minimumRole = NationRole.Commander
 )
 public class NationCommandUnclaim extends NationCommand {

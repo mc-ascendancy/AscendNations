@@ -15,8 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "status",
-        description = "Check your nation's power status.",
-        aliases = {"status"}
+        description = "Check your nation's power status."
 )
 public class NationCommandStatus extends NationCommand {
     @Override
