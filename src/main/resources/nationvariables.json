@@ -34,5 +34,12 @@
 	"resupplyReminderFrequency": 200,
 	"protectedMobs": [
 		"CHICKEN"
+	],
+	"goodSpawnBlocks": [
+		"SAND",
+		"GRASS_BLOCK",
+		"GRASS",
+		"TALL_GRASS",
+		"ICE"
 	]
 }

@@ -59,6 +59,8 @@ public class NationVariables {
 
     private HashSet<String> protectedMobs;
 
+    private HashSet<String> goodSpawnBlocks;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -213,5 +215,9 @@ public class NationVariables {
 
     public HashSet<String> getProtectedMobs() {
         return protectedMobs;
+    }
+
+    public HashSet<String> getGoodSpawnBlocks() {
+        return goodSpawnBlocks;
     }
 }
