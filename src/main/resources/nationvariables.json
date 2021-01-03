@@ -18,8 +18,8 @@
 	"existenceThresholdLargeModifierFlat": 10,
 	"chunksPerMember": 15,
 	"outpostsPerMember": 0.5,
-	"claimBlockHomeType": "LIME_TERRACOTTA",
-	"claimBlockOutpostType": "RED_TERRACOTTA",
+	"claimBlockHomeType": "INFESTED_STONE",
+	"claimBlockOutpostType": "INFESTED_COBBLESTONE",
 	"lockoutDuration": 60000,
 	"lockoutChunkDuration": 60000,
 	"lockoutReminderFrequency": 400,
@@ -31,5 +31,8 @@
 	"resupplyTimeout": 120000,
 	"resupplyDistance": 5,
 	"resupplyHealth": 100,
-	"resupplyReminderFrequency": 200
+	"resupplyReminderFrequency": 200,
+	"protectedMobs": [
+		"CHICKEN"
+	]
 }

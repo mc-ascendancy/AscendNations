@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.HashSet;
 
 public class NationVariables {
     public static final String location = "nationvariables.json";
@@ -55,6 +56,8 @@ public class NationVariables {
     private float resupplyDistance;
     private double resupplyHealth;
     private int resupplyReminderFrequency;
+
+    private HashSet<String> protectedMobs;
 
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
@@ -206,5 +209,9 @@ public class NationVariables {
 
     public int getResupplyReminderFrequency() {
         return resupplyReminderFrequency;
+    }
+
+    public HashSet<String> getProtectedMobs() {
+        return protectedMobs;
     }
 }

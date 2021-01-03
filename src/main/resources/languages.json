@@ -79,6 +79,7 @@
 	"errorChunkUnclaimMultipleUnclaimed": "Unclaiming this chunk would unclaim [chunkCount] chunks.\nTo continue, use: /nation unclaim force",
 	"blockProtected": "This block is protected by [nationName].",
 	"blockProtectedClaim": "You can not break claim blocks.",
+	"entityProtected": "This entity is protected by [nationName].",
 	"claimHome": "Claimed home!",
 	"errorClaimHomeClaimed": "You already have a home.",
 	"errorClaimSpecialOnRift": "You may not claim home/outpost on a rift.",
