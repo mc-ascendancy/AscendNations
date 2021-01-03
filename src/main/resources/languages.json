@@ -116,5 +116,9 @@
 	"nationLockoutChunk": "Your member count is too low to support your current land claims.\nView /nation status for more information.",
 	"nationLockoutChunkExit": "[nationName] is now safe from auto-reclaiming.",
 	"nationLockoutChunkReminder": "Reminder: you have too many chunks claimed for your member count.\nView /nation status for more information.",
-	"nationReclaimedChunks": "[outpostCount] outposts and [chunkCount] chunks were automatically reclaimed.\nYou must now wait [claimPunishmentDuration] before claiming again."
+	"nationReclaimedChunks": "[outpostCount] outposts and [chunkCount] chunks were automatically reclaimed.\nYou must now wait [claimPunishmentDuration] before claiming again.",
+	"nationHelp": "For help with Nations, check out our guide at &n[link]",
+	"nationHelpLink": "https://ascendancyproject.com/",
+	"nationHelpLinkDisplay": "ascendancyproject.com",
+	"nationHelpTooltip": "Check out our Nations guide!"
 }
