@@ -185,7 +185,16 @@ public class Nation {
     }
 
     public Long getHomeChunk() {
-        return Chunk.getChunkKey(Block.getBlockKeyX(home) / 16, Block.getBlockKeyZ(home) / 16);
+        int x = Block.getBlockKeyX(home) / 16;
+        int z = Block.getBlockKeyZ(home) / 16;
+
+        if (Block.getBlockKeyX(home) < 0)
+            x--;
+
+        if (Block.getBlockKeyZ(home) < 0)
+            z--;
+
+        return Chunk.getChunkKey(x, z);
     }
 
     public Vector getHomeVector() {
@@ -205,7 +214,16 @@ public class Nation {
     }
 
     public static Long getOutpostChunk(Long outpost) {
-        return Chunk.getChunkKey(Block.getBlockKeyX(outpost) / 16, Block.getBlockKeyZ(outpost) / 16);
+        int x = Block.getBlockKeyX(outpost) / 16;
+        int z = Block.getBlockKeyZ(outpost) / 16;
+
+        if (Block.getBlockKeyX(outpost) < 0)
+            x--;
+
+        if (Block.getBlockKeyZ(outpost) < 0)
+            z--;
+
+        return Chunk.getChunkKey(x, z);
     }
 
     public static Vector getOutpostVector(Long outpost) {
