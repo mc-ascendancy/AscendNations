@@ -1,5 +1,8 @@
 package com.ascendancyproject.ascendnations.nation;
 
+import com.ascendancyproject.ascendnations.language.Language;
+import org.bukkit.entity.Player;
+
 public class NationMemberPower {
     private int passivePower;
     private int bonusPower;
@@ -27,11 +30,15 @@ public class NationMemberPower {
         return false;
     }
 
-    public void incrementBonusPower() {
-        bonusPower = Math.min(bonusPower + NationVariables.instance.getMemberBonusGainOnKill(), NationVariables.instance.getMaxMemberBonusPower());
+    public boolean incrementBonusPower() {
+        if (bonusPower >= NationVariables.instance.getMaxMemberBonusPower())
+            return false;
+
+        bonusPower++;
+        return true;
     }
 
-    public void subtractPower() {
+    public void subtractPower(Player player) {
         int loss = NationVariables.instance.getMemberPowerLostOnDeath();
 
         int bonusPowerLost = Math.min(bonusPower, loss);
@@ -39,6 +46,11 @@ public class NationMemberPower {
         loss -= bonusPowerLost;
 
         passivePower = Math.max(passivePower - loss, 0);
+
+        player.sendMessage(Language.format("nationPowerLost",
+                new String[]{"bonusPowerLost", Integer.toString(bonusPowerLost)},
+                new String[]{"passivePowerLost", Integer.toString(loss)}
+        ));
     }
 
     public int getTotal() {
