@@ -5,10 +5,7 @@ import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.claim.Overclaim;
 import com.ascendancyproject.ascendnations.language.Language;
-import com.ascendancyproject.ascendnations.nation.Nation;
-import com.ascendancyproject.ascendnations.nation.NationMember;
-import com.ascendancyproject.ascendnations.nation.NationRole;
-import com.ascendancyproject.ascendnations.nation.NationVariables;
+import com.ascendancyproject.ascendnations.nation.*;
 import com.ascendancyproject.ascendnations.rift.Rift;
 import com.ascendancyproject.ascendnations.rift.RiftChunk;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
@@ -41,7 +38,7 @@ public class NationCommandClaim extends NationCommand {
 
         switch (args[1].toLowerCase()) {
             case "auto":
-                claimAuto();
+                claimAuto(player, nation);
                 break;
 
             case "home":
@@ -74,7 +71,10 @@ public class NationCommandClaim extends NationCommand {
 
     private void claim(Player player, Nation nation) {
         if (!nation.hasClaims()) {
-            player.sendMessage(Language.format("errorChunkClaimNoClaims", new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())}));
+            player.sendMessage(Language.format("errorChunkClaimNoClaims",
+                    new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
+                    new String[]{"chunksClaimedMax", Integer.toString(nation.getPower().getChunksClaimable())}
+            ));
             return;
         }
 
@@ -145,8 +145,19 @@ public class NationCommandClaim extends NationCommand {
         nation.getPower().recalculate(nation);
     }
 
-    private void claimAuto() {
-        // TODO: claim auto.
+    private void claimAuto(Player player, Nation nation) {
+        if (player.hasMetadata(NationClaimAutoMetadata.key)) {
+            NationClaimEvents.cancelAuto(player);
+            return;
+        }
+
+        if (!nation.getChunks().contains(player.getChunk().getChunkKey())) {
+            player.sendMessage(Language.getLine("errorChunkClaimAutoNotInClaim"));
+            return;
+        }
+
+        player.setMetadata(NationClaimAutoMetadata.key, new NationClaimAutoMetadata());
+        player.sendMessage(Language.getLine("chunkClaimAutoEnabled"));
     }
 
     @Override
