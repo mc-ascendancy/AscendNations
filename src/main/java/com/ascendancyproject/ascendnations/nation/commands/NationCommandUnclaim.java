@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 @NationCommandAnnotation(
@@ -67,5 +69,10 @@ public class NationCommandUnclaim extends NationCommand {
 
         nation.removeOutpost(key);
         nation.getPower().recalculate(nation);
+    }
+
+    @Override
+    public @Nullable ArrayList<String> getAutocomplete(Player player, Nation nation, NationMember member) {
+        return new ArrayList<>(Arrays.asList("force"));
     }
 }
