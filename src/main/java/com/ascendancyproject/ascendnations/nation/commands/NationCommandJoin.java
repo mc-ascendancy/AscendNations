@@ -32,7 +32,14 @@ public class NationCommandJoin extends NationCommand {
             return;
         }
 
-        UUID invitationUUID = UUID.fromString(args[1]);
+        UUID invitationUUID;
+        try {
+            invitationUUID = UUID.fromString(args[1]);
+        } catch (IllegalArgumentException e) {
+            player.sendMessage(Language.getLine("errorAutomaticCommandManual"));
+            return;
+        }
+
         NationInvitation invitation = NationInvitationManager.invitations.get(invitationUUID);
 
         if (invitation == null || invitation.hasExpired()) {
