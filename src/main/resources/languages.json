@@ -128,5 +128,19 @@
 	"errorNationMessageUnknownField": "[prefix] Unknown field [field].",
 	"defaultMessageEntry": "Entering [nationName]'s territory.",
 	"defaultMessageExit": "Exiting [nationName]'s territory.",
-	"nationMembers": "&l[nationName]'s Members&r\n \nChancellor: [chancellor]\nCommanders: [commanders]\nCitizens: [citizens]"
+	"nationMembers": "&l[nationName]'s Members&r\n \nChancellor: [chancellor]\nCommanders: [commanders]\nCitizens: [citizens]",
+	"nationList": "&lNations [pageStart]-[pageEnd] of [nationCount]&r",
+	"nationListEntry": "[nationName] - [nationPower]/[nationClaimThreshold]/[nationExistenceThreshold]",
+	"nationListEntryTooltip": "Click to view [nationName]'s members.",
+	"errorNationListBadPage": "[prefix] That is not a valid page number.",
+	"errorNationListNoNations": "[prefix] No nations currently exist.",
+	"page": "[page] of [pageMax]",
+	"pagePrevious": "<--",
+	"pagePreviousTooltip": "Click to go to the previous page.",
+	"pagePreviousNone": "&8<--",
+	"pagePreviousNoneTooltip": "You are already on the first page.",
+	"pageNext": "-->",
+	"pageNextTooltip": "Click to go to the next page.",
+	"pageNextNone": "&8-->",
+	"pageNextNoneTooltip": "You are already on the last page."
 }
