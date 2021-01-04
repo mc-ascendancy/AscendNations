@@ -7,20 +7,20 @@ import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ClaimProtectionEvents implements Listener {
@@ -35,7 +35,7 @@ public class ClaimProtectionEvents implements Listener {
 
         assert event.getClickedBlock() != null;
 
-        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true))
+        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer()))
             event.setCancelled(true);
     }
 
@@ -49,7 +49,7 @@ public class ClaimProtectionEvents implements Listener {
     @EventHandler
     public void onBlockIgnite(BlockIgniteEvent event) {
         if (event.getPlayer() != null) {
-            if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true))
+            if (blockProtectedPlayer(event.getBlock(), event.getPlayer()))
                 event.setCancelled(true);
         } else {
             if (blockProtected(event.getBlock()))
@@ -59,7 +59,7 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false))
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer()))
             event.setCancelled(true);
     }
 
@@ -99,12 +99,24 @@ public class ClaimProtectionEvents implements Listener {
         event.setCancelled(true);
     }
 
+    @EventHandler
+    public void onBlockPistonExtend(BlockPistonExtendEvent event) {
+        if (blockPistonEvent(event.getBlock(), event.getBlocks(), event.getDirection(), true))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBlockPistonRetract(BlockPistonRetractEvent event) {
+        if (blockPistonEvent(event.getBlock(), event.getBlocks(), event.getDirection(), false))
+            event.setCancelled(true);
+    }
+
     private boolean blockProtected(Block block) {
         return ClaimBlock.isClaimBlock(block) || ClaimChunks.chunks.containsKey(block.getLocation().getChunk().getChunkKey());
     }
 
-    private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaimBlock) {
-        if (protectClaimBlock && ClaimBlock.isClaimBlock(block)) {
+    private boolean blockProtectedPlayer(Block block, Player player) {
+        if (ClaimBlock.isClaimBlock(block)) {
             player.sendMessage(Language.getLine("blockProtectedClaim"));
             return true;
         }
@@ -140,5 +152,24 @@ public class ClaimProtectionEvents implements Listener {
         player.sendMessage(Language.format("entityProtected", new String[]{"nationName", nation.getName()}));
 
         return true;
+    }
+
+    private boolean blockPistonEvent(Block origin, List<Block> affected, BlockFace direction, boolean push) {
+        for (Block block : affected)
+            if (ClaimBlock.isClaimBlock(block))
+                return true;
+
+        UUID fromUUID = ClaimChunks.chunks.get(origin.getChunk().getChunkKey());
+
+        for (Block block : affected) {
+            if (push)
+                block = block.getRelative(direction);
+
+            UUID toUUID = ClaimChunks.chunks.get(block.getChunk().getChunkKey());
+            if (toUUID != null && !toUUID.equals(fromUUID))
+                return true;
+        }
+
+        return false;
     }
 }
