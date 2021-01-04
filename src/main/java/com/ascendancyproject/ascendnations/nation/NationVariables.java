@@ -20,8 +20,8 @@ public class NationVariables {
     private int maxMemberBonusPower;
     private int riftModifier;
     private int minNationPopClaimRift;
+    private int memberPassivePowerStart;
     private int memberPassiveGainFrequency;
-    private int memberBonusGainOnKill;
     private int memberPowerLostOnDeath;
 
     private int claimThresholdOnePlayer;
@@ -105,8 +105,8 @@ public class NationVariables {
         return memberPassiveGainFrequency;
     }
 
-    public int getMemberBonusGainOnKill() {
-        return memberBonusGainOnKill;
+    public int getMemberPassivePowerStart() {
+        return memberPassivePowerStart;
     }
 
     public int getMemberPowerLostOnDeath() {

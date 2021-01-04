@@ -16,6 +16,7 @@ public class Nation {
     private final UUID uuid;
     private String name;
     private final HashMap<UUID, NationMember> members;
+    private final HashSet<UUID> membersJoined;
     private final NationPower power;
 
     private Long home;
@@ -28,8 +29,9 @@ public class Nation {
     public Nation(Player creator, String name) {
         uuid = UUID.randomUUID();
         this.name = name;
+        membersJoined = new HashSet<>();
         members = new HashMap<>();
-        members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
+        members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor, creator.getUniqueId(), this));
         outposts = new HashMap<>();
         outpostsSequential = new ArrayList<>();
         chunks = new HashSet<>();
@@ -174,6 +176,10 @@ public class Nation {
 
     public HashMap<UUID, NationMember> getMembers() {
         return members;
+    }
+
+    public HashSet<UUID> getMembersJoined() {
+        return membersJoined;
     }
 
     public NationPower getPower() {

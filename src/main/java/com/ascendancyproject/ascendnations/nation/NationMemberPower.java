@@ -8,8 +8,8 @@ public class NationMemberPower {
     private int bonusPower;
     private int ticksUntilPassiveGain;
 
-    public NationMemberPower() {
-        passivePower = 0;
+    public NationMemberPower(boolean initialJoin) {
+        passivePower = initialJoin ? NationVariables.instance.getMemberPassivePowerStart() : 0;
         bonusPower = 0;
         ticksUntilPassiveGain = NationVariables.instance.getMemberPassiveGainFrequency();
     }
