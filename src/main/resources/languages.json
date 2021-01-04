@@ -121,5 +121,11 @@
 	"nationHelp": "[prefix] For help with Nations, check out our guide at &n[link]",
 	"nationHelpLink": "https://ascendancyproject.com/",
 	"nationHelpLinkDisplay": "ascendancyproject.com",
-	"nationHelpTooltip": "Check out our Nations guide!"
+	"nationHelpTooltip": "Check out our Nations guide!",
+	"nationMessage": "[prefix] Updated [field] message to \"[value]\"",
+	"errorNationMessageNoField": "[prefix] You must specify which message you would like to update.",
+	"errorNationMessageNoValue": "[prefix] No message provided.",
+	"errorNationMessageUnknownField": "[prefix] Unknown field [field].",
+	"defaultMessageEntry": "Entering [nationName]'s territory.",
+	"defaultMessageExit": "Exiting [nationName]'s territory."
 }

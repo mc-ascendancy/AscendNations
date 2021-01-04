@@ -3,6 +3,7 @@ package com.ascendancyproject.ascendnations.nation;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
+import com.ascendancyproject.ascendnations.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -26,6 +27,8 @@ public class Nation {
 
     private long claimPunishmentExpiry;
 
+    private final HashMap<String, String> messages;
+
     public Nation(Player creator, String name) {
         uuid = UUID.randomUUID();
         this.name = name;
@@ -36,6 +39,10 @@ public class Nation {
         outpostsSequential = new ArrayList<>();
         chunks = new HashSet<>();
         power = new NationPower(this);
+
+        messages = new HashMap<>();
+        messages.put("entry", Language.format("defaultMessageEntry", new String[]{"nationName", name}));
+        messages.put("exit", Language.format("defaultMessageExit", new String[]{"nationName", name}));
 
         PersistentData.instance.getNations().put(uuid, this);
     }
@@ -264,5 +271,9 @@ public class Nation {
 
     public void setClaimPunishmentExpiry(long claimPunishmentExpiry) {
         this.claimPunishmentExpiry = claimPunishmentExpiry;
+    }
+
+    public HashMap<String, String> getMessages() {
+        return messages;
     }
 }

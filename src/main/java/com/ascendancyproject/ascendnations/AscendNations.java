@@ -44,6 +44,7 @@ public final class AscendNations extends JavaPlugin {
         new NationPowerEvents(this);
         new NationSpawnEvents(this);
         new NationClaimEvents(this);
+        new ClaimChunksEvents(this);
     }
 
     @Override
