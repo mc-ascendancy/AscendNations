@@ -75,7 +75,7 @@ public class NationCommandList extends NationCommand {
                     new String[]{"nationClaimThreshold", Integer.toString(nations.get(i).getValue().getPower().getClaimThreshold())},
                     new String[]{"nationExistenceThreshold", Integer.toString(nations.get(i).getValue().getPower().getExistenceThreshold())}
             ) + "\n");
-            component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nation memberother " + nations.get(i).getKey().toString()));
+            component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nation membersother " + nations.get(i).getKey().toString()));
             component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     new Text(Language.format("nationListEntryTooltip", new String[]{"nationName", nations.get(i).getValue().getName()})
             )));

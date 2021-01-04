@@ -37,6 +37,7 @@ public class CommandNation implements CommandExecutor {
         new NationCommandHelp().register(commandMap);
         new NationCommandMessage().register(commandMap);
         new NationCommandMembers().register(commandMap);
+        new NationCommandMembersOther().register(commandMap);
         new NationCommandList().register(commandMap);
     }
 

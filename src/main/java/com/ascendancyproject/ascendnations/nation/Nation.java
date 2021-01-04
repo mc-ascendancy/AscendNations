@@ -185,6 +185,35 @@ public class Nation {
         return members;
     }
 
+    public void listMembers(Player player) {
+        String chancellor = null;
+        ArrayList<String> commanders = new ArrayList<>();
+        ArrayList<String> citizens = new ArrayList<>();
+
+        for (Map.Entry<UUID, NationMember> entry : members.entrySet()) {
+            switch (entry.getValue().getRole()) {
+                case Citizen:
+                    citizens.add(Bukkit.getOfflinePlayer(entry.getKey()).getName());
+                    break;
+
+                case Commander:
+                    commanders.add(Bukkit.getOfflinePlayer(entry.getKey()).getName());
+                    break;
+
+                case Chancellor:
+                    chancellor = Bukkit.getOfflinePlayer(entry.getKey()).getName();
+                    break;
+            }
+        }
+
+        player.sendMessage(Language.format("nationMembers",
+                new String[]{"nationName", name},
+                new String[]{"chancellor", chancellor},
+                new String[]{"commanders", String.join(", ", commanders)},
+                new String[]{"citizens", String.join(", ", citizens)}
+        ));
+    }
+
     public HashSet<UUID> getMembersJoined() {
         return membersJoined;
     }

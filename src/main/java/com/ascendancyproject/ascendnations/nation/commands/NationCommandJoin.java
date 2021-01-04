@@ -23,7 +23,7 @@ public class NationCommandJoin extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
-            player.sendMessage(Language.getLine("errorNationJoinManual"));
+            player.sendMessage(Language.getLine("errorAutomaticCommandManual"));
             return;
         }
 
