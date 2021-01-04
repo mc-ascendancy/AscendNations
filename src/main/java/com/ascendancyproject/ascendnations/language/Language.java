@@ -30,6 +30,9 @@ public class Language {
 
         for (Map.Entry<String, String> entry : lines.entrySet())
             entry.setValue(ChatColor.translateAlternateColorCodes('&', entry.getValue()));
+
+        for (Map.Entry<String, String> entry : lines.entrySet())
+            entry.setValue(entry.getValue().replace("[prefix]", lines.get("prefix")));
     }
 
     public static String format(String key, String[]... replacements) {
