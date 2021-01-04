@@ -35,7 +35,7 @@ public class ClaimProtectionEvents implements Listener {
 
         assert event.getClickedBlock() != null;
 
-        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer()))
+        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true))
             event.setCancelled(true);
     }
 
@@ -49,7 +49,7 @@ public class ClaimProtectionEvents implements Listener {
     @EventHandler
     public void onBlockIgnite(BlockIgniteEvent event) {
         if (event.getPlayer() != null) {
-            if (blockProtectedPlayer(event.getBlock(), event.getPlayer()))
+            if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true))
                 event.setCancelled(true);
         } else {
             if (blockProtected(event.getBlock()))
@@ -59,7 +59,7 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (blockProtectedPlayer(event.getBlock(), event.getPlayer()))
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false))
             event.setCancelled(true);
     }
 
@@ -115,8 +115,8 @@ public class ClaimProtectionEvents implements Listener {
         return ClaimBlock.isClaimBlock(block) || ClaimChunks.chunks.containsKey(block.getLocation().getChunk().getChunkKey());
     }
 
-    private boolean blockProtectedPlayer(Block block, Player player) {
-        if (ClaimBlock.isClaimBlock(block)) {
+    private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim) {
+        if (protectClaim && ClaimBlock.isClaimBlock(block)) {
             player.sendMessage(Language.getLine("blockProtectedClaim"));
             return true;
         }
