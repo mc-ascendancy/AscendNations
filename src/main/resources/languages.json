@@ -127,5 +127,6 @@
 	"errorNationMessageNoValue": "[prefix] No message provided.",
 	"errorNationMessageUnknownField": "[prefix] Unknown field [field].",
 	"defaultMessageEntry": "Entering [nationName]'s territory.",
-	"defaultMessageExit": "Exiting [nationName]'s territory."
+	"defaultMessageExit": "Exiting [nationName]'s territory.",
+	"nationMembers": "&l[nationName]'s Members&r\n \nChancellor: [chancellor]\nCommanders: [commanders]\nCitizens: [citizens]"
 }
