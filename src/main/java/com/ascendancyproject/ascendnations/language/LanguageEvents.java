@@ -19,10 +19,10 @@ public class LanguageEvents implements Listener {
             return;
 
         String countryCode = event.getLocale().substring(0, 2);
-        if (playerData.getLanguage().equals(countryCode) || !Language.config.getLanguageNames().containsKey(countryCode))
+        if (playerData.getLanguage().equals(countryCode) || !Language.config.getLanguages().containsKey(countryCode))
             return;
 
         playerData.setLanguage(countryCode);
-        Language.sendMessage(event.getPlayer(), "languageUpdated", new String[]{"language", Language.config.getLanguageNames().get(countryCode)});
+        Language.sendMessage(event.getPlayer(), "languageUpdated", new String[]{"language", Language.config.getLanguages().get(countryCode).getName()});
     }
 }

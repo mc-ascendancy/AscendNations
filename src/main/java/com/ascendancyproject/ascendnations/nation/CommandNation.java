@@ -5,6 +5,7 @@ import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
+import com.ascendancyproject.ascendnations.language.LanguageLang;
 import com.ascendancyproject.ascendnations.nation.commands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -56,15 +57,17 @@ public class CommandNation implements CommandExecutor {
             return true;
         }
 
-        NationCommand nationCommand = commandMap.get(args[0]);
-        if (nationCommand == null) {
+        PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
+        LanguageLang lang = Language.getLanguage(playerData);
+
+        String commandTranslated = lang.getCommandsReverse().get(args[0].toLowerCase());
+        if (commandTranslated == null) {
             Language.sendMessage(player, "errorBadSubcommand", new String[]{"subcommandName", label});
             return true;
         }
 
+        NationCommand nationCommand = commandMap.get(commandTranslated);
         NationCommandAnnotation annotation = nationCommand.getAnnotation();
-
-        PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
         if (nation == null && annotation.requiresNation()) {

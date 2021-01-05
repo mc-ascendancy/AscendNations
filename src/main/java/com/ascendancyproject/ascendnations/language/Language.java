@@ -31,9 +31,17 @@ public class Language {
             e.printStackTrace();
         }
 
-        for (HashMap<String, String> lines : config.getLines().values())
-            for (Map.Entry<String, String> entry : lines.entrySet())
+        for (LanguageLang language : config.getLanguages().values()) {
+            for (Map.Entry<String, String> entry : language.getLines().entrySet())
                 entry.setValue(ChatColor.translateAlternateColorCodes('&', entry.getValue()));
+
+            HashMap<String, String> commandsReverse = new HashMap<>();
+
+            for (Map.Entry<String, String> entry : language.getCommands().entrySet())
+                commandsReverse.put(entry.getValue(), entry.getKey());
+
+            language.setCommandsReverse(commandsReverse);
+        }
     }
 
     public static void sendMessage(Player player, String key, String[]... replacements) {
@@ -55,28 +63,21 @@ public class Language {
 
     public static String format(Player player, String key, String[]... replacements) {
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
-
-        String language = playerData.getLanguage();
-        if (!config.getLanguageNames().containsKey(language)) {
-            language = config.getDefaultLanguage();
-            playerData.setLanguage(language);
-        }
-
-        return formatLanguage(language, key, replacements);
+        return formatLanguage(getLanguage(playerData), key, replacements);
     }
 
     public static String formatDefault(String key, String[]... replacements) {
-        return formatLanguage(config.getDefaultLanguage(), key, replacements);
+        return formatLanguage(config.getLanguages().get(config.getDefaultLanguage()), key, replacements);
     }
 
-    private static String formatLanguage(String language, String key, String[]... replacements) {
-        String msg = config.getLines().get(language).get(key);
+    private static String formatLanguage(LanguageLang language, String key, String[]... replacements) {
+        String msg = language.getLines().get(key);
         if (msg == null)
-            msg = config.getLines().get(config.getDefaultLanguage()).get(key);
+            msg = config.getLanguages().get(config.getDefaultLanguage()).getLines().get(key);
 
-        String prefix = config.getLines().get(language).get("prefix");
+        String prefix = language.getLines().get("prefix");
         if (prefix == null)
-            prefix = config.getLines().get(config.getDefaultLanguage()).get("prefix");
+            prefix = config.getLanguages().get(config.getDefaultLanguage()).getLines().get("prefix");
 
         msg = msg.replace("[prefix]", prefix);
 
@@ -84,5 +85,15 @@ public class Language {
             msg = msg.replace("[" + replacement[0] + "]", replacement[1]);
 
         return msg;
+    }
+
+    public static LanguageLang getLanguage(PlayerData playerData) {
+        String language = playerData.getLanguage();
+        if (!config.getLanguages().containsKey(language)) {
+            language = config.getDefaultLanguage();
+            playerData.setLanguage(language);
+        }
+
+        return config.getLanguages().get(language);
     }
 }

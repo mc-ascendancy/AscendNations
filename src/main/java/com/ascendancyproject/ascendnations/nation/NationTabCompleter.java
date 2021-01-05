@@ -4,6 +4,8 @@ import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
+import com.ascendancyproject.ascendnations.language.Language;
+import com.ascendancyproject.ascendnations.language.LanguageLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -23,6 +25,7 @@ public class NationTabCompleter implements TabCompleter {
 
         Player player = (Player) sender;
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
+        LanguageLang lang = Language.getLanguage(playerData);
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
         NationMember member = nation == null ? null : nation.getMembers().get(player.getUniqueId());
@@ -47,16 +50,18 @@ public class NationTabCompleter implements TabCompleter {
                         continue;
                 }
 
-                suggestions.add(entry.getKey());
+                suggestions.add(lang.getCommands().get(entry.getKey()));
             }
 
             return suggestions;
         }
 
         if (args.length == 2) {
-            NationCommand nationCommand = CommandNation.commandMap.get(args[0].toLowerCase());
-            if (nationCommand == null)
+            String commandTranslated = lang.getCommandsReverse().get(args[0].toLowerCase());
+            if (commandTranslated == null)
                 return null;
+
+            NationCommand nationCommand = CommandNation.commandMap.get(commandTranslated);
 
             NationCommandAnnotation annotation = nationCommand.getAnnotation();
 
