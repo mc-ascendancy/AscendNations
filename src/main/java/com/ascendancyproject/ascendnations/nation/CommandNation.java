@@ -45,7 +45,6 @@ public class CommandNation implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            // TODO: update this in accordance with issue #4.
             sender.sendMessage(Language.formatDefault("errorNotPlayer", new String[]{"commandName", label}));
             return true;
         }

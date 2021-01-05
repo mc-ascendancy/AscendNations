@@ -2,7 +2,7 @@
 	"defaultLanguage": "en",
 	"languages": {
 		"en": {
-			"name": "English",
+			"name": "english",
 			"commands": {
 				"appoint": "appoint",
 				"claim": "claim",
@@ -24,8 +24,11 @@
 			},
 			"lines": {
 				"prefix": "&8[&bNations&8]&r",
-				"languageUpdated": "[prefix] Language updated to [language].\nYou may update this using /language <language>",
-				"languageUpdatedManual": "[prefix] Changed language to [language]!",
+				"language": "[prefix] Language updated to [language].\nYou may update this using /language <language>",
+				"languageManual": "[prefix] Changed language to [language]!",
+				"errorLanguageNoLanguage": "[prefix] You must provide a language.\nExample: /language english",
+				"errorLanguageNotSupported": "[prefix] We do not currently support [language].",
+				"errorLanguageSameLanguage": "[prefix] Your language was already set to [language].",
 				"errorNotPlayer": "[prefix] You must be a player to use the [commandName] command!",
 				"errorNoSubcommandProvided": "[prefix] You must specify which subcommand you want to use!\n\nFor help, try: /nation help",
 				"errorBadSubcommand": "[prefix] I could not find that subcommand!\nFor help, try: /nation help",
@@ -173,7 +176,7 @@
 			}
 		},
 		"nl": {
-			"name": "Nederlands",
+			"name": "nederlands",
 			"commands": {
 				"appoint": "aanstellen",
 				"claim": "beweren",

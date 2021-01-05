@@ -23,6 +23,6 @@ public class LanguageEvents implements Listener {
             return;
 
         playerData.setLanguage(countryCode);
-        Language.sendMessage(event.getPlayer(), "languageUpdated", new String[]{"language", Language.config.getLanguages().get(countryCode).getName()});
+        Language.sendMessage(event.getPlayer(), "language", new String[]{"language", Language.config.getLanguages().get(countryCode).getName()});
     }
 }

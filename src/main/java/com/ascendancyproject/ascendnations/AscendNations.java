@@ -2,7 +2,9 @@ package com.ascendancyproject.ascendnations;
 
 import com.ascendancyproject.ascendnations.claim.*;
 import com.ascendancyproject.ascendnations.language.Language;
+import com.ascendancyproject.ascendnations.language.LanguageCommand;
 import com.ascendancyproject.ascendnations.language.LanguageEvents;
+import com.ascendancyproject.ascendnations.language.LanguageTabCompleter;
 import com.ascendancyproject.ascendnations.nation.*;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,6 +37,8 @@ public final class AscendNations extends JavaPlugin {
         // Register commands.
         this.getCommand("nation").setExecutor(new CommandNation());
         this.getCommand("nation").setTabCompleter(new NationTabCompleter());
+        this.getCommand("language").setExecutor(new LanguageCommand());
+        this.getCommand("language").setTabCompleter(new LanguageTabCompleter());
 
         // Register events.
         new PlayerDataEvents(this);
