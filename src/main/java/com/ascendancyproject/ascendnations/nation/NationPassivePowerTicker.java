@@ -31,12 +31,12 @@ public class NationPassivePowerTicker {
 
                 NationMemberPower power = nation.getMembers().get(player.getUniqueId()).getPower();
 
-                player.sendMessage(Language.format("nationPassivePowerIncremented",
+                Language.sendMessage(player, "nationPassivePowerIncremented",
                         new String[]{"totalPower", Integer.toString(power.getTotal())},
                         new String[]{"maxTotalPower", Integer.toString(NationVariables.instance.getMaxMemberPower())},
                         new String[]{"passivePower", Integer.toString(power.getPassivePower())},
                         new String[]{"maxPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())}
-                ));
+                );
 
                 updated = true;
             }

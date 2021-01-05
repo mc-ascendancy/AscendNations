@@ -40,12 +40,12 @@ public class NationCommandUnclaim extends NationCommand {
         Long key = remove.getChunkKey();
 
         if (!nation.getChunks().contains(key)) {
-            player.sendMessage(Language.getLine("errorChunkUnclaimNotClaimed"));
+            Language.sendMessage(player, "errorChunkUnclaimNotClaimed");
             return;
         }
 
         if (key.equals(nation.getHomeChunk())) {
-            player.sendMessage(Language.getLine("errorChunkUnclaimHome"));
+            Language.sendMessage(player, "errorChunkUnclaimHome");
             return;
         }
 
@@ -53,18 +53,18 @@ public class NationCommandUnclaim extends NationCommand {
         int diff = nation.getChunks().size() - touched.size();
 
         if (!force && diff > 1) {
-            player.sendMessage(Language.format("errorChunkUnclaimMultipleUnclaimed", new String[]{"chunkCount", Integer.toString(diff)}));
+            Language.sendMessage(player, "errorChunkUnclaimMultipleUnclaimed", new String[]{"chunkCount", Integer.toString(diff)});
             return;
         }
 
         if (diff > 1) {
             nation.recalculateChunks(touched);
-            player.sendMessage(Language.format("chunkUnclaimForce", new String[]{"chunkCount", Integer.toString(diff)}));
+            Language.sendMessage(player, "chunkUnclaimForce", new String[]{"chunkCount", Integer.toString(diff)});
         } else {
             ClaimChunks.chunks.remove(key);
             nation.getChunks().remove(key);
 
-            player.sendMessage(Language.getLine("chunkUnclaim"));
+            Language.sendMessage(player, "chunkUnclaim");
         }
 
         nation.removeOutpost(key);

@@ -32,20 +32,20 @@ public class ClaimBlockEvents implements Listener {
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
         if (nation == null) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Language.getLine("errorNationNotInNation"));
+            Language.sendMessage(event.getPlayer(), "errorNationNotInNation");
             return;
         }
 
         if (nation.lacksPermissions(event.getPlayer().getUniqueId(), NationRole.Commander)) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", NationRole.Commander.name()}));
+            Language.sendMessage(event.getPlayer(), "errorNationBadPermissions", new String[]{"minimumRole", NationRole.Commander.name()});
             return;
         }
 
         if (nation.isClaimPunished()) {
-            event.getPlayer().sendMessage(Language.format("errorNationClaimReclaimPunishment",
+            Language.sendMessage(event.getPlayer(), "errorNationClaimReclaimPunishment",
                     new String[]{"duration", AscendNationsHelper.durationToString(nation.getClaimPunishmentExpiry() - System.currentTimeMillis())}
-            ));
+            );
             return;
         }
 
@@ -53,13 +53,13 @@ public class ClaimBlockEvents implements Listener {
 
         if (ClaimChunks.chunks.containsKey(key)) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Language.getLine("errorChunkClaimAlreadyOwned"));
+            Language.sendMessage(event.getPlayer(), "errorChunkClaimAlreadyOwned");
             return;
         }
 
         if (RiftConfig.getRift(key) != null) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Language.getLine("errorClaimSpecialOnRift"));
+            Language.sendMessage(event.getPlayer(), "errorClaimSpecialOnRift");
             return;
         }
 

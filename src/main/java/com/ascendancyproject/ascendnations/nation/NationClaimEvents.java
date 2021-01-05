@@ -53,7 +53,7 @@ public class NationClaimEvents implements Listener {
             Nation ownerNation = PersistentData.instance.getNations().get(chunkOwner);
 
             cancelAuto(event.getPlayer());
-            event.getPlayer().sendMessage(Language.format("errorChunkClaimAlreadyOwned", new String[]{"defendingNationName", ownerNation.getName()}));
+            Language.sendMessage(event.getPlayer(), "errorChunkClaimAlreadyOwned", new String[]{"defendingNationName", ownerNation.getName()});
             return;
         }
 
@@ -69,16 +69,16 @@ public class NationClaimEvents implements Listener {
             cancelAuto(event.getPlayer());
 
             if (rift == null)
-                event.getPlayer().sendMessage(Language.format("errorChunkClaimNoClaims",
+                Language.sendMessage(event.getPlayer(), "errorChunkClaimNoClaims",
                         new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                         new String[]{"chunksClaimedMax", Integer.toString(nation.getPower().getChunksClaimable())}
-                ));
+                );
             else
-                event.getPlayer().sendMessage(Language.format("errorChunkClaimNoClaimsRift",
+                Language.sendMessage(event.getPlayer(), "errorChunkClaimNoClaimsRift",
                         new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                         new String[]{"chunksClaimedMax", Integer.toString(nation.getPower().getChunksClaimable())},
                         new String[]{"riftChunks", Integer.toString(requiredClaims)}
-                ));
+                );
 
             return;
         }
@@ -87,19 +87,19 @@ public class NationClaimEvents implements Listener {
             for (RiftChunk riftChunk : rift.getChunks())
                 ClaimChunks.claim(nation, riftChunk.getKey());
 
-            event.getPlayer().sendMessage(Language.format("chunkClaimRift",
+            Language.sendMessage(event.getPlayer(), "chunkClaimRift",
                     new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                     new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())},
                     new String[]{"riftChunks", Integer.toString(rift.getChunks().size())},
                     new String[]{"riftPower", Integer.toString(rift.getPower())}
-            ));
+            );
         } else {
             ClaimChunks.claim(nation, key);
 
-            event.getPlayer().sendMessage(Language.format("chunkClaim",
+            Language.sendMessage(event.getPlayer(), "chunkClaim",
                     new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                     new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}
-            ));
+            );
         }
 
         nation.getPower().recalculate(nation);
@@ -107,6 +107,6 @@ public class NationClaimEvents implements Listener {
 
     public static void cancelAuto(Player player) {
         player.removeMetadata(NationClaimAutoMetadata.key, AscendNations.getInstance());
-        player.sendMessage(Language.getLine("chunkClaimAutoDisabled"));
+        Language.sendMessage(player, "chunkClaimAutoDisabled");
     }
 }

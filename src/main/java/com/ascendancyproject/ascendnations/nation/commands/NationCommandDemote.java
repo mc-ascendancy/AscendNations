@@ -22,43 +22,43 @@ public class NationCommandDemote extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
-            player.sendMessage(Language.getLine("errorNationDemoteBadUsername"));
+            Language.sendMessage(player, "errorNationDemoteBadUsername");
             return;
         }
 
         OfflinePlayer demoted = Bukkit.getOfflinePlayerIfCached(args[1]);
         if (demoted == null) {
-            player.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationNoPlayerFound", new String[]{"playerName", args[1]});
             return;
         }
 
         if (demoted.getUniqueId() == player.getUniqueId()) {
-            player.sendMessage(Language.getLine("errorCannotRunOnYourself"));
+            Language.sendMessage(player, "errorCannotRunOnYourself");
             return;
         }
 
         NationMember demotedNationMember = nation.getMembers().get(demoted.getUniqueId());
         if (demotedNationMember == null) {
-            player.sendMessage(Language.format("errorNationPlayerNotInNation", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationPlayerNotInNation", new String[]{"playerName", args[1]});
             return;
         }
 
         if (demotedNationMember.getRole() == NationRole.Citizen) {
-            player.sendMessage(Language.format("errorNationDemoteAlreadyCitizen", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationDemoteAlreadyCitizen", new String[]{"playerName", args[1]});
             return;
         }
 
         demotedNationMember.setRole(NationRole.Citizen);
 
-        player.sendMessage(Language.format("nationDemote", new String[]{"demotedName", args[1]}));
+        Language.sendMessage(player, "nationDemote", new String[]{"demotedName", args[1]});
 
         if (demoted.isOnline())
-            ((Player) demoted).sendMessage(Language.format("nationDemoteReceived", new String[]{"demoterName", player.getName()}));
+            Language.sendMessage((Player) demoted, "nationDemoteReceived", new String[]{"demoterName", player.getName()});
 
-        nation.broadcast(Language.format("nationDemoteBroadcast",
+        nation.broadcast("nationDemoteBroadcast", new String[][]{
                 new String[]{"nationName", nation.getName()},
                 new String[]{"demoterName", player.getName()},
                 new String[]{"demotedName", demoted.getName()}
-        ), player.getUniqueId(), demoted.getUniqueId());
+        }, player.getUniqueId(), demoted.getUniqueId());
     }
 }

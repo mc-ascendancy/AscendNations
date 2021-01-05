@@ -117,7 +117,7 @@ public class ClaimProtectionEvents implements Listener {
 
     private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim) {
         if (protectClaim && ClaimBlock.isClaimBlock(block)) {
-            player.sendMessage(Language.getLine("blockProtectedClaim"));
+            Language.sendMessage(player, "blockProtectedClaim");
             return true;
         }
 
@@ -132,7 +132,7 @@ public class ClaimProtectionEvents implements Listener {
             return false;
 
         Nation nation = PersistentData.instance.getNations().get(nationUUID);
-        player.sendMessage(Language.format("blockProtected", new String[]{"nationName", nation.getName()}));
+        Language.sendMessage(player, "blockProtected", new String[]{"nationName", nation.getName()});
 
         return true;
     }
@@ -149,7 +149,7 @@ public class ClaimProtectionEvents implements Listener {
             return false;
 
         Nation nation = PersistentData.instance.getNations().get(nationUUID);
-        player.sendMessage(Language.format("entityProtected", new String[]{"nationName", nation.getName()}));
+        Language.sendMessage(player, "entityProtected", new String[]{"nationName", nation.getName()});
 
         return true;
     }

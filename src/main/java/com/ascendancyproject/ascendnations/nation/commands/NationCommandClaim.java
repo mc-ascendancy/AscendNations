@@ -25,9 +25,9 @@ public class NationCommandClaim extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (nation.isClaimPunished()) {
-            player.sendMessage(Language.format("errorNationClaimReclaimPunishment",
+            Language.sendMessage(player, "errorNationClaimReclaimPunishment",
                     new String[]{"duration", AscendNationsHelper.durationToString(nation.getClaimPunishmentExpiry() - System.currentTimeMillis())}
-            ));
+            );
             return;
         }
 
@@ -43,7 +43,7 @@ public class NationCommandClaim extends NationCommand {
 
             case "home":
                 if (nation.getHome() != null) {
-                    player.sendMessage(Language.getLine("errorClaimHomeClaimed"));
+                    Language.sendMessage(player, "errorClaimHomeClaimed");
                     return;
                 }
 
@@ -52,12 +52,12 @@ public class NationCommandClaim extends NationCommand {
 
             case "outpost":
                 if (nation.getHome() == null) {
-                    player.sendMessage(Language.getLine("errorClaimOutpostNoHome"));
+                    Language.sendMessage(player, "errorClaimOutpostNoHome");
                     return;
                 }
 
                 if (!nation.hasOutpostClaims()) {
-                    player.sendMessage(Language.format("errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())}));
+                    Language.sendMessage(player, "errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())});
                     return;
                 }
 
@@ -65,21 +65,21 @@ public class NationCommandClaim extends NationCommand {
                 break;
 
             default:
-                player.sendMessage(Language.format("errorNationClaimBadArgs", new String[]{"args", args[1]}));
+                Language.sendMessage(player, "errorNationClaimBadArgs", new String[]{"args", args[1]});
         }
     }
 
     private void claim(Player player, Nation nation) {
         if (!nation.hasClaims()) {
-            player.sendMessage(Language.format("errorChunkClaimNoClaims",
+            Language.sendMessage(player, "errorChunkClaimNoClaims",
                     new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                     new String[]{"chunksClaimedMax", Integer.toString(nation.getPower().getChunksClaimable())}
-            ));
+            );
             return;
         }
 
         if (!ClaimChunks.hasNeighbour(nation.getUUID(), player.getLocation())) {
-            player.sendMessage(Language.getLine("errorChunkClaimNoNeighbour"));
+            Language.sendMessage(player, "errorChunkClaimNoNeighbour");
             return;
         }
 
@@ -87,18 +87,18 @@ public class NationCommandClaim extends NationCommand {
         Rift rift = RiftConfig.getRift(key);
 
         if (rift != null && !nation.hasClaims(rift.getChunks().size())) {
-            player.sendMessage(Language.format("errorChunkClaimNoClaimsRift",
+            Language.sendMessage(player, "errorChunkClaimNoClaimsRift",
                     new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                     new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())},
                     new String[]{"riftChunks", Integer.toString(rift.getChunks().size())}
-            ));
+            );
             return;
         }
 
         UUID defendingNationUUID = ClaimChunks.chunks.get(key);
         if (defendingNationUUID != null) {
             if (defendingNationUUID.equals(nation.getUUID())) {
-                player.sendMessage(Language.getLine("errorChunkClaimAlreadyOwnedByYou"));
+                Language.sendMessage(player, "errorChunkClaimAlreadyOwnedByYou");
                 return;
             }
 
@@ -106,7 +106,7 @@ public class NationCommandClaim extends NationCommand {
 
             if (defendingNation.isClaimChunk(key)) {
                 if (!defendingNation.isDestroyable()) {
-                    player.sendMessage(Language.format("errorChunkClaimAlreadyOwnedClaim", new String[]{"defendingNationName", defendingNation.getName()}));
+                    Language.sendMessage(player, "errorChunkClaimAlreadyOwnedClaim", new String[]{"defendingNationName", defendingNation.getName()});
                     return;
                 }
 
@@ -115,7 +115,7 @@ public class NationCommandClaim extends NationCommand {
             }
 
             if (!defendingNation.isOverclaimable()) {
-                player.sendMessage(Language.format("errorChunkClaimAlreadyOwned", new String[]{"defendingNationName", defendingNation.getName()}));
+                Language.sendMessage(player, "errorChunkClaimAlreadyOwned", new String[]{"defendingNationName", defendingNation.getName()});
                 return;
             }
 
@@ -127,19 +127,19 @@ public class NationCommandClaim extends NationCommand {
             for (RiftChunk riftChunk : rift.getChunks())
                 ClaimChunks.claim(nation, riftChunk.getKey());
 
-            player.sendMessage(Language.format("chunkClaimRift",
+            Language.sendMessage(player, "chunkClaimRift",
                     new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                     new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())},
                     new String[]{"riftChunks", Integer.toString(rift.getChunks().size())},
                     new String[]{"riftPower", Integer.toString(rift.getPower())}
-            ));
+            );
         } else {
             ClaimChunks.claim(nation, player.getChunk().getChunkKey());
 
-            player.sendMessage(Language.format("chunkClaim",
+            Language.sendMessage(player, "chunkClaim",
                     new String[]{"chunksClaimed", Integer.toString(nation.getChunks().size())},
                     new String[]{"chunksClaimable", Integer.toString(nation.getPower().getChunksClaimable())}
-            ));
+            );
         }
 
         nation.getPower().recalculate(nation);
@@ -152,12 +152,12 @@ public class NationCommandClaim extends NationCommand {
         }
 
         if (!nation.getChunks().contains(player.getChunk().getChunkKey())) {
-            player.sendMessage(Language.getLine("errorChunkClaimAutoNotInClaim"));
+            Language.sendMessage(player, "errorChunkClaimAutoNotInClaim");
             return;
         }
 
         player.setMetadata(NationClaimAutoMetadata.key, new NationClaimAutoMetadata());
-        player.sendMessage(Language.getLine("chunkClaimAutoEnabled"));
+        Language.sendMessage(player, "chunkClaimAutoEnabled");
     }
 
     @Override

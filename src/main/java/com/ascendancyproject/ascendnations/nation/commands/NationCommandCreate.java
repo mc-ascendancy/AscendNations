@@ -25,19 +25,19 @@ public class NationCommandCreate extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length < 2) {
-            player.sendMessage(Language.getLine("errorNationCreateNoNameProvided"));
+            Language.sendMessage(player, "errorNationCreateNoNameProvided");
             return;
         }
 
         if (nation != null) {
-            player.sendMessage(Language.getLine("errorNationCreateAlreadyInNation"));
+            Language.sendMessage(player, "errorNationCreateAlreadyInNation");
             return;
         }
 
         nation = new Nation(player, String.join(" ", (String[]) ArrayUtils.subarray(args, 1, args.length)));
         playerData.setNationUUID(nation.getUUID());
 
-        player.sendMessage(Language.format("nationCreated", new String[]{"nationName", nation.getName()}));
+        Language.sendMessage(player, "nationCreated", new String[]{"nationName", nation.getName()});
 
         ClaimBlock.giveHome(player);
     }

@@ -41,8 +41,8 @@ public class Nation {
         power = new NationPower(this);
 
         messages = new HashMap<>();
-        messages.put("entry", Language.format("defaultMessageEntry", new String[]{"nationName", name}));
-        messages.put("exit", Language.format("defaultMessageExit", new String[]{"nationName", name}));
+        messages.put("entry", Language.formatDefault("defaultMessageEntry", new String[]{"nationName", name}));
+        messages.put("exit", Language.formatDefault("defaultMessageExit", new String[]{"nationName", name}));
 
         PersistentData.instance.getNations().put(uuid, this);
     }
@@ -65,7 +65,16 @@ public class Nation {
         PersistentData.instance.getNations().remove(uuid);
     }
 
-    public void broadcast(String message, UUID... exceptions) {
+    public void broadcast(String key, String[]... replacements) {
+        for (UUID member : members.keySet()) {
+            Player player = Bukkit.getPlayer(member);
+
+            if (player != null)
+                Language.format(player, key, replacements);
+        }
+    }
+
+    public void broadcast(String key, String[][] replacements, UUID... exceptions) {
         HashSet<UUID> exceptionSet = new HashSet<>(Arrays.asList(exceptions));
 
         for (UUID member : members.keySet()) {
@@ -75,7 +84,7 @@ public class Nation {
             Player player = Bukkit.getPlayer(member);
 
             if (player != null)
-                player.sendMessage(message);
+                Language.format(player, key, replacements);
         }
     }
 
@@ -206,12 +215,12 @@ public class Nation {
             }
         }
 
-        player.sendMessage(Language.format("nationMembers",
+        Language.sendMessage(player, "nationMembers",
                 new String[]{"nationName", name},
                 new String[]{"chancellor", chancellor},
                 new String[]{"commanders", String.join(", ", commanders)},
                 new String[]{"citizens", String.join(", ", citizens)}
-        ));
+        );
     }
 
     public HashSet<UUID> getMembersJoined() {

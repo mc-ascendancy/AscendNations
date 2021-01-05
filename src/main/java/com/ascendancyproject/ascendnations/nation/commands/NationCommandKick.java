@@ -23,24 +23,24 @@ public class NationCommandKick extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
-            player.sendMessage(Language.getLine("errorNationKickBadUsername"));
+            Language.sendMessage(player, "errorNationKickBadUsername");
             return;
         }
 
         OfflinePlayer kicked = Bukkit.getOfflinePlayerIfCached(args[1]);
         if (kicked == null) {
-            player.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationNoPlayerFound", new String[]{"playerName", args[1]});
             return;
         }
 
         if (kicked.getUniqueId() == player.getUniqueId()) {
-            player.sendMessage(Language.getLine("errorCannotRunOnYourself"));
+            Language.sendMessage(player, "errorCannotRunOnYourself");
             return;
         }
 
         PlayerData kickedPlayerData = PersistentData.instance.getPlayers().get(kicked.getUniqueId());
         if (!kickedPlayerData.getNationUUID().equals(nation.getUUID())) {
-            player.sendMessage(Language.format("errorNationPlayerNotInNation", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationPlayerNotInNation", new String[]{"playerName", args[1]});
             return;
         }
 
@@ -48,15 +48,15 @@ public class NationCommandKick extends NationCommand {
         nation.getMembers().remove(kicked.getUniqueId());
         nation.getPower().recalculate(nation);
 
-        player.sendMessage(Language.format("nationKick", new String[]{"kickedName", args[1]}, new String[]{"nationName", nation.getName()}));
+        Language.sendMessage(player, "nationKick", new String[]{"kickedName", args[1]}, new String[]{"nationName", nation.getName()});
 
         if (kicked.isOnline())
-            ((Player) kicked).sendMessage(Language.format("nationKickReceived", new String[]{"kickerName", player.getName()}, new String[]{"nationName", nation.getName()}));
+            Language.sendMessage((Player) kicked, "nationKickReceived", new String[]{"kickerName", player.getName()}, new String[]{"nationName", nation.getName()});
 
-        nation.broadcast(Language.format("nationKickBroadcast",
+        nation.broadcast("nationKickBroadcast", new String[][]{
                 new String[]{"nationName", nation.getName()},
                 new String[]{"kickerName", player.getName()},
                 new String[]{"kickedName", kicked.getName()}
-        ), player.getUniqueId(), kicked.getUniqueId());
+        }, player.getUniqueId(), kicked.getUniqueId());
     }
 }

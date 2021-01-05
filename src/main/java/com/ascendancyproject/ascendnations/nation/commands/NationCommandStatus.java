@@ -27,16 +27,16 @@ public class NationCommandStatus extends NationCommand {
 
         if (nation.getPower().getLockoutExpiry() == 0L) {
             protection = NationVariables.instance.getLockoutDuration();
-            statusColour = Language.getLine("nationStatusSafe");
+            statusColour = Language.format(player, "nationStatusSafe");
         } else if (np.getLockoutExpiry() > System.currentTimeMillis()) {
             protection = nation.getPower().getLockoutExpiry() - System.currentTimeMillis();
-            statusColour = Language.getLine("nationStatusWarning");
+            statusColour = Language.format(player, "nationStatusWarning");
         } else {
             protection = 0L;
-            statusColour = Language.getLine("nationStatusDanger");
+            statusColour = Language.format(player, "nationStatusDanger");
         }
 
-        String protectionString = protection != 0L ? AscendNationsHelper.durationToString(protection) : Language.getLine("nationStatusProtectionExpired");
+        String protectionString = protection != 0L ? AscendNationsHelper.durationToString(protection) : Language.format(player, "nationStatusProtectionExpired");
 
         String chunkProtectionString = AscendNationsHelper.durationToString(
                 nation.getPower().getChunkLockoutExpiry() == 0 ?
@@ -44,10 +44,10 @@ public class NationCommandStatus extends NationCommand {
                         nation.getPower().getChunkLockoutExpiry() - System.currentTimeMillis()
         );
         String statusColourChunk = nation.getPower().getChunkLockoutExpiry() == 0 ?
-                Language.getLine("nationStatusSafe") :
-                Language.getLine("nationStatusWarning");
+                Language.format(player, "nationStatusSafe") :
+                Language.format(player, "nationStatusWarning");
 
-        player.sendMessage(Language.format("nationStatus",
+        Language.sendMessage(player, "nationStatus",
                 new String[]{"nationPower", Integer.toString(np.getTotal())},
                 new String[]{"nationClaimThreshold", Integer.toString(np.getClaimThreshold())},
                 new String[]{"nationExistenceThreshold", Integer.toString(np.getExistenceThreshold())},
@@ -59,6 +59,6 @@ public class NationCommandStatus extends NationCommand {
                 new String[]{"nationChunkProtectionDuration", chunkProtectionString},
                 new String[]{"status", statusColour},
                 new String[]{"statusChunk", statusColourChunk}
-        ));
+        );
     }
 }

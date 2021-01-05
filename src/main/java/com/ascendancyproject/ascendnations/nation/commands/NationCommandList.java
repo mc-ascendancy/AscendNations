@@ -36,7 +36,7 @@ public class NationCommandList extends NationCommand {
             try {
                 page = Integer.parseUnsignedInt(args[1]);
             } catch (NumberFormatException e) {
-                player.sendMessage(Language.getLine("errorNationListBadPage"));
+                Language.sendMessage(player, "errorNationListBadPage");
                 return;
             }
         }
@@ -45,7 +45,7 @@ public class NationCommandList extends NationCommand {
         int pageMax = (nationCount - 1) / listingsPerPage + 1;
 
         if (nationCount == 0) {
-            player.sendMessage(Language.getLine("errorNationListNoNations"));
+            Language.sendMessage(player, "errorNationListNoNations");
             return;
         }
 
@@ -53,7 +53,7 @@ public class NationCommandList extends NationCommand {
         int pageEnd = Math.min(pageStart + listingsPerPage, nationCount);
 
         if (page < 1 || pageStart >= nationCount) {
-            player.sendMessage(Language.getLine("errorNationListBadPage"));
+            Language.sendMessage(player, "errorNationListBadPage");
             return;
         }
 
@@ -61,7 +61,7 @@ public class NationCommandList extends NationCommand {
         nations.sort((o1, o2) -> o2.getValue().getPower().getTotal() - o1.getValue().getPower().getTotal());
 
         // Create the builder with the message title.
-        ComponentBuilder builder = new ComponentBuilder(Language.format("nationList",
+        ComponentBuilder builder = new ComponentBuilder(Language.format(player, "nationList",
                 new String[]{"pageStart", Integer.toString(pageStart + 1)},
                 new String[]{"pageEnd", Integer.toString(pageEnd)},
                 new String[]{"nationCount", Integer.toString(nationCount)}
@@ -69,7 +69,7 @@ public class NationCommandList extends NationCommand {
 
         // Add all of the entries.
         for (int i = pageStart; i < pageEnd; i++) {
-            TextComponent component = new TextComponent(Language.format("nationListEntry",
+            TextComponent component = new TextComponent(Language.format(player, "nationListEntry",
                     new String[]{"nationName", nations.get(i).getValue().getName()},
                     new String[]{"nationPower", Integer.toString(nations.get(i).getValue().getPower().getTotal())},
                     new String[]{"nationClaimThreshold", Integer.toString(nations.get(i).getValue().getPower().getClaimThreshold())},
@@ -77,7 +77,7 @@ public class NationCommandList extends NationCommand {
             ) + "\n");
             component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nation membersother " + nations.get(i).getKey().toString()));
             component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new Text(Language.format("nationListEntryTooltip", new String[]{"nationName", nations.get(i).getValue().getName()})
+                    new Text(Language.format(player, "nationListEntryTooltip", new String[]{"nationName", nations.get(i).getValue().getName()})
             )));
 
             builder.append(component);
@@ -88,31 +88,31 @@ public class NationCommandList extends NationCommand {
 
         // Add the previous page button.
         if (page > 1) {
-            TextComponent previousPageComponent = new TextComponent(Language.getLine("pagePrevious") + " ");
+            TextComponent previousPageComponent = new TextComponent(Language.format(player, "pagePrevious") + " ");
             previousPageComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nation list " + (page - 1)));
-            previousPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.getLine("pagePreviousTooltip"))));
+            previousPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.format(player, "pagePreviousTooltip"))));
             builder.append(previousPageComponent, ComponentBuilder.FormatRetention.NONE);
         } else {
-            TextComponent previousPageComponent = new TextComponent(Language.getLine("pagePreviousNone") + " ");
-            previousPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.getLine("pagePreviousNoneTooltip"))));
+            TextComponent previousPageComponent = new TextComponent(Language.format(player, "pagePreviousNone") + " ");
+            previousPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.format(player, "pagePreviousNoneTooltip"))));
             builder.append(previousPageComponent, ComponentBuilder.FormatRetention.NONE);
         }
 
         // Add the page number.
-        builder.append(Language.format("page",
+        builder.append(Language.format(player, "page",
                 new String[]{"page", Integer.toString(page)},
                 new String[]{"pageMax", Integer.toString(pageMax)}
         ), ComponentBuilder.FormatRetention.NONE);
 
         // Add the next page button.
         if (page < pageMax) {
-            TextComponent nextPageComponent = new TextComponent(" " + Language.getLine("pageNext"));
+            TextComponent nextPageComponent = new TextComponent(" " + Language.format(player, "pageNext"));
             nextPageComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/nation list " + (page + 1)));
-            nextPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.getLine("pageNextTooltip"))));
+            nextPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.format(player, "pageNextTooltip"))));
             builder.append(nextPageComponent, ComponentBuilder.FormatRetention.NONE);
         } else {
-            TextComponent nextPageComponent = new TextComponent(" " + Language.getLine("pageNextNone"));
-            nextPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.getLine("pageNextNoneTooltip"))));
+            TextComponent nextPageComponent = new TextComponent(" " + Language.format(player, "pageNextNone"));
+            nextPageComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.format(player, "pageNextNoneTooltip"))));
             builder.append(nextPageComponent, ComponentBuilder.FormatRetention.NONE);
         }
 

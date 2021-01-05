@@ -22,9 +22,9 @@ import org.jetbrains.annotations.Nullable;
 public class NationCommandHelp extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
-        TextComponent text = new TextComponent(Language.format("nationHelp", new String[]{"link", Language.getLine("nationHelpLinkDisplay")}));
-        text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.getLine("nationHelpTooltip"))));
-        text.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Language.getLine("nationHelpLink")));
+        TextComponent text = new TextComponent(Language.format(player, "nationHelp", new String[]{"link", Language.format(player, "nationHelpLinkDisplay")}));
+        text.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(Language.format(player, "nationHelpTooltip"))));
+        text.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Language.format(player, "nationHelpLink")));
 
         player.sendMessage(text);
     }

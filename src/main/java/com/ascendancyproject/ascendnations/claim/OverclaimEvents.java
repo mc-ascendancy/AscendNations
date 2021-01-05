@@ -18,13 +18,13 @@ public class OverclaimEvents implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         if (!event.getFrom().getChunk().equals(event.getTo().getChunk()) && Overclaim.failOverclaim(event.getPlayer()))
-            event.getPlayer().sendMessage(Language.getLine("overclaimFailMoved"));
+            Language.sendMessage(event.getPlayer(), "overclaimFailMoved");
     }
 
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         if (!event.getFrom().getChunk().equals(event.getTo().getChunk()) && Overclaim.failOverclaim(event.getPlayer()))
-            event.getPlayer().sendMessage(Language.getLine("overclaimFailMoved"));
+            Language.sendMessage(event.getPlayer(), "overclaimFailMoved");
     }
 
     @EventHandler
@@ -35,6 +35,6 @@ public class OverclaimEvents implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player && Overclaim.failOverclaim((Player) event.getEntity()))
-            event.getEntity().sendMessage(Language.getLine("overclaimFailDamaged"));
+            Language.sendMessage((Player) event.getEntity(), "overclaimFailDamaged");
     }
 }

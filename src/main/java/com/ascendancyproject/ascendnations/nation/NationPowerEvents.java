@@ -35,24 +35,24 @@ public class NationPowerEvents implements Listener {
             NationMember killerMember = killerNation.getMembers().get(event.getEntity().getKiller().getUniqueId());
 
             if (killedPower < killerMember.getPower().getTotal()) {
-                event.getEntity().getKiller().sendMessage(Language.format("nationBonusPowerLowerLevel", new String[]{"killedName", event.getEntity().getName()}));
+                Language.sendMessage(event.getEntity().getKiller(), "nationBonusPowerLowerLevel", new String[]{"killedName", event.getEntity().getName()});
                 return;
             }
 
             if (killerMember.getPower().incrementBonusPower()) {
-                event.getEntity().getKiller().sendMessage(Language.format("nationBonusPowerGained",
+                Language.sendMessage(event.getEntity().getKiller(), "nationBonusPowerGained",
                         new String[]{"killedName", event.getEntity().getName()},
                         new String[]{"bonusPower", Integer.toString(killerMember.getPower().getBonusPower())},
                         new String[]{"bonusPowerMax", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
-                ));
+                );
 
                 killerNation.getPower().recalculate(killerNation);
             } else {
-                event.getEntity().getKiller().sendMessage(Language.format("nationBonusPowerMaxLevel",
+                Language.sendMessage(event.getEntity().getKiller(), "nationBonusPowerMaxLevel",
                         new String[]{"killedName", event.getEntity().getName()},
                         new String[]{"bonusPower", Integer.toString(killerMember.getPower().getBonusPower())},
                         new String[]{"bonusPowerMax", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
-                ));
+                );
             }
         }
     }

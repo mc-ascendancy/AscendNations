@@ -3,7 +3,6 @@ package com.ascendancyproject.ascendnations.nation;
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.PersistentData;
-import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
 
 import java.util.HashSet;
@@ -17,13 +16,13 @@ public class NationLockoutTicker {
     private void tick() {
         for (Nation nation : PersistentData.instance.getNations().values()) {
             if (nation.getPower().getLockoutExpiry() != 0)
-                nation.broadcast(Language.format("nationLockoutReminder", new String[]{"nationName", nation.getName()}));
+                nation.broadcast("nationLockoutReminder", new String[]{"nationName", nation.getName()});
 
             if (nation.getPower().getChunkLockoutExpiry() != 0) {
                 if (nation.getPower().getChunkLockoutExpiry() < System.currentTimeMillis())
                     reclaimChunks(nation);
                 else
-                    nation.broadcast(Language.format("nationLockoutChunkReminder", new String[]{"nationName", nation.getName()}));
+                    nation.broadcast("nationLockoutChunkReminder", new String[]{"nationName", nation.getName()});
             }
         }
     }
@@ -51,10 +50,10 @@ public class NationLockoutTicker {
         nation.getPower().recalculate(nation);
         nation.setClaimPunishmentExpiry(System.currentTimeMillis() + NationVariables.instance.getClaimPunishmentDuration());
 
-        nation.broadcast(Language.format("nationReclaimedChunks",
+        nation.broadcast("nationReclaimedChunks",
                 new String[]{"chunkCount", Integer.toString(startingChunks - nation.getChunks().size())},
                 new String[]{"outpostCount", Integer.toString(startingOutposts - nation.getOutposts().size())},
                 new String[]{"claimPunishmentDuration", AscendNationsHelper.durationToString(NationVariables.instance.getClaimPunishmentDuration())}
-        ));
+        );
     }
 }

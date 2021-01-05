@@ -4,7 +4,6 @@ import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
-import com.ascendancyproject.ascendnations.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -61,10 +60,10 @@ public class NationOutpost {
 
             spawnMinecart(nation, key, false);
 
-            nation.broadcast(Language.format("resupplySpawned",
+            nation.broadcast("resupplySpawned",
                     new String[]{"outpostNumber", Integer.toString(number)},
                     new String[]{"duration", AscendNationsHelper.durationToString(NationVariables.instance.getResupplyTimeout())}
-            ));
+            );
 
             return;
         }
@@ -77,18 +76,16 @@ public class NationOutpost {
 
         nation.recalculateChunks(touched);
 
-        nation.broadcast(Language.format("resupplyFail",
-                new String[]{"outpostNumber", Integer.toString(number)},
-                new String[]{"chunkCount", Integer.toString(diff)}
-        ));
+        nation.broadcast("resupplyFail", new String[]{"outpostNumber", Integer.toString(number)},
+                new String[]{"chunkCount", Integer.toString(diff)});
     }
 
     public void reminderTick(Nation nation) {
         if (resupplyState.equals(NationOutpostResupply.InProgress))
-            nation.broadcast(Language.format("resupplyReminder",
+            nation.broadcast("resupplyReminder",
                     new String[]{"outpostNumber", Integer.toString(number)},
                     new String[]{"duration", AscendNationsHelper.durationToString(resupplyExpiry - System.currentTimeMillis())}
-            ));
+            );
     }
 
     private void resupplied() {
@@ -98,10 +95,10 @@ public class NationOutpost {
 
     public void spawnMinecart(Nation nation, Long key, boolean respawn) {
         if (respawn)
-            nation.broadcast(Language.format("resupplyRespawn",
+            nation.broadcast("resupplyRespawn",
                     new String[]{"outpostNumber", Integer.toString(number)},
                     new String[]{"duration", AscendNationsHelper.durationToString(resupplyExpiry - System.currentTimeMillis())}
-            ));
+            );
 
         World world = Bukkit.getWorld("world");
 

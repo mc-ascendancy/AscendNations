@@ -23,7 +23,7 @@ public class NationCommandMembersOther extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
-            player.sendMessage(Language.getLine("errorAutomaticCommandManual"));
+            Language.sendMessage(player, "errorAutomaticCommandManual");
             return;
         }
 
@@ -31,13 +31,13 @@ public class NationCommandMembersOther extends NationCommand {
         try {
             nationUUID = UUID.fromString(args[1]);
         } catch (IllegalArgumentException e) {
-            player.sendMessage(Language.getLine("errorAutomaticCommandManual"));
+            Language.sendMessage(player, "errorAutomaticCommandManual");
             return;
         }
 
         Nation otherNation = PersistentData.instance.getNations().get(nationUUID);
         if (otherNation == null) {
-            player.sendMessage(Language.getLine("errorNationMembersNotFound"));
+            Language.sendMessage(player, "errorNationMembersNotFound");
             return;
         }
 

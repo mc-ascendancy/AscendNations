@@ -1,6 +1,5 @@
 package com.ascendancyproject.ascendnations.nation;
 
-import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.rift.Rift;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
 
@@ -67,21 +66,21 @@ public class NationPower {
 
         if (lockoutExpiry == 0L) {
             if (shouldLockout) {
-                nation.broadcast(Language.format("nationLockout", new String[]{"nationName", nation.getName()}));
+                nation.broadcast("nationLockout", new String[][]{new String[]{"nationName", nation.getName()}});
                 lockoutExpiry = System.currentTimeMillis() + nv.getLockoutDuration();
             }
         } else if (!shouldLockout) {
-            nation.broadcast(Language.format("nationLockoutExit", new String[]{"nationName", nation.getName()}));
+            nation.broadcast("nationLockoutExit", new String[][]{new String[]{"nationName", nation.getName()}});
             lockoutExpiry = 0L;
         }
 
         if (chunkLockoutExpiry == 0L) {
             if (shouldChunkLockout) {
-                nation.broadcast(Language.format("nationLockoutChunk", new String[]{"nationName", nation.getName()}));
+                nation.broadcast("nationLockoutChunk", new String[][]{new String[]{"nationName", nation.getName()}});
                 chunkLockoutExpiry = System.currentTimeMillis() + nv.getLockoutChunkDuration();
             }
         } else if (!shouldChunkLockout) {
-            nation.broadcast(Language.format("nationLockoutChunkExit", new String[]{"nationName", nation.getName()}));
+            nation.broadcast("nationLockoutChunkExit", new String[][]{new String[]{"nationName", nation.getName()}});
             chunkLockoutExpiry = 0L;
         }
     }

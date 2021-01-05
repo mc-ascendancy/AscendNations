@@ -27,15 +27,15 @@ public class Overclaim {
         expires = System.currentTimeMillis() + duration;
         this.chunk = chunk;
 
-        Bukkit.getServer().broadcastMessage(Language.format("overclaimStartBroadcast",
+        Language.broadcastMessage("overclaimStartBroadcast", new String[][]{
                 new String[]{"attackingNationName", attackingNation.getName()},
                 new String[]{"defendingNationName", defendingNation.getName()}
-        ));
+        }, player.getUniqueId());
 
-        player.sendMessage(Language.format("overclaimStart",
+        Language.sendMessage(player, "overclaimStart",
                 new String[]{"defendingNationName", defendingNation.getName()},
                 new String[]{"duration", AscendNationsHelper.durationToString(duration)}
-        ));
+        );
 
         overclaims.put(player.getUniqueId(), this);
     }
@@ -52,7 +52,7 @@ public class Overclaim {
 
         if (player.getChunk().getChunkKey() != chunk) {
             failBroadcast(player);
-            player.sendMessage(Language.getLine("overclaimFailMoved"));
+            Language.sendMessage(player, "overclaimFailMoved");
             overclaims.remove(playerUUID);
             return;
         }
@@ -81,11 +81,11 @@ public class Overclaim {
             if (chunk.equals(defendingNation.getHomeChunk())) {
                 defendingNation.disband();
 
-                Bukkit.getServer().broadcastMessage(Language.format("overclaimSuccessBroadcastHome",
+                Language.broadcastMessage("overclaimSuccessBroadcastHome", new String[][]{
                         new String[]{"attackingNationName", attackingNation.getName()},
                         new String[]{"defendingNationName", defendingNation.getName()}
-                ));
-                player.sendMessage(Language.getLine("overclaimSuccess"));
+                }, playerUUID);
+                Language.sendMessage(player, "overclaimSuccess");
 
                 ClaimChunks.claim(attackingNation, chunk);
                 attackingNation.getPower().recalculate(attackingNation);
@@ -112,12 +112,12 @@ public class Overclaim {
         defendingNation.getPower().recalculate(defendingNation);
         attackingNation.getPower().recalculate(attackingNation);
 
-        Bukkit.getServer().broadcastMessage(Language.format("overclaimSuccessBroadcast",
+        Language.broadcastMessage("overclaimSuccessBroadcast", new String[][]{
                 new String[]{"attackingNationName", attackingNation.getName()},
                 new String[]{"defendingNationName", defendingNation.getName()},
                 new String[]{"chunkCount", Integer.toString(diff)}
-        ));
-        player.sendMessage(Language.getLine("overclaimSuccess"));
+        }, playerUUID);
+        Language.sendMessage(player, "overclaimSuccess");
 
         overclaims.remove(playerUUID);
     }
@@ -151,9 +151,9 @@ public class Overclaim {
             return;
         }
 
-        Bukkit.getServer().broadcastMessage(Language.format("overclaimFailBroadcast",
+        Language.broadcastMessage("overclaimFailBroadcast", new String[][]{
                 new String[]{"attackingNationName", attackingNation.getName()},
                 new String[]{"defendingNationName", defendingNation.getName()}
-        ));
+        }, player.getUniqueId());
     }
 }

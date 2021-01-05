@@ -47,10 +47,10 @@ public class NationMemberPower {
 
         passivePower = Math.max(passivePower - loss, 0);
 
-        player.sendMessage(Language.format("nationPowerLost",
+        Language.sendMessage(player, "nationPowerLost",
                 new String[]{"bonusPowerLost", Integer.toString(bonusPowerLost)},
                 new String[]{"passivePowerLost", Integer.toString(loss)}
-        ));
+        );
     }
 
     public int getTotal() {

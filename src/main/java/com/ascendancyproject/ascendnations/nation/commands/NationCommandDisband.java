@@ -19,8 +19,8 @@ import org.jetbrains.annotations.Nullable;
 public class NationCommandDisband extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
-        player.sendMessage(Language.format("nationDisbanded", new String[]{"nationName", nation.getName()}));
-        nation.broadcast(Language.format("nationDisbandedBroadcast", new String[]{"nationName", nation.getName()}), player.getUniqueId());
+        Language.sendMessage(player, "nationDisbanded", new String[]{"nationName", nation.getName()});
+        nation.broadcast("nationDisbandedBroadcast", new String[][]{new String[]{"nationName", nation.getName()}}, player.getUniqueId());
 
         nation.disband();
     }

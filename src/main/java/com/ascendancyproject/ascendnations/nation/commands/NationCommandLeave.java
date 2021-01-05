@@ -19,7 +19,7 @@ public class NationCommandLeave extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (member.getRole() == NationRole.Chancellor) {
-            player.sendMessage(Language.getLine("errorNationLeaveIsChancellor"));
+            Language.sendMessage(player, "errorNationLeaveIsChancellor");
             return;
         }
 
@@ -27,7 +27,7 @@ public class NationCommandLeave extends NationCommand {
         nation.getMembers().remove(player.getUniqueId());
         nation.getPower().recalculate(nation);
 
-        player.sendMessage(Language.format("nationLeave", new String[]{"nationName", nation.getName()}));
-        nation.broadcast(Language.format("nationLeaveBroadcast", new String[]{"nationName", nation.getName()}, new String[]{"playerName", player.getName()}), player.getUniqueId());
+        Language.sendMessage(player, "nationLeave", new String[]{"nationName", nation.getName()});
+        nation.broadcast("nationLeaveBroadcast", new String[][]{new String[]{"nationName", nation.getName()}, new String[]{"playerName", player.getName()}}, player.getUniqueId());
     }
 }

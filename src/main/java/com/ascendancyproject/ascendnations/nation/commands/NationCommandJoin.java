@@ -23,12 +23,12 @@ public class NationCommandJoin extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
-            player.sendMessage(Language.getLine("errorAutomaticCommandManual"));
+            Language.sendMessage(player, "errorAutomaticCommandManual");
             return;
         }
 
         if (nation != null) {
-            player.sendMessage(Language.getLine("errorNationJoinAlreadyInNation"));
+            Language.sendMessage(player, "errorNationJoinAlreadyInNation");
             return;
         }
 
@@ -36,21 +36,21 @@ public class NationCommandJoin extends NationCommand {
         try {
             invitationUUID = UUID.fromString(args[1]);
         } catch (IllegalArgumentException e) {
-            player.sendMessage(Language.getLine("errorAutomaticCommandManual"));
+            Language.sendMessage(player, "errorAutomaticCommandManual");
             return;
         }
 
         NationInvitation invitation = NationInvitationManager.invitations.get(invitationUUID);
 
         if (invitation == null || invitation.hasExpired()) {
-            player.sendMessage(Language.getLine("errorNationJoinExpired"));
+            Language.sendMessage(player, "errorNationJoinExpired");
             return;
         }
 
         nation = PersistentData.instance.getNations().get(invitation.getNationUUID());
 
         if (!nation.hasMemberSlots()) {
-            player.sendMessage(Language.format("errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()}));
+            Language.sendMessage(player, "errorNationHasNoMemberSlots", new String[]{"nationName", nation.getName()});
             return;
         }
 
@@ -60,7 +60,7 @@ public class NationCommandJoin extends NationCommand {
 
         NationInvitationManager.invitations.remove(invitationUUID);
 
-        player.sendMessage(Language.format("nationJoin", new String[]{"nationName", nation.getName()}));
-        nation.broadcast(Language.format("nationJoinBroadcast", new String[]{"nationName", nation.getName()}, new String[]{"playerName", player.getName()}), player.getUniqueId());
+        Language.sendMessage(player, "nationJoin", new String[]{"nationName", nation.getName()});
+        nation.broadcast("nationJoinBroadcast", new String[][]{new String[]{"nationName", nation.getName()}, new String[]{"playerName", player.getName()}}, player.getUniqueId());
     }
 }

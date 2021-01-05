@@ -45,29 +45,30 @@ public class CommandNation implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             // TODO: update this in accordance with issue #4.
-            sender.sendMessage(Language.format("errorNotPlayer", new String[]{"commandName", label}));
+            sender.sendMessage(Language.formatDefault("errorNotPlayer", new String[]{"commandName", label}));
             return true;
         }
 
+        Player player = (Player) sender;
+
         if (args.length == 0) {
-            sender.sendMessage(Language.format("errorNoSubcommandProvided", new String[]{"subcommandName", label}));
+            Language.sendMessage(player, "errorNoSubcommandProvided", new String[]{"subcommandName", label});
             return true;
         }
 
         NationCommand nationCommand = commandMap.get(args[0]);
         if (nationCommand == null) {
-            sender.sendMessage(Language.format("errorBadSubcommand", new String[]{"subcommandName", label}));
+            Language.sendMessage(player, "errorBadSubcommand", new String[]{"subcommandName", label});
             return true;
         }
 
         NationCommandAnnotation annotation = nationCommand.getAnnotation();
 
-        Player player = (Player) sender;
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
         if (nation == null && annotation.requiresNation()) {
-            sender.sendMessage(Language.getLine("errorNationNotInNation"));
+            Language.sendMessage(player, "errorNationNotInNation");
             return true;
         }
 
@@ -75,7 +76,7 @@ public class CommandNation implements CommandExecutor {
 
         if (nation != null) {
             if (nation.lacksPermissions(player.getUniqueId(), annotation.minimumRole())) {
-                sender.sendMessage(Language.format("errorNationBadPermissions", new String[]{"minimumRole", annotation.minimumRole().name()}));
+                Language.sendMessage(player, "errorNationBadPermissions", new String[]{"minimumRole", annotation.minimumRole().name()});
                 return true;
             }
 

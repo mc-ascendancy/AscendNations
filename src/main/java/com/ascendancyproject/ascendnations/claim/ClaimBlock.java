@@ -24,7 +24,7 @@ public class ClaimBlock {
 
     public static boolean placeHome(Block block, Player player, Nation nation) {
         if (nation.getHome() != null) {
-            player.sendMessage(Language.getLine("errorClaimHomeAlreadyClaimed"));
+            Language.sendMessage(player, "errorClaimHomeAlreadyClaimed");
             return false;
         }
 
@@ -33,18 +33,18 @@ public class ClaimBlock {
 
         block.setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Home));
 
-        player.sendMessage(Language.getLine("claimHome"));
+        Language.sendMessage(player, "claimHome");
         return true;
     }
 
     public static boolean placeOutpost(Block block, Player player, Nation nation) {
         if (nation.getHome() == null) {
-            player.sendMessage(Language.getLine("errorClaimOutpostNoHome"));
+            Language.sendMessage(player, "errorClaimOutpostNoHome");
             return false;
         }
 
         if (!nation.hasOutpostClaims()) {
-            player.sendMessage(Language.format("errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())}));
+            Language.sendMessage(player, "errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())});
             return false;
         }
 
@@ -53,11 +53,11 @@ public class ClaimBlock {
 
         block.setMetadata(ClaimBlockMetadata.key, new ClaimBlockMetadata(ClaimBlockType.Outpost));
 
-        player.sendMessage(Language.format("claimOutpost",
+        Language.sendMessage(player, "claimOutpost",
                 new String[]{"outpostNumber", Integer.toString(outpostNumber)},
                 new String[]{"outpostsClaimed", Integer.toString(nation.getOutposts().size())},
                 new String[]{"outpostsCap", Integer.toString(nation.getPower().getOutpostsClaimable())}
-        ));
+        );
         return true;
     }
 
@@ -66,8 +66,8 @@ public class ClaimBlock {
             homeBlock = new ItemStack(NationVariables.instance.getClaimBlockHome());
 
             ItemMeta meta = homeBlock.getItemMeta();
-            meta.setDisplayName(Language.getLine("blockHomeName"));
-            meta.setLore(Arrays.asList(Language.getLine("blockHomeLore").split("\n")));
+            meta.setDisplayName(Language.format(player, "blockHomeName"));
+            meta.setLore(Arrays.asList(Language.format(player, "blockHomeLore").split("\n")));
 
             PersistentDataContainer data = meta.getPersistentDataContainer();
             data.set(nbtKey, PersistentDataType.INTEGER, ClaimBlockType.Home.ordinal());
@@ -83,8 +83,8 @@ public class ClaimBlock {
             outpostBlock = new ItemStack(NationVariables.instance.getClaimBlockOutpost());
 
             ItemMeta meta = outpostBlock.getItemMeta();
-            meta.setDisplayName(Language.getLine("blockOutpostName"));
-            meta.setLore(Arrays.asList(Language.getLine("blockOutpostLore").split("\n")));
+            meta.setDisplayName(Language.format(player, "blockOutpostName"));
+            meta.setLore(Arrays.asList(Language.format(player, "blockOutpostLore").split("\n")));
 
             PersistentDataContainer data = meta.getPersistentDataContainer();
             data.set(nbtKey, PersistentDataType.INTEGER, ClaimBlockType.Outpost.ordinal());
@@ -101,7 +101,7 @@ public class ClaimBlock {
                 ClaimBlockType foundType = ClaimBlockType.values()[itemStack.getItemMeta().getPersistentDataContainer().get(nbtKey, PersistentDataType.INTEGER)];
 
                 if (type.equals(foundType)) {
-                    player.sendMessage(Language.format("errorGiveBlockAlreadyOwned", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
+                    Language.sendMessage(player, "errorGiveBlockAlreadyOwned", new String[]{"blockName", block.getItemMeta().getDisplayName()});
                     return;
                 }
             }
@@ -109,9 +109,9 @@ public class ClaimBlock {
 
         if (!player.getInventory().addItem(block).isEmpty()) {
             // If the player's inventory is full:
-            player.sendMessage(Language.format("errorGiveBlockInventoryFull", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
+            Language.sendMessage(player, "errorGiveBlockInventoryFull", new String[]{"blockName", block.getItemMeta().getDisplayName()});
         } else {
-            player.sendMessage(Language.format("giveBlock", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
+            Language.sendMessage(player, "giveBlock", new String[]{"blockName", block.getItemMeta().getDisplayName()});
         }
     }
 
@@ -130,7 +130,7 @@ public class ClaimBlock {
     }
 
     public static void removedBlock(Player player, ItemStack block) {
-        player.sendMessage(Language.format("removeBlock", new String[]{"blockName", block.getItemMeta().getDisplayName()}));
+        Language.sendMessage(player, "removeBlock", new String[]{"blockName", block.getItemMeta().getDisplayName()});
     }
 
     public static void removeBlock(Block block) {

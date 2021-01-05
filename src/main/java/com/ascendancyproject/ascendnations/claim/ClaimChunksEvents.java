@@ -25,12 +25,12 @@ public class ClaimChunksEvents implements Listener {
 
         if (fromUUID != null && !fromUUID.equals(toUUID)) {
             Nation nation = PersistentData.instance.getNations().get(fromUUID);
-            event.getPlayer().sendMessage(Language.getLine("prefix") + " " + nation.getMessages().get("exit"));
+            event.getPlayer().sendMessage(Language.format(event.getPlayer(), "prefix") + " " + nation.getMessages().get("exit"));
         }
 
         if (toUUID != null && !toUUID.equals(fromUUID)) {
             Nation nation = PersistentData.instance.getNations().get(toUUID);
-            event.getPlayer().sendMessage(Language.getLine("prefix") + " " + nation.getMessages().get("entry"));
+            event.getPlayer().sendMessage(Language.format(event.getPlayer(), "prefix") + " " + nation.getMessages().get("entry"));
         }
     }
 }

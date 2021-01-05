@@ -19,7 +19,7 @@ public class NationCommandPower extends NationCommand {
         NationPower np = nation.getPower();
         NationMemberPower mp = member.getPower();
 
-        player.sendMessage(Language.format("nationPower",
+        Language.sendMessage(player, "nationPower",
                 new String[]{"nationPower", Integer.toString(np.getTotal())},
                 new String[]{"maxNationPower", Integer.toString(np.getMaxPower())},
                 new String[]{"memberPower", Integer.toString(np.getMemberPower())},
@@ -32,6 +32,6 @@ public class NationCommandPower extends NationCommand {
                 new String[]{"maxPlayerPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())},
                 new String[]{"playerBonusPower", Integer.toString(mp.getBonusPower())},
                 new String[]{"maxPlayerBonusPower", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
-        ));
+        );
     }
 }

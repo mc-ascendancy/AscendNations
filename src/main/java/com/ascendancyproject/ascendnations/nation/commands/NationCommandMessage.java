@@ -23,25 +23,25 @@ public class NationCommandMessage extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length < 2) {
-            player.sendMessage(Language.getLine("errorNationMessageNoField"));
+            Language.sendMessage(player, "errorNationMessageNoField");
             return;
         }
 
         if (args.length < 3) {
-            player.sendMessage(Language.getLine("errorNationMessageNoValue"));
+            Language.sendMessage(player, "errorNationMessageNoValue");
             return;
         }
 
         String field = args[1].toLowerCase();
         if (!nation.getMessages().containsKey(field)) {
-            player.sendMessage(Language.getLine("errorNationMessageUnknownField"));
+            Language.sendMessage(player, "errorNationMessageUnknownField");
             return;
         }
 
         String value = String.join(" ", (String[]) ArrayUtils.subarray(args, 2, args.length));
         nation.getMessages().put(field, value);
 
-        player.sendMessage(Language.format("nationMessage", new String[]{"field", field}, new String[]{"value", value}));
+        Language.sendMessage(player, "nationMessage", new String[]{"field", field}, new String[]{"value", value});
     }
 
     @Override

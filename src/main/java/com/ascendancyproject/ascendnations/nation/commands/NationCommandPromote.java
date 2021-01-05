@@ -22,43 +22,43 @@ public class NationCommandPromote extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         if (args.length != 2) {
-            player.sendMessage(Language.getLine("errorNationPromoteBadUsername"));
+            Language.sendMessage(player, "errorNationPromoteBadUsername");
             return;
         }
 
         OfflinePlayer promoted = Bukkit.getOfflinePlayerIfCached(args[1]);
         if (promoted == null) {
-            player.sendMessage(Language.format("errorNationNoPlayerFound", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationNoPlayerFound", new String[]{"playerName", args[1]});
             return;
         }
 
         if (promoted.getUniqueId() == player.getUniqueId()) {
-            player.sendMessage(Language.format("errorCannotRunOnYourself", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorCannotRunOnYourself", new String[]{"playerName", args[1]});
             return;
         }
 
         NationMember promotedNationMember = nation.getMembers().get(promoted.getUniqueId());
         if (promotedNationMember == null) {
-            player.sendMessage(Language.format("errorNationPlayerNotInNation", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationPlayerNotInNation", new String[]{"playerName", args[1]});
             return;
         }
 
         if (promotedNationMember.getRole() == NationRole.Commander) {
-            player.sendMessage(Language.format("errorNationPromoteAlreadyCommander", new String[]{"playerName", args[1]}));
+            Language.sendMessage(player, "errorNationPromoteAlreadyCommander", new String[]{"playerName", args[1]});
             return;
         }
 
         promotedNationMember.setRole(NationRole.Commander);
 
-        player.sendMessage(Language.format("nationPromote", new String[]{"promotedName", args[1]}));
+        Language.sendMessage(player, "nationPromote", new String[]{"promotedName", args[1]});
 
         if (promoted.isOnline())
-            ((Player) promoted).sendMessage(Language.format("nationPromoteReceived", new String[]{"promoterName", player.getName()}));
+            Language.sendMessage((Player) promoted, "nationPromoteReceived", new String[]{"promoterName", player.getName()});
 
-        nation.broadcast(Language.format("nationPromoteBroadcast",
+        nation.broadcast("nationPromoteBroadcast", new String[][]{
                 new String[]{"nationName", nation.getName()},
                 new String[]{"promoterName", player.getName()},
                 new String[]{"promotedName", promoted.getName()}
-        ), player.getUniqueId(), promoted.getUniqueId());
+        }, player.getUniqueId(), promoted.getUniqueId());
     }
 }

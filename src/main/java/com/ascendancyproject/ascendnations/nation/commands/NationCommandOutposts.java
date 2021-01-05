@@ -32,19 +32,19 @@ public class NationCommandOutposts extends NationCommand {
         for (int i = (page - 1) * listingsPerPage; i < nation.getOutposts().size() && i < page * listingsPerPage; i++) {
             NationOutpost outpost = nation.getOutposts().get(nation.getOutpostsSequential().get(i));
 
-            listings.append(Language.format("nationOutpostsOutpost",
+            listings.append(Language.format(player, "nationOutpostsOutpost",
                     new String[]{"outpostNumber", Integer.toString(outpost.getNumber())},
-                    new String[]{"outpostResupplyStatus", Language.getLine("nationOutpostStatus" + outpost.getResupplyState().name())},
+                    new String[]{"outpostResupplyStatus", Language.format(player, "nationOutpostStatus" + outpost.getResupplyState().name())},
                     new String[]{"outpostResupplyDuration", AscendNationsHelper.durationToString(outpost.getResupplyExpiry() - System.currentTimeMillis())}
             ));
         }
 
-        player.sendMessage(Language.format("nationOutposts",
+        Language.sendMessage(player, "nationOutposts",
                 new String[]{"page", Integer.toString(page)},
                 new String[]{"pageMax", Integer.toString((nation.getOutposts().size() - 1) / listingsPerPage + 1)},
                 new String[]{"outpostCount", Integer.toString(nation.getOutposts().size())},
                 new String[]{"outpostMax", Integer.toString(nation.getPower().getOutpostsClaimable())},
                 new String[]{"outpostListings", listings.toString()}
-        ));
+        );
     }
 }
