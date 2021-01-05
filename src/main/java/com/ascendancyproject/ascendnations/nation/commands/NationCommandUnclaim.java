@@ -28,7 +28,7 @@ public class NationCommandUnclaim extends NationCommand {
         boolean force = false;
 
         if (args.length >= 2) {
-            if (args[1].equalsIgnoreCase("force")) {
+            if (args[1].equalsIgnoreCase(Language.format(player, "chunkUnclaimForceSubcommand"))) {
                 force = true;
             } else {
                 player.sendMessage("errorChunkUnclaimBadArgs");
@@ -73,6 +73,6 @@ public class NationCommandUnclaim extends NationCommand {
 
     @Override
     public @Nullable ArrayList<String> getAutocomplete(Player player, Nation nation, NationMember member) {
-        return new ArrayList<>(Arrays.asList("force"));
+        return new ArrayList<>(Arrays.asList(Language.format(player, "chunkUnclaimForceSubcommand")));
     }
 }

@@ -39,6 +39,7 @@
 				"errorNationNoPlayerFound": "[prefix] No user found with the name [playerName]!",
 				"errorNationPlayerNotInNation": "[prefix] [playerName] is not in your nation.",
 				"nationCreated": "[prefix] Successfully formed [nationName].",
+				"nationCreateSubcommand": "<nation name>",
 				"errorNationCreateNoNameProvided": "[prefix] You must provide a name for your nation.\nFormat: /nation create [name]\nExample: /nation create My Cool Nation",
 				"errorNationCreateAlreadyInNation": "[prefix] You must leave your current nation before creating a new one!",
 				"nationDisbanded": "[prefix] Successfully disbanded [nationName].",
@@ -87,8 +88,10 @@
 				"nationStatusDanger": "&4",
 				"blockHomeName": "Home Block",
 				"blockHomeLore": "Where you place this block\nwill become your nation's home.",
+				"blockHomeSubcommand": "home",
 				"blockOutpostName": "Outpost Block",
 				"blockOutpostLore": "Where you place this block\nwill become one of your\nnation's outposts.",
+				"blockOutpostSubcommand": "outpost",
 				"giveBlock": "[prefix] You have been given a [blockName]&r!\nWhere you place this block will become your nation's home/outpost.\nIf you lose this block, you can get another with /nation claim [home] [outpost]",
 				"errorGiveBlockInventoryFull": "[prefix] Your inventory is full, so you did not get a [blockName]&r.\nYou can claim another with /nation claim [home] [outpost]",
 				"errorGiveBlockAlreadyOwned": "[prefix] You already have a [blockName] in your inventory.",
@@ -100,6 +103,7 @@
 				"chunkClaim": "[prefix] Claimed chunk [chunksClaimed]/[chunksClaimable]!",
 				"chunkClaimRift": "[prefix] Claimed [riftChunks] rift chunks adding [riftPower] power!\nNow using [chunksClaimed]/[chunksClaimable] claims.",
 				"chunkClaimOverclaim": "[prefix] Overclaimed chunk [chunksClaimed]/[chunksClaimable]!",
+				"chunkClaimAutoSubcommand": "auto",
 				"chunkClaimAutoEnabled": "[prefix] Enabled automatic claiming, all chunks you enter will now be automatically claimed.",
 				"chunkClaimAutoDisabled": "[prefix] Disabled automatic chunk claiming.",
 				"errorChunkClaimAutoNotInClaim": "[prefix] You must be in one of your claims to enable automatic claiming.",
@@ -111,6 +115,7 @@
 				"errorChunkClaimNoClaimsRift": "[prefix] Claiming this rift would require [riftChunks] claims.\nYou are already using [chunksClaimed]/[chunksClaimable] claims.",
 				"chunkUnclaim": "[prefix] Unclaimed chunk.",
 				"chunkUnclaimForce": "[prefix] Unclaimed [chunkCount] chunks.",
+				"chunkUnclaimForceSubcommand": "force",
 				"errorChunkUnclaimHome": "[prefix] You can not unclaim your home chunk.",
 				"errorChunkUnclaimNotClaimed": "[prefix] Your nation doesn't own this chunk.",
 				"errorChunkUnclaimMultipleUnclaimed": "[prefix] Unclaiming this chunk would unclaim [chunkCount] chunks.\nTo continue, use: /nation unclaim force",
@@ -160,6 +165,7 @@
 				"nationMembers": "&l[nationName]'s Members&r\n \nChancellor: [chancellor]\nCommanders: [commanders]\nCitizens: [citizens]",
 				"errorNationMembersNotFound": "[prefix] Could not find that nation; it must have been disbanded.",
 				"nationList": "&lNations [pageStart]-[pageEnd] of [nationCount]&r",
+				"nationListPageSubcommand": "<page>",
 				"nationListEntry": "[nationName] - [nationPower]/[nationClaimThreshold]/[nationExistenceThreshold]",
 				"nationListEntryTooltip": "Click to view [nationName]'s members.",
 				"errorNationListBadPage": "[prefix] That is not a valid page number.",
@@ -198,7 +204,11 @@
 			},
 			"lines": {
 				"prefix": "&8[&bLanden&8]&r",
-				"nationCreated": "[prefix] [nationName] gevormd."
+				"nationCreated": "[prefix] [nationName] gevormd.",
+				"blockHomeSubcommand": "huis",
+				"blockOutpostSubcommand": "buitenpost",
+				"nationListPageSubcommand": "<bladzijde>",
+				"chunkUnclaimForceSubcommand": "dwingen"
 			}
 		}
 	}

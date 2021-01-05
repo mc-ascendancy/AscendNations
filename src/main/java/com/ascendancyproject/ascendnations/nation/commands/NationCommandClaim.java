@@ -36,36 +36,29 @@ public class NationCommandClaim extends NationCommand {
             return;
         }
 
-        switch (args[1].toLowerCase()) {
-            case "auto":
-                claimAuto(player, nation);
-                break;
+        if (Language.format(player, "chunkClaimAutoSubcommand").equalsIgnoreCase(args[1])) {
+            claimAuto(player, nation);
+        } else if (Language.format(player, "blockHomeSubcommand").equalsIgnoreCase(args[1])) {
+            if (nation.getHome() != null) {
+                Language.sendMessage(player, "errorClaimHomeClaimed");
+                return;
+            }
 
-            case "home":
-                if (nation.getHome() != null) {
-                    Language.sendMessage(player, "errorClaimHomeClaimed");
-                    return;
-                }
+            ClaimBlock.giveHome(player);
+        } else if (Language.format(player, "blockOutpostSubcommand").equalsIgnoreCase(args[1])) {
+            if (nation.getHome() == null) {
+                Language.sendMessage(player, "errorClaimOutpostNoHome");
+                return;
+            }
 
-                ClaimBlock.giveHome(player);
-                break;
+            if (!nation.hasOutpostClaims()) {
+                Language.sendMessage(player, "errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())});
+                return;
+            }
 
-            case "outpost":
-                if (nation.getHome() == null) {
-                    Language.sendMessage(player, "errorClaimOutpostNoHome");
-                    return;
-                }
-
-                if (!nation.hasOutpostClaims()) {
-                    Language.sendMessage(player, "errorClaimOutpostMaxClaimed", new String[]{"outpostCount", Integer.toString(nation.getPower().getOutpostsClaimable())});
-                    return;
-                }
-
-                ClaimBlock.giveOutpost(player);
-                break;
-
-            default:
-                Language.sendMessage(player, "errorNationClaimBadArgs", new String[]{"args", args[1]});
+            ClaimBlock.giveOutpost(player);
+        } else {
+            Language.sendMessage(player, "errorNationClaimBadArgs", new String[]{"args", args[1]});
         }
     }
 
@@ -164,13 +157,13 @@ public class NationCommandClaim extends NationCommand {
     public @Nullable ArrayList<String> getAutocomplete(Player player, Nation nation, NationMember member) {
         ArrayList<String> suggestions = new ArrayList<>();
 
-        suggestions.add("auto");
+        suggestions.add(Language.format(player, "chunkClaimAutoSubcommand"));
 
         if (nation.getHome() == null)
-            suggestions.add("home");
+            suggestions.add(Language.format(player, "blockHomeSubcommand"));
 
         if (nation.hasOutpostClaims())
-            suggestions.add("outpost");
+            suggestions.add(Language.format(player, "blockOutpostSubcommand"));
 
         return suggestions;
     }

@@ -122,6 +122,6 @@ public class NationCommandList extends NationCommand {
 
     @Override
     public @Nullable ArrayList<String> getAutocomplete(Player player, Nation nation, NationMember member) {
-        return new ArrayList<>(Arrays.asList("<page>"));
+        return new ArrayList<>(Arrays.asList(Language.format(player, "nationListPageSubcommand")));
     }
 }
