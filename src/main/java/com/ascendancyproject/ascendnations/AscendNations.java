@@ -19,7 +19,6 @@ public final class AscendNations extends JavaPlugin {
         instance = this;
 
         // Load configs.
-        Language.init(new File(getDataFolder(), Language.location), this);
         NationVariables.init(new File(getDataFolder(), NationVariables.location), this);
         RiftConfig.init(new File(getDataFolder(), RiftConfig.location), this);
 
@@ -39,6 +38,9 @@ public final class AscendNations extends JavaPlugin {
         this.getCommand("nation").setTabCompleter(new NationTabCompleter());
         this.getCommand("language").setExecutor(new LanguageCommand());
         this.getCommand("language").setTabCompleter(new LanguageTabCompleter());
+
+        // Load language config (must be loaded after CommandNation).
+        Language.init(new File(getDataFolder(), Language.location), this);
 
         // Register events.
         new PlayerDataEvents(this);

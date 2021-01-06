@@ -1,8 +1,10 @@
 package com.ascendancyproject.ascendnations.language;
 
 import com.ascendancyproject.ascendnations.AscendNations;
+import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
+import com.ascendancyproject.ascendnations.nation.CommandNation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.Bukkit;
@@ -35,7 +37,11 @@ public class Language {
             for (Map.Entry<String, String> entry : language.getLines().entrySet())
                 entry.setValue(ChatColor.translateAlternateColorCodes('&', entry.getValue()));
 
-            HashMap<String, String> commandsReverse = new HashMap<>();
+            for (Map.Entry<String, NationCommand> entry : CommandNation.commandMap.entrySet())
+                if (entry.getValue().getAnnotation().hidden())
+                    language.getCommands().put(entry.getKey(), entry.getKey());
+
+            HashMap<String, String> commandsReverse = new HashMap<>(language.getCommands().size());
 
             for (Map.Entry<String, String> entry : language.getCommands().entrySet())
                 commandsReverse.put(entry.getValue(), entry.getKey());
