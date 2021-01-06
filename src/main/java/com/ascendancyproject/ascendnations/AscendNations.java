@@ -22,10 +22,6 @@ public final class AscendNations extends JavaPlugin {
         NationVariables.init(new File(getDataFolder(), NationVariables.location), this);
         RiftConfig.init(new File(getDataFolder(), RiftConfig.location), this);
 
-        // Initialise persistent data.
-        PersistentData.init(new File(getDataFolder(), PersistentData.location), this);
-        ClaimChunks.init();
-
         // Initialise managers.
         NationInvitationManager.init(this);
         new NationPassivePowerTicker(this);
@@ -41,6 +37,10 @@ public final class AscendNations extends JavaPlugin {
 
         // Load language config (must be loaded after CommandNation).
         Language.init(new File(getDataFolder(), Language.location), this);
+
+        // Initialise persistent data.
+        PersistentData.init(new File(getDataFolder(), PersistentData.location), this);
+        ClaimChunks.init();
 
         // Register events.
         new PlayerDataEvents(this);
