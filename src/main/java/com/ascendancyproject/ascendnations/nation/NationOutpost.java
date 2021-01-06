@@ -4,6 +4,8 @@ import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
+import com.ascendancyproject.ascendnations.events.NationEventType;
+import com.ascendancyproject.ascendnations.events.NationScriptEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -45,6 +47,9 @@ public class NationOutpost {
 
             Minecart minecart = (Minecart) world.getEntity(minecartUUID);
             if (minecart != null && minecart.getLocation().distance(world.getBlockAtKey(key).getLocation()) <= NationVariables.instance.getResupplyDistance()) {
+                nation.broadcast("resupplySuccess", new String[]{"outpostNumber", Integer.toString(number)});
+                new NationScriptEvent(NationEventType.resupply, "success", nation.getName());
+
                 resupplied();
                 minecart.remove();
                 return;
@@ -78,6 +83,7 @@ public class NationOutpost {
 
         nation.broadcast("resupplyFail", new String[]{"outpostNumber", Integer.toString(number)},
                 new String[]{"chunkCount", Integer.toString(diff)});
+        new NationScriptEvent(NationEventType.resupply, "fail", nation.getName());
     }
 
     public void reminderTick(Nation nation) {

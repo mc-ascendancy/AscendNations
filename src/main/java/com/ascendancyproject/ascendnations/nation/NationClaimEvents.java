@@ -4,6 +4,8 @@ import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
+import com.ascendancyproject.ascendnations.events.NationEventType;
+import com.ascendancyproject.ascendnations.events.NationScriptEvent;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.rift.Rift;
 import com.ascendancyproject.ascendnations.rift.RiftChunk;
@@ -93,6 +95,7 @@ public class NationClaimEvents implements Listener {
                     new String[]{"riftChunks", Integer.toString(rift.getChunks().size())},
                     new String[]{"riftPower", Integer.toString(rift.getPower())}
             );
+            new NationScriptEvent(NationEventType.rift_claim, nation.getName());
         } else {
             ClaimChunks.claim(nation, key);
 

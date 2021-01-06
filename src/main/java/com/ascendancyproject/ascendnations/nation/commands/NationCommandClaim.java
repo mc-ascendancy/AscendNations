@@ -4,6 +4,8 @@ import com.ascendancyproject.ascendnations.*;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
 import com.ascendancyproject.ascendnations.claim.ClaimChunks;
 import com.ascendancyproject.ascendnations.claim.Overclaim;
+import com.ascendancyproject.ascendnations.events.NationEventType;
+import com.ascendancyproject.ascendnations.events.NationScriptEvent;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.*;
 import com.ascendancyproject.ascendnations.rift.Rift;
@@ -126,6 +128,7 @@ public class NationCommandClaim extends NationCommand {
                     new String[]{"riftChunks", Integer.toString(rift.getChunks().size())},
                     new String[]{"riftPower", Integer.toString(rift.getPower())}
             );
+            new NationScriptEvent(NationEventType.rift_claim, nation.getName());
         } else {
             ClaimChunks.claim(nation, player.getChunk().getChunkKey());
 

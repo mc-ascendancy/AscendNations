@@ -3,6 +3,8 @@ package com.ascendancyproject.ascendnations.claim;
 import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.PlayerData;
+import com.ascendancyproject.ascendnations.events.NationEventType;
+import com.ascendancyproject.ascendnations.events.NationScriptEvent;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.rift.Rift;
@@ -98,10 +100,12 @@ public class Overclaim {
         }
 
         Rift rift = RiftConfig.getRift(player.getChunk().getChunkKey());
-        if (rift != null)
+        if (rift != null) {
             for (RiftChunk riftChunk : rift.getChunks())
                 ClaimChunks.claim(attackingNation, defendingNation, riftChunk.getKey());
-        else
+
+            new NationScriptEvent(NationEventType.rift_claim, attackingNation.getName());
+        } else
             ClaimChunks.claim(attackingNation, defendingNation, chunk);
 
         HashSet<Long> touched = defendingNation.getTouched(chunk);
@@ -118,6 +122,7 @@ public class Overclaim {
                 new String[]{"chunkCount", Integer.toString(diff)}
         }, playerUUID);
         Language.sendMessage(player, "overclaimSuccess");
+        new NationScriptEvent(NationEventType.overclaim, attackingNation.getName(), "-", defendingNation.getName());
 
         overclaims.remove(playerUUID);
     }

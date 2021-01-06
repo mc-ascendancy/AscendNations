@@ -4,6 +4,8 @@ import com.ascendancyproject.ascendnations.NationCommand;
 import com.ascendancyproject.ascendnations.NationCommandAnnotation;
 import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.claim.ClaimBlock;
+import com.ascendancyproject.ascendnations.events.NationEventType;
+import com.ascendancyproject.ascendnations.events.NationScriptEvent;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationMember;
@@ -38,6 +40,7 @@ public class NationCommandCreate extends NationCommand {
         playerData.setNationUUID(nation.getUUID());
 
         Language.sendMessage(player, "nationCreated", new String[]{"nationName", nation.getName()});
+        new NationScriptEvent(NationEventType.creation, player.getName(), nation.getName());
 
         ClaimBlock.giveHome(player);
     }
