@@ -42,6 +42,7 @@
 				"nationCreateSubcommand": "<nation name>",
 				"errorNationCreateNoNameProvided": "[prefix] You must provide a name for your nation.\nFormat: /nation create [name]\nExample: /nation create My Cool Nation",
 				"errorNationCreateAlreadyInNation": "[prefix] You must leave your current nation before creating a new one!",
+				"errorNationCreateInvalidCharacter": "[prefix] Nation names may not contain the \"[badCharacter]\" character.",
 				"nationDisbanded": "[prefix] Successfully disbanded [nationName].",
 				"nationDisbandedBroadcast": "[prefix] [nationName] has been disbanded.",
 				"nationInvite": "[prefix] Successfully invited [inviteeName]!",

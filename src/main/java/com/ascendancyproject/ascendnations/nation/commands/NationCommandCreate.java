@@ -36,11 +36,18 @@ public class NationCommandCreate extends NationCommand {
             return;
         }
 
-        nation = new Nation(player, String.join(" ", (String[]) ArrayUtils.subarray(args, 1, args.length)));
+        String name = String.join(" ", (String[]) ArrayUtils.subarray(args, 1, args.length));
+
+        if (name.contains("-")) {
+            Language.sendMessage(player, "errorNationCreateInvalidCharacter", new String[]{"badCharacter", "-"});
+            return;
+        }
+
+        nation = new Nation(player, name);
         playerData.setNationUUID(nation.getUUID());
 
-        Language.sendMessage(player, "nationCreated", new String[]{"nationName", nation.getName()});
-        new NationScriptEvent(NationEventType.creation, player.getName(), nation.getName());
+        Language.sendMessage(player, "nationCreated", new String[]{"nationName", name});
+        new NationScriptEvent(NationEventType.creation, player.getName(), name);
 
         ClaimBlock.giveHome(player);
     }
