@@ -56,7 +56,7 @@ public class Language {
 
     public static void broadcastMessage(String key, String[]... replacements) {
         for (Player player : Bukkit.getServer().getOnlinePlayers())
-            Language.format(player, key, replacements);
+            Language.sendMessage(player, key, replacements);
     }
 
     public static void broadcastMessage(String key, String[][] replacements, UUID... exceptions) {
@@ -64,7 +64,7 @@ public class Language {
 
         for (Player player : Bukkit.getServer().getOnlinePlayers())
             if (!exceptionSet.contains(player.getUniqueId()))
-                Language.format(player, key, replacements);
+                Language.sendMessage(player, key, replacements);
     }
 
     public static String format(Player player, String key, String[]... replacements) {

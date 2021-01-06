@@ -70,7 +70,7 @@ public class Nation {
             Player player = Bukkit.getPlayer(member);
 
             if (player != null)
-                Language.format(player, key, replacements);
+                Language.sendMessage(player, key, replacements);
         }
     }
 
@@ -84,7 +84,7 @@ public class Nation {
             Player player = Bukkit.getPlayer(member);
 
             if (player != null)
-                Language.format(player, key, replacements);
+                Language.sendMessage(player, key, replacements);
         }
     }
 
