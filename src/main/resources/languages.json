@@ -186,10 +186,15 @@
 				"pageNextTooltip": "Click to go to the next page.",
 				"pageNextNone": "&8-->",
 				"pageNextNoneTooltip": "You are already on the last page.",
-				"permissionAdded": "Made [permissionName] public!",
-				"permissionRemoved": "Made [permissionName] private!",
-				"errorPermissionUnknown": "That is not a valid permission.",
-				"permissionRedstone": "redstone"
+				"permission": "&l[nationName]'s permissions",
+				"permissionEntry": "[permission] - [privacy] -",
+				"permissionEntryClickable": "&lToggle!",
+				"permissionEntryClickableTooltip": "Click to toggle this setting!",
+				"permissionToggled": "[prefix] Made [permission] [privacy]!",
+				"permissionPrivacyPublic": "public",
+				"permissionPrivacyPrivate": "private",
+				"errorPermissionUnknown": "[prefix] That is not a valid permission.",
+				"permissionTypeRedstone": "Redstone"
 			}
 		},
 		"nl": {

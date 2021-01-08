@@ -322,4 +322,10 @@ public class Nation {
     public HashSet<NationPermission> getPermissions() {
         return permissions;
     }
+
+    public String permissionPrivacyString(Player player, NationPermission permission) {
+        return permissions.contains(permission) ?
+                Language.format(player, "permissionPrivacyPublic") :
+                Language.format(player, "permissionPrivacyPrivate");
+    }
 }
