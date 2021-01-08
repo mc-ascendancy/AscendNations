@@ -29,15 +29,32 @@ public class Overclaim {
         expires = System.currentTimeMillis() + duration;
         this.chunk = chunk;
 
-        Language.broadcastMessage("overclaimStartBroadcast", new String[][]{
-                new String[]{"attackingNationName", attackingNation.getName()},
-                new String[]{"defendingNationName", defendingNation.getName()}
-        }, player.getUniqueId());
+        Rift rift = RiftConfig.getRift(chunk);
+        if (rift == null) {
+            Language.broadcastMessage("overclaimStartBroadcast", new String[][]{
+                    new String[]{"attackingNationName", attackingNation.getName()},
+                    new String[]{"defendingNationName", defendingNation.getName()}
+            }, player.getUniqueId());
 
-        Language.sendMessage(player, "overclaimStart",
-                new String[]{"defendingNationName", defendingNation.getName()},
-                new String[]{"duration", AscendNationsHelper.durationToString(duration)}
-        );
+            Language.sendMessage(player, "overclaimStart",
+                    new String[]{"defendingNationName", defendingNation.getName()},
+                    new String[]{"duration", AscendNationsHelper.durationToString(duration)}
+            );
+        } else {
+            Language.broadcastMessage("overclaimRiftStartBroadcast", new String[][]{
+                    new String[]{"attackingNationName", attackingNation.getName()},
+                    new String[]{"defendingNationName", defendingNation.getName()},
+                    new String[]{"riftSize", Integer.toString(rift.getChunks().size())},
+                    new String[]{"riftPower", Integer.toString(rift.getPower())}
+            }, player.getUniqueId());
+
+            Language.sendMessage(player, "overclaimRiftStart",
+                    new String[]{"defendingNationName", defendingNation.getName()},
+                    new String[]{"duration", AscendNationsHelper.durationToString(duration)},
+                    new String[]{"riftSize", Integer.toString(rift.getChunks().size())},
+                    new String[]{"riftPower", Integer.toString(rift.getPower())}
+            );
+        }
 
         overclaims.put(player.getUniqueId(), this);
     }
@@ -100,12 +117,10 @@ public class Overclaim {
         }
 
         Rift rift = RiftConfig.getRift(player.getChunk().getChunkKey());
-        if (rift != null) {
+        if (rift != null)
             for (RiftChunk riftChunk : rift.getChunks())
                 ClaimChunks.claim(attackingNation, defendingNation, riftChunk.getKey());
-
-            new NationScriptEvent(NationEventType.rift_claim, attackingNation.getName());
-        } else
+        else
             ClaimChunks.claim(attackingNation, defendingNation, chunk);
 
         HashSet<Long> touched = defendingNation.getTouched(chunk);
@@ -116,13 +131,31 @@ public class Overclaim {
         defendingNation.getPower().recalculate(defendingNation);
         attackingNation.getPower().recalculate(attackingNation);
 
-        Language.broadcastMessage("overclaimSuccessBroadcast", new String[][]{
-                new String[]{"attackingNationName", attackingNation.getName()},
-                new String[]{"defendingNationName", defendingNation.getName()},
-                new String[]{"chunkCount", Integer.toString(diff)}
-        }, playerUUID);
-        Language.sendMessage(player, "overclaimSuccess");
-        new NationScriptEvent(NationEventType.overclaim, attackingNation.getName(), "-", defendingNation.getName());
+        if (rift == null) {
+            Language.broadcastMessage("overclaimSuccessBroadcast", new String[][]{
+                    new String[]{"attackingNationName", attackingNation.getName()},
+                    new String[]{"defendingNationName", defendingNation.getName()},
+                    new String[]{"chunkCount", Integer.toString(diff)}
+            }, playerUUID);
+            Language.sendMessage(player, "overclaimSuccess");
+
+            new NationScriptEvent(NationEventType.overclaim, attackingNation.getName(), "-", defendingNation.getName());
+        } else {
+            Language.broadcastMessage("overclaimRiftSuccessBroadcast", new String[][]{
+                    new String[]{"attackingNationName", attackingNation.getName()},
+                    new String[]{"defendingNationName", defendingNation.getName()},
+                    new String[]{"chunkCount", Integer.toString(diff)},
+                    new String[]{"riftSize", Integer.toString(rift.getChunks().size())},
+                    new String[]{"riftPower", Integer.toString(rift.getPower())}
+            }, playerUUID);
+            Language.sendMessage(player, "overclaimRiftSuccess");
+
+            new NationScriptEvent(NationEventType.rift_overclaim,
+                    Integer.toString(rift.getChunks().size()),
+                    Integer.toString(rift.getPower()),
+                    attackingNation.getName(), "-", defendingNation.getName()
+            );
+        }
 
         overclaims.remove(playerUUID);
     }
