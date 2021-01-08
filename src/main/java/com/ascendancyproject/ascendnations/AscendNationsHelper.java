@@ -1,5 +1,7 @@
 package com.ascendancyproject.ascendnations;
 
+import org.bukkit.Material;
+
 import java.time.Duration;
 
 public class AscendNationsHelper {
@@ -27,5 +29,18 @@ public class AscendNationsHelper {
         sb.append("s");
 
         return sb.toString();
+    }
+
+    public static boolean isRail(Material material) {
+        switch (material) {
+            case RAIL:
+            case ACTIVATOR_RAIL:
+            case DETECTOR_RAIL:
+            case POWERED_RAIL:
+                return true;
+
+            default:
+                return false;
+        }
     }
 }
