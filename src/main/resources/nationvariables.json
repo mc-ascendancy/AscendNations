@@ -35,6 +35,12 @@
 	"protectedMobs": [
 		"CHICKEN"
 	],
+	"protectedBlocks": [
+		"FURNACE",
+		"CHEST",
+		"TRAPPED_CHEST",
+		"TNT"
+	],
 	"goodSpawnBlocks": [
 		"SAND",
 		"GRASS_BLOCK",

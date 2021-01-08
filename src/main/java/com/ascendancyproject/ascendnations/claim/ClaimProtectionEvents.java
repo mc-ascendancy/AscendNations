@@ -6,6 +6,7 @@ import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -31,10 +32,14 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!event.hasBlock())
+        if (!event.hasBlock() || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
             return;
 
-        assert event.getClickedBlock() != null;
+        if (event.hasItem() && event.getItem().getType().equals(Material.BONE_MEAL))
+            return;
+
+        if (!NationVariables.instance.getProtectedBlocks().contains(event.getClickedBlock().getType().name()))
+            return;
 
         if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true))
             event.setCancelled(true);
@@ -61,6 +66,12 @@ public class ClaimProtectionEvents implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true))
             event.setCancelled(true);
     }
 

@@ -58,6 +58,7 @@ public class NationVariables {
     private int resupplyReminderFrequency;
 
     private HashSet<String> protectedMobs;
+    private HashSet<String> protectedBlocks;
 
     private HashSet<String> goodSpawnBlocks;
 
@@ -215,6 +216,10 @@ public class NationVariables {
 
     public HashSet<String> getProtectedMobs() {
         return protectedMobs;
+    }
+
+    public HashSet<String> getProtectedBlocks() {
+        return protectedBlocks;
     }
 
     public HashSet<String> getGoodSpawnBlocks() {
