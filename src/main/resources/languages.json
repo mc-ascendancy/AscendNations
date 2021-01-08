@@ -17,6 +17,7 @@
 				"members": "members",
 				"message": "message",
 				"outposts": "outposts",
+				"permission": "permission",
 				"power": "power",
 				"promote": "promote",
 				"status": "status",
@@ -122,6 +123,7 @@
 				"errorChunkUnclaimMultipleUnclaimed": "[prefix] Unclaiming this chunk would unclaim [chunkCount] chunks.\nTo continue, use: /nation unclaim force",
 				"blockProtected": "[prefix] This block is protected by [nationName].",
 				"blockProtectedClaim": "[prefix] You can not break claim blocks.",
+				"blockProtectedRedstone": "[prefix] [nationName] has public redstone disabled.\nAsk them to change this in their permissions.",
 				"entityProtected": "[prefix] This entity is protected by [nationName].",
 				"claimHome": "[prefix] Claimed home!",
 				"errorClaimHomeClaimed": "[prefix] You already have a home.",
@@ -183,7 +185,11 @@
 				"pageNext": "-->",
 				"pageNextTooltip": "Click to go to the next page.",
 				"pageNextNone": "&8-->",
-				"pageNextNoneTooltip": "You are already on the last page."
+				"pageNextNoneTooltip": "You are already on the last page.",
+				"permissionAdded": "Made [permissionName] public!",
+				"permissionRemoved": "Made [permissionName] private!",
+				"errorPermissionUnknown": "That is not a valid permission.",
+				"permissionRedstone": "redstone"
 			}
 		},
 		"nl": {
@@ -202,6 +208,7 @@
 				"members": "leden",
 				"message": "bericht",
 				"outposts": "buitenposten",
+				"permission": "toestemming",
 				"power": "kracht",
 				"promote": "promoten",
 				"status": "toestand",

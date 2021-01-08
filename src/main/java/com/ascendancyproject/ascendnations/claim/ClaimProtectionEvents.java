@@ -1,9 +1,11 @@
 package com.ascendancyproject.ascendnations.claim;
 
 import com.ascendancyproject.ascendnations.AscendNations;
+import com.ascendancyproject.ascendnations.AscendNationsHelper;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
+import com.ascendancyproject.ascendnations.nation.NationPermission;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,10 +40,11 @@ public class ClaimProtectionEvents implements Listener {
         if (event.hasItem() && event.getItem().getType().equals(Material.BONE_MEAL))
             return;
 
-        if (!NationVariables.instance.getProtectedBlocks().contains(event.getClickedBlock().getType().name()))
+        if (!NationVariables.instance.getProtectedBlocks().contains(event.getClickedBlock().getType().name()) &&
+                !AscendNationsHelper.isRedstone(event.getClickedBlock().getType()))
             return;
 
-        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true))
+        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true, true))
             event.setCancelled(true);
     }
 
@@ -55,7 +58,7 @@ public class ClaimProtectionEvents implements Listener {
     @EventHandler
     public void onBlockIgnite(BlockIgniteEvent event) {
         if (event.getPlayer() != null) {
-            if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true))
+            if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false))
                 event.setCancelled(true);
         } else {
             if (blockProtected(event.getBlock()))
@@ -65,13 +68,13 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false))
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false))
             event.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true))
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false))
             event.setCancelled(true);
     }
 
@@ -134,7 +137,7 @@ public class ClaimProtectionEvents implements Listener {
         return ClaimBlock.isClaimBlock(block) || ClaimChunks.chunks.containsKey(block.getLocation().getChunk().getChunkKey());
     }
 
-    private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim) {
+    private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim, boolean redstone) {
         if (protectClaim && ClaimBlock.isClaimBlock(block)) {
             Language.sendMessage(player, "blockProtectedClaim");
             return true;
@@ -149,6 +152,14 @@ public class ClaimProtectionEvents implements Listener {
 
         if (nation.getMembers().containsKey(player.getUniqueId()))
             return false;
+
+        if (redstone && AscendNationsHelper.isRedstone(block.getType())) {
+            if (nation.getPermissions().contains(NationPermission.Redstone))
+                return false;
+
+            Language.sendMessage(player, "blockProtectedRedstone", new String[]{"nationName", nation.getName()});
+            return true;
+        }
 
         Language.sendMessage(player, "blockProtected", new String[]{"nationName", nation.getName()});
 

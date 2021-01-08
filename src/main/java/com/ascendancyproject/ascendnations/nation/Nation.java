@@ -29,6 +29,8 @@ public class Nation {
 
     private final HashMap<String, String> messages;
 
+    private final HashSet<NationPermission> permissions;
+
     public Nation(Player creator, String name) {
         uuid = UUID.randomUUID();
         this.name = name;
@@ -43,6 +45,8 @@ public class Nation {
         messages = new HashMap<>();
         messages.put("entry", Language.formatDefault("defaultMessageEntry", new String[]{"nationName", name}));
         messages.put("exit", Language.formatDefault("defaultMessageExit", new String[]{"nationName", name}));
+
+        permissions = new HashSet<>();
 
         PersistentData.instance.getNations().put(uuid, this);
     }
@@ -313,5 +317,9 @@ public class Nation {
 
     public HashMap<String, String> getMessages() {
         return messages;
+    }
+
+    public HashSet<NationPermission> getPermissions() {
+        return permissions;
     }
 }

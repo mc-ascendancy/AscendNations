@@ -40,6 +40,7 @@ public class CommandNation implements CommandExecutor {
         new NationCommandMembers().register(commandMap);
         new NationCommandMembersOther().register(commandMap);
         new NationCommandList().register(commandMap);
+        new NationCommandPermission().register(commandMap);
     }
 
     @Override

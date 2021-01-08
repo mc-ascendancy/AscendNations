@@ -43,4 +43,45 @@ public class AscendNationsHelper {
                 return false;
         }
     }
+
+    public static boolean isRedstone(Material material) {
+        switch (material) {
+            // Buttons:
+            case BIRCH_BUTTON:
+            case ACACIA_BUTTON:
+            case CRIMSON_BUTTON:
+            case DARK_OAK_BUTTON:
+            case JUNGLE_BUTTON:
+            case OAK_BUTTON:
+            case POLISHED_BLACKSTONE_BUTTON:
+            case SPRUCE_BUTTON:
+            case STONE_BUTTON:
+            case WARPED_BUTTON:
+
+            // Lever:
+            case LEVER:
+
+            // Pressure plates:
+            case BIRCH_PRESSURE_PLATE:
+            case ACACIA_PRESSURE_PLATE:
+            case CRIMSON_PRESSURE_PLATE:
+            case DARK_OAK_PRESSURE_PLATE:
+            case JUNGLE_PRESSURE_PLATE:
+            case OAK_PRESSURE_PLATE:
+            case POLISHED_BLACKSTONE_PRESSURE_PLATE:
+            case SPRUCE_PRESSURE_PLATE:
+            case STONE_PRESSURE_PLATE:
+            case WARPED_PRESSURE_PLATE:
+            case LIGHT_WEIGHTED_PRESSURE_PLATE:
+            case HEAVY_WEIGHTED_PRESSURE_PLATE:
+
+            // Tripwire:
+            case TRIPWIRE:
+            case TRIPWIRE_HOOK:
+                return true;
+
+            default:
+                return false;
+        }
+    }
 }
