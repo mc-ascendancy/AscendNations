@@ -9,9 +9,11 @@ import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Container;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.minecart.HopperMinecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
@@ -19,6 +21,7 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -128,6 +131,24 @@ public class ClaimProtectionEvents implements Listener {
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
         if (blockPistonEvent(event.getBlock(), event.getBlocks(), event.getDirection(), false))
             event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onInventoryMoveItem(InventoryMoveItemEvent event) {
+        if (!(event.getDestination().getHolder() instanceof HopperMinecart))
+            return;
+
+        if (event.getSource().getHolder() instanceof Container) {
+            if (blockProtected(((Container) event.getSource().getHolder()).getBlock()))
+                event.setCancelled(true);
+
+            return;
+        }
+
+        if (event.getSource().getHolder() instanceof Entity) {
+            if (entityProtected((Entity) event.getSource().getHolder(), null))
+                event.setCancelled(true);
+        }
     }
 
     private boolean blockProtected(Block block) {
