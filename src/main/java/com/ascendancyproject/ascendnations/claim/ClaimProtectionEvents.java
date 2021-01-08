@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -68,6 +69,13 @@ public class ClaimProtectionEvents implements Listener {
         if (event.getDamager() instanceof Player &&
                 NationVariables.instance.getProtectedMobs().contains(event.getEntity().getType().name()) &&
                 entityProtected(event.getEntity(), (Player) event.getDamager()))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (!event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK) &&
+                entityProtected(event.getEntity(), null))
             event.setCancelled(true);
     }
 
@@ -142,6 +150,9 @@ public class ClaimProtectionEvents implements Listener {
 
         if (nationUUID == null)
             return false;
+
+        if (player == null)
+            return true;
 
         PlayerData playerData = PersistentData.instance.getPlayers().get(player.getUniqueId());
 
