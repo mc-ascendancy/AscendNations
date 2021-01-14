@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations;
 
 import com.ascendancyproject.ascendnations.nation.Nation;
+import com.ascendancyproject.ascendnations.nation.NationVariables;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -10,7 +11,6 @@ import java.util.UUID;
 
 public class PersistentData {
     public static final String location = "nations.json";
-    private static final long saveFrequency = 10 * 20;
 
     private final HashMap<UUID, Nation> nations;
     private final HashMap<UUID, PlayerData> players;
@@ -37,7 +37,7 @@ public class PersistentData {
             instance = new PersistentData();
         }
 
-        plugin.getServer().getScheduler().runTaskTimer(plugin, () -> instance.save(file), saveFrequency, saveFrequency);
+        plugin.getServer().getScheduler().runTaskTimer(plugin, () -> instance.save(file), NationVariables.instance.getSaveFrequency(), NationVariables.instance.getSaveFrequency());
     }
 
     public void save(File file) {

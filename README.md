@@ -107,6 +107,7 @@ Field | Description
 `protectedMobs`                          | the mobs which are invulnerable inside claimed land.  
 `protectedBlocks`                        | the blocks which are protected from right-click events inside claimed land.  
 `goodSpawnBlocks`                        | blocks which players are able to spawn on top of.
+`saveFrequency`                          | the amount of ticks between each autosave of `nations.json`.
 
 ## Formulas
 This section expects a decent understanding of algebra and functions.

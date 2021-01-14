@@ -47,5 +47,6 @@
 		"GRASS",
 		"TALL_GRASS",
 		"ICE"
-	]
+	],
+	"saveFrequency": 6000
 }

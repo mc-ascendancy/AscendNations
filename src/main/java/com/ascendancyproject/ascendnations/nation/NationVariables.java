@@ -62,6 +62,8 @@ public class NationVariables {
 
     private HashSet<String> goodSpawnBlocks;
 
+    private int saveFrequency;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -224,5 +226,9 @@ public class NationVariables {
 
     public HashSet<String> getGoodSpawnBlocks() {
         return goodSpawnBlocks;
+    }
+
+    public int getSaveFrequency() {
+        return saveFrequency;
     }
 }
