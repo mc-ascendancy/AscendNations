@@ -8,6 +8,9 @@ import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationMember;
 import com.ascendancyproject.ascendnations.nation.NationRole;
+import com.ascendancyproject.ascendnations.rift.Rift;
+import com.ascendancyproject.ascendnations.rift.RiftChunk;
+import com.ascendancyproject.ascendnations.rift.RiftConfig;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -50,6 +53,12 @@ public class NationCommandUnclaim extends NationCommand {
         }
 
         HashSet<Long> touched = nation.getTouched(player.getChunk().getChunkKey());
+
+        Rift rift = RiftConfig.getRift(key);
+        if (rift != null)
+            for (RiftChunk riftChunk : rift.getChunks())
+                touched.remove(riftChunk.getKey());
+
         int diff = nation.getChunks().size() - touched.size();
 
         if (!force && diff > 1) {
