@@ -108,6 +108,12 @@ Field | Description
 `protectedBlocks`                        | the blocks which are protected from right-click events inside claimed land.  
 `goodSpawnBlocks`                        | blocks which players are able to spawn on top of.
 `saveFrequency`                          | the amount of ticks between each autosave of `nations.json`.
+`mapBeaconLevitation`                    | the amount of blocks the map beacons are above the floor.
+`mapBeaconType`                          | the material of the base of the beacon.
+`mapBeaconGlass`                         | the material of the glass on beacons of regular claim chunks.
+`mapBeaconGlassHome`                     | the material of the glass on beacons of home claim chunks.
+`mapBeaconGlassOutpost`                  | the material of the glass on beacons of outpost claim chunks.
+`mapDuration`                            | the time in milliseconds that the map stays active for.
 
 ## Formulas
 This section expects a decent understanding of algebra and functions.
