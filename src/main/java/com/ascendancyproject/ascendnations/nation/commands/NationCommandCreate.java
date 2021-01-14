@@ -14,9 +14,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 @NationCommandAnnotation(
         name = "create",
         description = "Form a new nation.",
@@ -50,10 +47,5 @@ public class NationCommandCreate extends NationCommand {
         new NationScriptEvent(NationEventType.creation, player.getName(), name);
 
         ClaimBlock.giveHome(player);
-    }
-
-    @Override
-    public @Nullable ArrayList<String> getAutocomplete(Player player, Nation nation, NationMember member) {
-        return new ArrayList<>(Arrays.asList("<nation name>"));
     }
 }
