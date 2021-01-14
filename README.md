@@ -2,6 +2,8 @@
 AscendNations - The Ascendancy Project's nations plugin developed by [Froogo](https://froogo.co.uk).
 
 ### Index
+- [Installation](#installation)
+    - [ProtocolLib](#protocollib)
 - [Languages](#languages)
     - [Language country codes](#language-country-codes)
     - [Default language](#default-language)
@@ -21,6 +23,14 @@ AscendNations - The Ascendancy Project's nations plugin developed by [Froogo](ht
     - [Rift power](#rift-power)
     - [Rift chunks](#rift-chunks)
     - [Example](#example)
+
+## Installation
+Download the [latest version of the plugin here](../../releases/latest) and add it to the plugins directory.
+
+### ProtocolLib
+Download `v4.6.0-SNAPSHOT` of ProtocolLib, and add it to the plugins directory.
+
+You can [find the downloads for ProtocolLib here](https://ci.dmulloy2.net/job/ProtocolLib/).
 
 ## Languages
 This section relates to the `languages.json` configuration file.
