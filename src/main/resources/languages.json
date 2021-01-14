@@ -22,7 +22,8 @@
 				"power": "power",
 				"promote": "promote",
 				"status": "status",
-				"unclaim": "unclaim"
+				"unclaim": "unclaim",
+				"map": "map"
 			},
 			"lines": {
 				"prefix": "&8[&bNations&8]&r",
@@ -197,7 +198,9 @@
 				"permissionPrivacyPublic": "public",
 				"permissionPrivacyPrivate": "private",
 				"errorPermissionUnknown": "[prefix] That is not a valid permission.",
-				"permissionTypeRedstone": "Redstone"
+				"permissionTypeRedstone": "Redstone",
+				"nationMap": "[prefix] Showing all owned chunks for 20 seconds.",
+				"nationMapExpired": "[prefix] Map expired, hiding beacons."
 			}
 		},
 		"nl": {
@@ -221,7 +224,8 @@
 				"power": "kracht",
 				"promote": "promoten",
 				"status": "toestand",
-				"unclaim": "nietclaimen"
+				"unclaim": "nietclaimen",
+				"map": "kaart"
 			},
 			"lines": {
 				"prefix": "&8[&bLanden&8]&r",

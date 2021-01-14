@@ -1,5 +1,6 @@
 package com.ascendancyproject.ascendnations;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 
 import java.time.Duration;
@@ -83,5 +84,13 @@ public class AscendNationsHelper {
             default:
                 return false;
         }
+    }
+
+    public static short shortFromLocation(Location location) {
+        return (short) (
+                (location.getBlockX() & 0xF) << 8 |
+                (location.getBlockZ() & 0xF) << 4 |
+                (location.getBlockY() & 0xF)
+        );
     }
 }

@@ -64,6 +64,17 @@ public class NationVariables {
 
     private int saveFrequency;
 
+    private int mapBeaconLevitation;
+    private String mapBeaconType;
+    private Material mapBeaconMaterial;
+    private String mapBeaconGlass;
+    private Material mapBeaconGlassMaterial;
+    private String mapBeaconGlassHome;
+    private Material mapBeaconGlassHomeMaterial;
+    private String mapBeaconGlassOutpost;
+    private Material mapBeaconGlassOutpostMaterial;
+    private long mapDuration;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -78,6 +89,11 @@ public class NationVariables {
 
         instance.claimBlockHome = Material.getMaterial(instance.claimBlockHomeType);
         instance.claimBlockOutpost = Material.getMaterial(instance.claimBlockOutpostType);
+
+        instance.mapBeaconMaterial = Material.getMaterial(instance.mapBeaconType);
+        instance.mapBeaconGlassMaterial = Material.getMaterial(instance.mapBeaconGlass);
+        instance.mapBeaconGlassHomeMaterial = Material.getMaterial(instance.mapBeaconGlassHome);
+        instance.mapBeaconGlassOutpostMaterial = Material.getMaterial(instance.mapBeaconGlassOutpost);
     }
 
     public int getMaxNationPop() {
@@ -230,5 +246,29 @@ public class NationVariables {
 
     public int getSaveFrequency() {
         return saveFrequency;
+    }
+
+    public int getMapBeaconLevitation() {
+        return mapBeaconLevitation;
+    }
+
+    public Material getMapBeaconMaterial() {
+        return mapBeaconMaterial;
+    }
+
+    public Material getMapBeaconGlassMaterial() {
+        return mapBeaconGlassMaterial;
+    }
+
+    public Material getMapBeaconGlassHomeMaterial() {
+        return mapBeaconGlassHomeMaterial;
+    }
+
+    public Material getMapBeaconGlassOutpostMaterial() {
+        return mapBeaconGlassOutpostMaterial;
+    }
+
+    public long getMapDuration() {
+        return mapDuration;
     }
 }

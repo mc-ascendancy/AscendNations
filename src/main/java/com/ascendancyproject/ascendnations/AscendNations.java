@@ -7,12 +7,18 @@ import com.ascendancyproject.ascendnations.language.LanguageEvents;
 import com.ascendancyproject.ascendnations.language.LanguageTabCompleter;
 import com.ascendancyproject.ascendnations.nation.*;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
+import com.comphenix.protocol.ProtocolLibrary;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
 public final class AscendNations extends JavaPlugin {
     private static AscendNations instance;
+
+    @Override
+    public void onLoad() {
+        ProtocolLibrary.getProtocolManager();
+    }
 
     @Override
     public void onEnable() {
@@ -28,6 +34,7 @@ public final class AscendNations extends JavaPlugin {
         new OverclaimTicker(this);
         new NationOutpostTicker(this);
         new NationLockoutTicker(this);
+        new NationMapTicker(this);
 
         // Register commands.
         this.getCommand("nation").setExecutor(new CommandNation());
