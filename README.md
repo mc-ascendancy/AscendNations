@@ -135,9 +135,9 @@ The nation power is the sum of all of the power of all members, plus the rift po
 ```
 claimThreshold {nationPopulation = 1} = [claimThresholdOnePlayer]
 
-claimThreshold {1 < nationPopulation < [riftModifier]} = [claimThresholdSmallModifier] * nationPopulation - [claimThresholdSmallOffset] 
+claimThreshold {1 < nationPopulation < [minNationPopClaimRift]} = [claimThresholdSmallModifier] * nationPopulation - [claimThresholdSmallOffset] 
 
-claimThreshold {[riftModifier] <= nationPopulation} = [claimThresholdLargeModifier] * nationPopulation
+claimThreshold {[minNationPopClaimRift] <= nationPopulation} = [claimThresholdLargeModifier] * nationPopulation
                     + ([claimThresholdSmallModifier] * [minNationPopClaimRift] - [claimThresholdSmallOffset])
                     - ([claimThresholdLargeModifier] * [minNationPopClaimRift])
 ```
@@ -146,9 +146,9 @@ claimThreshold {[riftModifier] <= nationPopulation} = [claimThresholdLargeModifi
 ```
 existenceThreshold {nationPopulation = 1} = [existenceThresholdOnePlayer]
 
-existenceThreshold {1 < nationPopulation < [riftModifier]} = [existenceThresholdSmallModifier] * nationPopulation - [existenceThresholdSmallOffset] 
+existenceThreshold {1 < nationPopulation < [minNationPopClaimRift]} = [existenceThresholdSmallModifier] * nationPopulation - [existenceThresholdSmallOffset] 
 
-existenceThreshold {[riftModifier] <= nationPopulation} = claimThreshold
+existenceThreshold {[minNationPopClaimRift] <= nationPopulation} = claimThreshold
                     - ([existenceThresholdLargeModifierDynamic] * pop) + [existenceThresholdLargeModifierFlat]
 ```
 
