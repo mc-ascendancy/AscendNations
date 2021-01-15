@@ -79,6 +79,15 @@ public class ClaimProtectionEvents implements Listener {
     }
 
     @EventHandler
+    public void onEntityBlockForm(EntityBlockFormEvent event) {
+        if (!(event.getEntity() instanceof Player))
+            return;
+
+        if (blockProtectedPlayer(event.getBlock(), (Player) event.getEntity(), true, false))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player &&
                 NationVariables.instance.getProtectedMobs().contains(event.getEntity().getType().name()) &&
