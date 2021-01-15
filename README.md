@@ -87,7 +87,8 @@ Field | Description
 `riftModifier`                           | formula variable.  
 `minNationPopClaimRift`                  | formula variable.  
 `memberPassivePowerStart`                | the amount of passive power a player gains when first joining the server.  
-`memberPassiveGainFrequency`             | the amount of ticks between each increment of a player's passive power.  
+`memberPassiveGainFrequency`             | the amount of ticks between each increment of a player's passive power due to being online.  
+`memberPassiveDecayFrequency`            | the amount of ticks between each decrement of a player's passive power due to being offline.
 `memberPowerLostOnDeath`                 | the amount of power a player loses upon dying.  
 `claimThresholdOnePlayer`                | formula variable.  
 `claimThresholdSmallModifier`            | formula variable.  

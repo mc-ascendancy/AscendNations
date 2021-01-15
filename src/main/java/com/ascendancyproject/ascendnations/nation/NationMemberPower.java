@@ -7,27 +7,43 @@ public class NationMemberPower {
     private int passivePower;
     private int bonusPower;
     private int ticksUntilPassiveGain;
+    private int ticksUntilPassiveDecay;
 
     public NationMemberPower() {
         passivePower = NationVariables.instance.getMemberPassivePowerStart();
         bonusPower = 0;
         ticksUntilPassiveGain = NationVariables.instance.getMemberPassiveGainFrequency();
+        ticksUntilPassiveDecay = NationVariables.instance.getMemberPassiveDecayFrequency();
     }
 
-    public boolean updatePassivePower(int ticksSinceLastCheck) {
+    public boolean gainPassivePower(int ticksSinceLastCheck) {
         ticksUntilPassiveGain -= ticksSinceLastCheck;
 
-        if (ticksUntilPassiveGain <= 0) {
-            ticksUntilPassiveGain += NationVariables.instance.getMemberPassiveGainFrequency();
+        if (ticksUntilPassiveGain > 0)
+            return false;
 
-            if (passivePower >= NationVariables.instance.getMaxMemberPassivePower())
-                return false;
+        ticksUntilPassiveGain += NationVariables.instance.getMemberPassiveGainFrequency();
 
-            passivePower++;
-            return true;
-        }
+        if (passivePower >= NationVariables.instance.getMaxMemberPassivePower())
+            return false;
 
-        return false;
+        passivePower++;
+        return true;
+    }
+
+    public boolean decayPassivePower(int ticksSinceLastCheck) {
+        ticksUntilPassiveDecay -= ticksSinceLastCheck;
+
+        if (ticksUntilPassiveDecay > 0)
+            return false;
+
+        ticksUntilPassiveDecay += NationVariables.instance.getMemberPassiveDecayFrequency();
+
+        if (passivePower <= 0)
+            return false;
+
+        passivePower--;
+        return true;
     }
 
     public boolean incrementBonusPower() {

@@ -23,11 +23,13 @@ public class NationPassivePowerTicker {
 
             if (player != null && player.isOnline())
                 onlineTick(entry, player);
+            else
+                offlineTick(entry);
         }
     }
 
     private void onlineTick(Map.Entry<UUID, PlayerData> entry, Player player) {
-        if (!entry.getValue().getPower().updatePassivePower(tickFrequency))
+        if (!entry.getValue().getPower().gainPassivePower(tickFrequency))
             return;
 
         Language.sendMessage(player, "nationPassivePowerIncremented",
@@ -36,6 +38,16 @@ public class NationPassivePowerTicker {
                 new String[]{"passivePower", Integer.toString(entry.getValue().getPower().getPassivePower())},
                 new String[]{"maxPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())}
         );
+
+        if (entry.getValue().getNationUUID() != null) {
+            Nation nation = PersistentData.instance.getNations().get(entry.getValue().getNationUUID());
+            nation.getPower().recalculate(nation);
+        }
+    }
+
+    private void offlineTick(Map.Entry<UUID, PlayerData> entry) {
+        if (!entry.getValue().getPower().decayPassivePower(tickFrequency))
+            return;
 
         if (entry.getValue().getNationUUID() != null) {
             Nation nation = PersistentData.instance.getNations().get(entry.getValue().getNationUUID());

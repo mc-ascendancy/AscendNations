@@ -22,6 +22,7 @@ public class NationVariables {
     private int minNationPopClaimRift;
     private int memberPassivePowerStart;
     private int memberPassiveGainFrequency;
+    private int memberPassiveDecayFrequency;
     private int memberPowerLostOnDeath;
 
     private int claimThresholdOnePlayer;
@@ -122,6 +123,10 @@ public class NationVariables {
 
     public int getMemberPassiveGainFrequency() {
         return memberPassiveGainFrequency;
+    }
+
+    public int getMemberPassiveDecayFrequency() {
+        return memberPassiveDecayFrequency;
     }
 
     public int getMemberPassivePowerStart() {
