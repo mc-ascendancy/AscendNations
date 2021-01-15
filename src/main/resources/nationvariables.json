@@ -3,7 +3,7 @@
 	"maxMemberPassivePower": 8,
 	"maxMemberBonusPower": 2,
 	"riftModifier": 11,
-	"minNationPopClaimRift": 1,
+	"minNationPopClaimRift": 4,
 	"memberPassivePowerStart": 8,
 	"memberPassiveGainFrequency": 1200,
 	"memberPassiveDecayFrequency": 1200,
