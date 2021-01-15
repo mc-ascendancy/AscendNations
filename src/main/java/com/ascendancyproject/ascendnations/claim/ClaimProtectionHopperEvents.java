@@ -48,7 +48,7 @@ public class ClaimProtectionHopperEvents implements Listener {
         });
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onInventoryMoveItem(InventoryMoveItemEvent event) {
         if (!(event.getDestination().getHolder() instanceof HopperMinecart))
             return;

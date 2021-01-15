@@ -32,7 +32,7 @@ public class ClaimProtectionEvents implements Listener {
         new ClaimProtectionHopperEvents(plugin);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (!event.hasBlock() || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
             return;
@@ -48,14 +48,14 @@ public class ClaimProtectionEvents implements Listener {
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityExplode(EntityExplodeEvent event) {
         for (int i = event.blockList().size() - 1; i >= 0; i--)
             if (blockProtected(event.blockList().get(i)))
                 event.blockList().remove(i);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockIgnite(BlockIgniteEvent event) {
         if (event.getPlayer() != null) {
             if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false))
@@ -66,19 +66,19 @@ public class ClaimProtectionEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false))
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false))
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityBlockForm(EntityBlockFormEvent event) {
         if (!(event.getEntity() instanceof Player))
             return;
@@ -87,7 +87,7 @@ public class ClaimProtectionEvents implements Listener {
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player &&
                 NationVariables.instance.getProtectedMobs().contains(event.getEntity().getType().name()) &&
@@ -95,26 +95,26 @@ public class ClaimProtectionEvents implements Listener {
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDamage(EntityDamageEvent event) {
         if (!event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK) &&
                 entityProtected(event.getEntity(), null))
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityChangeBlock(EntityChangeBlockEvent event) {
         if (event.getEntity().getType().equals(EntityType.SILVERFISH))
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         if (entityProtected(event.getRightClicked(), event.getPlayer()))
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockFromTo(BlockFromToEvent event) {
         if (event.getBlock().getChunk().equals(event.getToBlock().getChunk()))
             return;
@@ -130,13 +130,13 @@ public class ClaimProtectionEvents implements Listener {
         event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
         if (blockPistonEvent(event.getBlock(), event.getBlocks(), event.getDirection(), true))
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
         if (blockPistonEvent(event.getBlock(), event.getBlocks(), event.getDirection(), false))
             event.setCancelled(true);
