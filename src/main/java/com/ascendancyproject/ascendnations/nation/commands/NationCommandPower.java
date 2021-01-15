@@ -11,27 +11,39 @@ import org.jetbrains.annotations.Nullable;
 
 @NationCommandAnnotation(
         name = "power",
-        description = "Calculate your nation's power."
+        description = "Calculate your nation's power.",
+        requiresNation = false
 )
 public class NationCommandPower extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
-        NationPower np = nation.getPower();
         NationMemberPower mp = playerData.getPower();
 
-        Language.sendMessage(player, "nationPower",
-                new String[]{"nationPower", Integer.toString(np.getTotal())},
-                new String[]{"maxNationPower", Integer.toString(np.getMaxPower())},
-                new String[]{"memberPower", Integer.toString(np.getMemberPower())},
-                new String[]{"maxMemberPower", Integer.toString(np.getMaxMemberPower())},
-                new String[]{"riftPower", Integer.toString(np.getRiftPower())},
-                new String[]{"maxRiftPower", Integer.toString(np.getMaxRiftPower())},
-                new String[]{"playerPower", Integer.toString(mp.getTotal())},
-                new String[]{"maxPlayerPower", Integer.toString(NationVariables.instance.getMaxMemberPower())},
-                new String[]{"playerPassivePower", Integer.toString(mp.getPassivePower())},
-                new String[]{"maxPlayerPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())},
-                new String[]{"playerBonusPower", Integer.toString(mp.getBonusPower())},
-                new String[]{"maxPlayerBonusPower", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
-        );
+        if (nation == null) {
+            Language.sendMessage(player, "nationPowerMember",
+                    new String[]{"playerPower", Integer.toString(mp.getTotal())},
+                    new String[]{"maxPlayerPower", Integer.toString(NationVariables.instance.getMaxMemberPower())},
+                    new String[]{"playerPassivePower", Integer.toString(mp.getPassivePower())},
+                    new String[]{"maxPlayerPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())},
+                    new String[]{"playerBonusPower", Integer.toString(mp.getBonusPower())},
+                    new String[]{"maxPlayerBonusPower", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
+            );
+        } else {
+            NationPower np = nation.getPower();
+            Language.sendMessage(player, "nationPower",
+                    new String[]{"nationPower", Integer.toString(np.getTotal())},
+                    new String[]{"maxNationPower", Integer.toString(np.getMaxPower())},
+                    new String[]{"memberPower", Integer.toString(np.getMemberPower())},
+                    new String[]{"maxMemberPower", Integer.toString(np.getMaxMemberPower())},
+                    new String[]{"riftPower", Integer.toString(np.getRiftPower())},
+                    new String[]{"maxRiftPower", Integer.toString(np.getMaxRiftPower())},
+                    new String[]{"playerPower", Integer.toString(mp.getTotal())},
+                    new String[]{"maxPlayerPower", Integer.toString(NationVariables.instance.getMaxMemberPower())},
+                    new String[]{"playerPassivePower", Integer.toString(mp.getPassivePower())},
+                    new String[]{"maxPlayerPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())},
+                    new String[]{"playerBonusPower", Integer.toString(mp.getBonusPower())},
+                    new String[]{"maxPlayerBonusPower", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
+            );
+        }
     }
 }
