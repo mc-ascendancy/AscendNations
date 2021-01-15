@@ -22,7 +22,7 @@ public class ClaimBlockEvents implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (!ClaimBlock.isClaimBlock(event.getItemInHand()))
             return;
@@ -74,7 +74,7 @@ public class ClaimBlockEvents implements Listener {
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerDropItem(PlayerDropItemEvent event) {
         if (!ClaimBlock.isClaimBlock(event.getItemDrop().getItemStack()))
             return;
@@ -83,15 +83,13 @@ public class ClaimBlockEvents implements Listener {
         event.getItemDrop().remove();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onItemSpawn(ItemSpawnEvent event) {
-        if (!ClaimBlock.isClaimBlock(event.getEntity().getItemStack()))
-            return;
-
-        event.setCancelled(true);
+        if (ClaimBlock.isClaimBlock(event.getEntity().getItemStack()))
+            event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getCurrentItem() == null || !ClaimBlock.isClaimBlock(event.getCurrentItem()))
             return;
