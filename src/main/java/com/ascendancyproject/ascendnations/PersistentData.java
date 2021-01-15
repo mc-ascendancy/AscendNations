@@ -31,6 +31,9 @@ public class PersistentData {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
+            for (Nation nation : instance.getNations().values())
+                nation.getPower().recalculate(nation);
         } else {
             file.getParentFile().mkdirs();
 
