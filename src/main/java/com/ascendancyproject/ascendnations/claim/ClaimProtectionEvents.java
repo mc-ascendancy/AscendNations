@@ -7,6 +7,7 @@ import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
 import com.ascendancyproject.ascendnations.nation.NationPermission;
 import com.ascendancyproject.ascendnations.nation.NationVariables;
+import com.ascendancyproject.ascendnations.rift.RiftConfig;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -44,7 +45,7 @@ public class ClaimProtectionEvents implements Listener {
                 !AscendNationsHelper.isRedstone(event.getClickedBlock().getType()))
             return;
 
-        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true, true))
+        if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true, true, false))
             event.setCancelled(true);
     }
 
@@ -58,7 +59,7 @@ public class ClaimProtectionEvents implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockIgnite(BlockIgniteEvent event) {
         if (event.getPlayer() != null) {
-            if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false))
+            if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
                 event.setCancelled(true);
         } else {
             if (blockProtected(event.getBlock()))
@@ -68,13 +69,13 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false))
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false, true))
             event.setCancelled(true);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false))
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
             event.setCancelled(true);
     }
 
@@ -83,7 +84,7 @@ public class ClaimProtectionEvents implements Listener {
         if (!(event.getEntity() instanceof Player))
             return;
 
-        if (blockProtectedPlayer(event.getBlock(), (Player) event.getEntity(), true, false))
+        if (blockProtectedPlayer(event.getBlock(), (Player) event.getEntity(), true, false, true))
             event.setCancelled(true);
     }
 
@@ -143,10 +144,17 @@ public class ClaimProtectionEvents implements Listener {
     }
 
     private boolean blockProtected(Block block) {
-        return ClaimBlock.isClaimBlock(block) || ClaimChunks.chunks.containsKey(block.getLocation().getChunk().getChunkKey());
+        return ClaimBlock.isClaimBlock(block)
+                || ClaimChunks.chunks.containsKey(block.getLocation().getChunk().getChunkKey())
+                || RiftConfig.getRift(block.getChunk().getChunkKey()) != null;
     }
 
-    private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim, boolean redstone) {
+    private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim, boolean redstone, boolean rift) {
+        if (rift && RiftConfig.getRift(block.getChunk().getChunkKey()) != null) {
+            Language.sendMessage(player, "blockProtectedRift");
+            return true;
+        }
+
         if (protectClaim && ClaimBlock.isClaimBlock(block)) {
             Language.sendMessage(player, "blockProtectedClaim");
             return true;
@@ -196,7 +204,7 @@ public class ClaimProtectionEvents implements Listener {
 
     private boolean blockPistonEvent(Block origin, List<Block> affected, BlockFace direction, boolean push) {
         for (Block block : affected)
-            if (ClaimBlock.isClaimBlock(block))
+            if (ClaimBlock.isClaimBlock(block) || RiftConfig.getRift(block.getChunk().getChunkKey()) != null)
                 return true;
 
         UUID fromUUID = ClaimChunks.chunks.get(origin.getChunk().getChunkKey());

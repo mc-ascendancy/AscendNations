@@ -128,6 +128,7 @@
 				"errorChunkUnclaimMultipleUnclaimed": "[prefix] Unclaiming this chunk would unclaim [chunkCount] chunks.\nTo continue, use: /nation unclaim force",
 				"blockProtected": "[prefix] This block is protected by [nationName].",
 				"blockProtectedClaim": "[prefix] You can not break claim blocks.",
+				"blockProtectedRift": "[prefix] This is a protected rift chunk.",
 				"blockProtectedRedstone": "[prefix] [nationName] has public redstone disabled.\nAsk them to change this in their permissions.",
 				"entityProtected": "[prefix] This entity is protected by [nationName].",
 				"claimHome": "[prefix] Claimed home!",
