@@ -1,14 +1,10 @@
 package com.ascendancyproject.ascendnations.nation;
 
-import java.util.UUID;
-
 public class NationMember {
     private NationRole role;
-    private final NationMemberPower power;
     
-    public NationMember(NationRole role, UUID playerUUID, Nation nation) {
+    public NationMember(NationRole role) {
         this.role = role;
-        power = new NationMemberPower(nation.getMembersJoined().add(playerUUID));
     }
 
     public NationRole getRole() {
@@ -17,9 +13,5 @@ public class NationMember {
 
     public void setRole(NationRole role) {
         this.role = role;
-    }
-
-    public NationMemberPower getPower() {
-        return power;
     }
 }

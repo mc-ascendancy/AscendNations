@@ -2,6 +2,7 @@ package com.ascendancyproject.ascendnations.nation;
 
 import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.PersistentData;
+import com.ascendancyproject.ascendnations.PlayerData;
 import com.ascendancyproject.ascendnations.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,32 +18,28 @@ public class NationPassivePowerTicker {
     }
 
     private void tick() {
-        for (Nation nation : PersistentData.instance.getNations().values()) {
-            boolean updated = false;
+        for (Map.Entry<UUID, PlayerData> entry : PersistentData.instance.getPlayers().entrySet()) {
+            Player player = Bukkit.getPlayer(entry.getKey());
 
-            for (Map.Entry<UUID, NationMember> entry : nation.getMembers().entrySet()) {
-                Player player = Bukkit.getPlayer(entry.getKey());
+            if (player != null && player.isOnline())
+                onlineTick(entry, player);
+        }
+    }
 
-                if (player == null || !player.isOnline())
-                    continue;
+    private void onlineTick(Map.Entry<UUID, PlayerData> entry, Player player) {
+        if (!entry.getValue().getPower().updatePassivePower(tickFrequency))
+            return;
 
-                if (!entry.getValue().getPower().updatePassivePower(tickFrequency))
-                    continue;
+        Language.sendMessage(player, "nationPassivePowerIncremented",
+                new String[]{"totalPower", Integer.toString(entry.getValue().getPower().getTotal())},
+                new String[]{"maxTotalPower", Integer.toString(NationVariables.instance.getMaxMemberPower())},
+                new String[]{"passivePower", Integer.toString(entry.getValue().getPower().getPassivePower())},
+                new String[]{"maxPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())}
+        );
 
-                NationMemberPower power = nation.getMembers().get(player.getUniqueId()).getPower();
-
-                Language.sendMessage(player, "nationPassivePowerIncremented",
-                        new String[]{"totalPower", Integer.toString(power.getTotal())},
-                        new String[]{"maxTotalPower", Integer.toString(NationVariables.instance.getMaxMemberPower())},
-                        new String[]{"passivePower", Integer.toString(power.getPassivePower())},
-                        new String[]{"maxPassivePower", Integer.toString(NationVariables.instance.getMaxMemberPassivePower())}
-                );
-
-                updated = true;
-            }
-
-            if (updated)
-                nation.getPower().recalculate(nation);
+        if (entry.getValue().getNationUUID() != null) {
+            Nation nation = PersistentData.instance.getNations().get(entry.getValue().getNationUUID());
+            nation.getPower().recalculate(nation);
         }
     }
 }

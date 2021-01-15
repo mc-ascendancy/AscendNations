@@ -16,41 +16,40 @@ public class NationPowerEvents implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         PlayerData killedPlayerData = PersistentData.instance.getPlayers().get(event.getEntity().getUniqueId());
-        if (killedPlayerData.getNationUUID() == null)
-            return;
 
-        Nation killedNation = PersistentData.instance.getNations().get(killedPlayerData.getNationUUID());
-        NationMember killedMember = killedNation.getMembers().get(event.getEntity().getUniqueId());
+        int killedPower = killedPlayerData.getPower().getTotal();
+        killedPlayerData.getPower().subtractPower(event.getEntity());
 
-        int killedPower = killedMember.getPower().getTotal();
-        killedMember.getPower().subtractPower(event.getEntity());
-        killedNation.getPower().recalculate(killedNation);
+        if (killedPlayerData.getNationUUID() != null) {
+            Nation killedNation = PersistentData.instance.getNations().get(killedPlayerData.getNationUUID());
+            killedNation.getPower().recalculate(killedNation);
+        }
 
         if (event.getEntity().getKiller() != null) {
             PlayerData killerPlayerData = PersistentData.instance.getPlayers().get(event.getEntity().getKiller().getUniqueId());
-            if (killerPlayerData.getNationUUID() == null || killerPlayerData.getNationUUID() == killedNation.getUUID())
+            if (killerPlayerData.getNationUUID() == killedPlayerData.getNationUUID())
                 return;
 
-            Nation killerNation = PersistentData.instance.getNations().get(killerPlayerData.getNationUUID());
-            NationMember killerMember = killerNation.getMembers().get(event.getEntity().getKiller().getUniqueId());
-
-            if (killedPower < killerMember.getPower().getTotal()) {
+            if (killedPower < killerPlayerData.getPower().getTotal()) {
                 Language.sendMessage(event.getEntity().getKiller(), "nationBonusPowerLowerLevel", new String[]{"killedName", event.getEntity().getName()});
                 return;
             }
 
-            if (killerMember.getPower().incrementBonusPower()) {
+            if (killerPlayerData.getPower().incrementBonusPower()) {
                 Language.sendMessage(event.getEntity().getKiller(), "nationBonusPowerGained",
                         new String[]{"killedName", event.getEntity().getName()},
-                        new String[]{"bonusPower", Integer.toString(killerMember.getPower().getBonusPower())},
+                        new String[]{"bonusPower", Integer.toString(killedPlayerData.getPower().getBonusPower())},
                         new String[]{"bonusPowerMax", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
                 );
 
-                killerNation.getPower().recalculate(killerNation);
+                if (killerPlayerData.getNationUUID() != null) {
+                    Nation killerNation = PersistentData.instance.getNations().get(killerPlayerData.getNationUUID());
+                    killerNation.getPower().recalculate(killerNation);
+                }
             } else {
                 Language.sendMessage(event.getEntity().getKiller(), "nationBonusPowerMaxLevel",
                         new String[]{"killedName", event.getEntity().getName()},
-                        new String[]{"bonusPower", Integer.toString(killerMember.getPower().getBonusPower())},
+                        new String[]{"bonusPower", Integer.toString(killerPlayerData.getPower().getBonusPower())},
                         new String[]{"bonusPowerMax", Integer.toString(NationVariables.instance.getMaxMemberBonusPower())}
                 );
             }

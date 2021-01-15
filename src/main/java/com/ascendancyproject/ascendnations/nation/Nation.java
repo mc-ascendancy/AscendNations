@@ -36,7 +36,7 @@ public class Nation {
         this.name = name;
         membersJoined = new HashSet<>();
         members = new HashMap<>();
-        members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor, creator.getUniqueId(), this));
+        members.put(creator.getUniqueId(), new NationMember(NationRole.Chancellor));
         outposts = new HashMap<>();
         outpostsSequential = new ArrayList<>();
         chunks = new HashSet<>();
@@ -229,10 +229,6 @@ public class Nation {
                 new String[]{"commanders", String.join(", ", commanders)},
                 new String[]{"citizens", String.join(", ", citizens)}
         );
-    }
-
-    public HashSet<UUID> getMembersJoined() {
-        return membersJoined;
     }
 
     public NationPower getPower() {

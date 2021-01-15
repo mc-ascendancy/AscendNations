@@ -1,6 +1,7 @@
 package com.ascendancyproject.ascendnations;
 
 import com.ascendancyproject.ascendnations.language.Language;
+import com.ascendancyproject.ascendnations.nation.NationMemberPower;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,8 +13,11 @@ public class PlayerData {
     private String language;
     private boolean languageDefined;
 
+    private final NationMemberPower power;
+
     public PlayerData() {
         language = Language.config.getDefaultLanguage();
+        power = new NationMemberPower();
     }
 
     public @Nullable UUID getNationUUID() {
@@ -38,5 +42,9 @@ public class PlayerData {
 
     public void setLanguageDefined(boolean languageDefined) {
         this.languageDefined = languageDefined;
+    }
+
+    public NationMemberPower getPower() {
+        return power;
     }
 }

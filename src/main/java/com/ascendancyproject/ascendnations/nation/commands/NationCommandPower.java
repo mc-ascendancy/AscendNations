@@ -17,7 +17,7 @@ public class NationCommandPower extends NationCommand {
     @Override
     public void execute(@NotNull Player player, @NotNull PlayerData playerData, @Nullable Nation nation, @Nullable NationMember member, @NotNull String[] args) {
         NationPower np = nation.getPower();
-        NationMemberPower mp = member.getPower();
+        NationMemberPower mp = playerData.getPower();
 
         Language.sendMessage(player, "nationPower",
                 new String[]{"nationPower", Integer.toString(np.getTotal())},

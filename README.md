@@ -86,7 +86,7 @@ Field | Description
 `maxMemberBonusPower`                    | formula variable.  
 `riftModifier`                           | formula variable.  
 `minNationPopClaimRift`                  | formula variable.  
-`memberPassivePowerStart`                | the amount of passive power a player gains when initially joining a nation.  
+`memberPassivePowerStart`                | the amount of passive power a player gains when first joining the server.  
 `memberPassiveGainFrequency`             | the amount of ticks between each increment of a player's passive power.  
 `memberPowerLostOnDeath`                 | the amount of power a player loses upon dying.  
 `claimThresholdOnePlayer`                | formula variable.  

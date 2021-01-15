@@ -1,7 +1,10 @@
 package com.ascendancyproject.ascendnations.nation;
 
+import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.rift.Rift;
 import com.ascendancyproject.ascendnations.rift.RiftConfig;
+
+import java.util.UUID;
 
 public class NationPower {
     private int maxMemberPower;
@@ -31,8 +34,8 @@ public class NationPower {
         maxRiftPower = Math.max(pop * nv.getRiftModifier() - nv.getMinNationPopClaimRift() * nv.getRiftModifier(), 0);
 
         memberPower = 0;
-        for (NationMember member : nation.getMembers().values())
-            memberPower += member.getPower().getTotal();
+        for (UUID uuid : nation.getMembers().keySet())
+            memberPower += PersistentData.instance.getPlayers().get(uuid).getPower().getTotal();
 
         riftPower = 0;
         for (Long chunk : nation.getChunks()) {
