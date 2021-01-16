@@ -76,6 +76,8 @@ public class NationVariables {
     private Material mapBeaconGlassOutpostMaterial;
     private long mapDuration;
 
+    private int homePowerCost;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -275,5 +277,9 @@ public class NationVariables {
 
     public long getMapDuration() {
         return mapDuration;
+    }
+
+    public int getHomePowerCost() {
+        return homePowerCost;
     }
 }
