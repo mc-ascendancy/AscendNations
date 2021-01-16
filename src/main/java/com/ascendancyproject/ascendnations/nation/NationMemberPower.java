@@ -77,6 +77,10 @@ public class NationMemberPower {
         return passivePower;
     }
 
+    public void subtractPassivePower(int lost) {
+        passivePower -= lost;
+    }
+
     public int getBonusPower() {
         return bonusPower;
     }

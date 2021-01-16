@@ -23,7 +23,8 @@
 				"promote": "promote",
 				"status": "status",
 				"unclaim": "unclaim",
-				"map": "map"
+				"map": "map",
+				"home": "capital"
 			},
 			"lines": {
 				"prefix": "&8[&bNations&8]&r",
@@ -202,7 +203,9 @@
 				"errorPermissionUnknown": "[prefix] That is not a valid permission.",
 				"permissionTypeRedstone": "Redstone",
 				"nationMap": "[prefix] Showing all owned chunks for 20 seconds.",
-				"nationMapExpired": "[prefix] Map expired, hiding beacons."
+				"nationMapExpired": "[prefix] Map expired, hiding beacons.",
+				"nationHome": "[prefix] Teleported to your capital at the cost of [passivePowerLost] passive power.",
+				"nationHomeNoHome": "[prefix] Your nation does not have a capital yet!"
 			}
 		},
 		"nl": {
@@ -227,7 +230,8 @@
 				"promote": "promoten",
 				"status": "toestand",
 				"unclaim": "nietclaimen",
-				"map": "kaart"
+				"map": "kaart",
+				"home": "kapitaal"
 			},
 			"lines": {
 				"prefix": "&8[&bLanden&8]&r",
