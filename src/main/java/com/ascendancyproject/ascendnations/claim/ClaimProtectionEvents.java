@@ -99,6 +99,7 @@ public class ClaimProtectionEvents implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamage(EntityDamageEvent event) {
         if (!event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK) &&
+                NationVariables.instance.getProtectedMobs().contains(event.getEntity().getType().name()) &&
                 entityProtected(event.getEntity(), null))
             event.setCancelled(true);
     }
