@@ -6,7 +6,7 @@
 	"minNationPopClaimRift": 3,
 	"memberPassivePowerStart": 8,
 	"memberPassiveGainFrequency": 72000,
-	"memberPassiveDecayFrequency": 288000,
+	"memberPassiveDecayFrequency": 1728000,
 	"memberPowerLostOnDeath": 2,
 	"claimThresholdOnePlayer": 6,
 	"claimThresholdSmallModifier": 7,
