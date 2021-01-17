@@ -22,6 +22,7 @@
 	"claimBlockHomeType": "INFESTED_STONE",
 	"claimBlockOutpostType": "INFESTED_COBBLESTONE",
 	"lockoutDuration": 60000,
+	"lockoutFactor": 7.5,
 	"lockoutChunkDuration": 60000,
 	"lockoutReminderFrequency": 400,
 	"claimPunishmentDuration": 60000,
@@ -49,7 +50,7 @@
 		"TALL_GRASS",
 		"ICE"
 	],
-	"saveFrequency": 6000,
+	"saveFrequency": 200,
 	"mapBeaconLevitation": 3,
 	"mapBeaconType": "NETHERITE_BLOCK",
 	"mapBeaconGlass": "LIME_STAINED_GLASS",

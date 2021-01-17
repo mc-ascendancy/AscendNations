@@ -16,6 +16,8 @@ public class NationPower {
     private int claimThreshold;
     private int existenceThreshold;
 
+    private int chunksOverclaimable;
+
     private int chunksClaimable;
     private int outpostsClaimable;
 
@@ -67,14 +69,20 @@ public class NationPower {
         boolean shouldLockout = claimThreshold > getTotal();
         boolean shouldChunkLockout = nation.getChunks().size() > chunksClaimable || nation.getOutposts().size() > outpostsClaimable;
 
-        if (lockoutExpiry == 0L) {
+        if (lockoutExpiry != 0L && chunksOverclaimable == 0) {
+            nation.broadcast("nationLockout", new String[][]{new String[]{"nationName", nation.getName()}});
+            lockoutExpiry = System.currentTimeMillis() + nv.getLockoutChunkDuration();
+            chunksOverclaimable = (int) (chunksClaimable / nv.getLockoutFactor());
+        } else if (lockoutExpiry == 0L) {
             if (shouldLockout) {
                 nation.broadcast("nationLockout", new String[][]{new String[]{"nationName", nation.getName()}});
                 lockoutExpiry = System.currentTimeMillis() + nv.getLockoutDuration();
+                chunksOverclaimable = (int) (chunksClaimable / nv.getLockoutFactor());
             }
         } else if (!shouldLockout) {
             nation.broadcast("nationLockoutExit", new String[][]{new String[]{"nationName", nation.getName()}});
             lockoutExpiry = 0L;
+            chunksOverclaimable = 0;
         }
 
         if (chunkLockoutExpiry == 0L) {
@@ -118,6 +126,15 @@ public class NationPower {
 
     public int getExistenceThreshold() {
         return existenceThreshold;
+    }
+
+    public int getChunksOverclaimable() {
+        return chunksOverclaimable;
+    }
+
+    public void decrementChunksOverclaimable() {
+        if (getTotal() >= existenceThreshold)
+            chunksOverclaimable--;
     }
 
     public int getChunksClaimable() {

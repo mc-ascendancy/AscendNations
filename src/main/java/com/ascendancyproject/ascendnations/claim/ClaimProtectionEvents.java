@@ -64,7 +64,7 @@ public class ClaimProtectionEvents implements Listener {
         if (event.getPlayer() != null) {
             if (playerExempt(event.getPlayer()))
                 return;
-            
+
             if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
                 event.setCancelled(true);
         } else {

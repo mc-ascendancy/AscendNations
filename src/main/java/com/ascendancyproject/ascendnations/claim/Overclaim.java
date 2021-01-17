@@ -128,7 +128,9 @@ public class Overclaim {
 
         defendingNation.recalculateChunks(touched);
 
+        defendingNation.getPower().decrementChunksOverclaimable();
         defendingNation.getPower().recalculate(defendingNation);
+
         attackingNation.getPower().recalculate(attackingNation);
 
         if (rift == null) {

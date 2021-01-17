@@ -44,6 +44,7 @@ public class NationVariables {
     private Material claimBlockOutpost;
 
     private long lockoutDuration;
+    private float lockoutFactor;
     private long lockoutChunkDuration;
     private int lockoutReminderFrequency;
     private long claimPunishmentDuration;
@@ -193,6 +194,10 @@ public class NationVariables {
 
     public long getLockoutDuration() {
         return lockoutDuration;
+    }
+
+    public float getLockoutFactor() {
+        return lockoutFactor;
     }
 
     public long getLockoutChunkDuration() {

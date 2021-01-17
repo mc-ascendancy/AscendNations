@@ -6,7 +6,7 @@
 
     <groupId>com.ascendancyproject</groupId>
     <artifactId>ascendnations</artifactId>
-    <version>0.1.20</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
 
     <name>AscendNations</name>
