@@ -6,7 +6,10 @@ prefix: Ascend Nations
 authors: [ Froogo ]
 description: Nation system for Ascendancy Project.
 website: https://github.com/mc-ascendancy/AscendNations
-depend: [ProtocolLib]
+depend:
+  - ProtocolLib
+softdepend:
+  - CombatLogX
 
 commands:
   nation:
