@@ -35,6 +35,9 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
+        if (playerExempt(event.getPlayer()))
+            return;
+
         if (!event.hasBlock() || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
             return;
 
@@ -58,6 +61,9 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockIgnite(BlockIgniteEvent event) {
+        if (playerExempt(event.getPlayer()))
+            return;
+
         if (event.getPlayer() != null) {
             if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
                 event.setCancelled(true);
@@ -69,12 +75,18 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (playerExempt(event.getPlayer()))
+            return;
+
         if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false, true))
             event.setCancelled(true);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
+        if (playerExempt(event.getPlayer()))
+            return;
+
         if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
             event.setCancelled(true);
     }
@@ -90,8 +102,13 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (event.getDamager() instanceof Player &&
-                NationVariables.instance.getProtectedMobs().contains(event.getEntity().getType().name()) &&
+        if (!(event.getDamager() instanceof Player))
+            return;
+
+        if (playerExempt((Player) event.getDamager()))
+            return;
+
+        if (NationVariables.instance.getProtectedMobs().contains(event.getEntity().getType().name()) &&
                 entityProtected(event.getEntity(), (Player) event.getDamager()))
             event.setCancelled(true);
     }
@@ -112,6 +129,9 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        if (playerExempt(event.getPlayer()))
+            return;
+
         if (entityProtected(event.getRightClicked(), event.getPlayer()))
             event.setCancelled(true);
     }
@@ -220,5 +240,16 @@ public class ClaimProtectionEvents implements Listener {
         }
 
         return false;
+    }
+
+    public boolean playerExempt(Player player) {
+        switch (player.getGameMode()) {
+            case CREATIVE:
+            case SPECTATOR:
+                return true;
+
+            default:
+                return false;
+        }
     }
 }
