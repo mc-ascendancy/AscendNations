@@ -125,6 +125,7 @@ Field | Description
 `mapBeaconGlassHome`                     | the material of the glass on beacons of home claim chunks.
 `mapBeaconGlassOutpost`                  | the material of the glass on beacons of outpost claim chunks.
 `mapDuration`                            | the time in milliseconds that the map stays active for.
+`homePowerCost`                          | the amount of passive power deducted from a player when teleporting home.
 
 ## Formulas
 This section expects a decent understanding of algebra and functions.

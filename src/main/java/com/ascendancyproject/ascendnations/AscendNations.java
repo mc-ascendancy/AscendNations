@@ -60,6 +60,7 @@ public final class AscendNations extends JavaPlugin {
         new NationClaimEvents(this);
         new ClaimChunksEvents(this);
         new LanguageEvents(this);
+        new NationChatEvents(this);
     }
 
     @Override
