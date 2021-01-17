@@ -104,6 +104,7 @@ Field | Description
 `claimBlockHomeType`                     | the material of the home claim block.  
 `claimBlockOutpostType`                  | the material of the outpost claim block.  
 `lockoutDuration`                        | the time in milliseconds a nation's power lockout lasts.  
+`lockoutFactor`                          | the amount of chunks overclaimable when a nation exits lockout; calculated as `chunksClaimable` / `lockoutFactor`.
 `lockoutChunkDuration`                   | the time in milliseconds a nation's chunk/outpost lockout lasts.  
 `lockoutReminderFrequency`               | the amount of ticks between each lockout reminder.  
 `claimPunishmentDuration`                | the time in milliseconds a nation cannot claim after an automatic reclaim.  

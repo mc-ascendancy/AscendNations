@@ -61,10 +61,10 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockIgnite(BlockIgniteEvent event) {
-        if (playerExempt(event.getPlayer()))
-            return;
-
         if (event.getPlayer() != null) {
+            if (playerExempt(event.getPlayer()))
+                return;
+
             if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
                 event.setCancelled(true);
         } else {

@@ -22,6 +22,7 @@
 	"claimBlockHomeType": "INFESTED_STONE",
 	"claimBlockOutpostType": "INFESTED_COBBLESTONE",
 	"lockoutDuration": 172800000,
+	"lockoutFactor": 7.5,
 	"lockoutChunkDuration": 172800000,
 	"lockoutReminderFrequency": 36000,
 	"claimPunishmentDuration": 86400000,
