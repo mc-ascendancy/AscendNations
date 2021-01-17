@@ -107,7 +107,7 @@ public class ClaimProtectionEvents implements Listener {
         if (!(event.getDamager() instanceof Player))
             return;
 
-        if (playerExempt((Player) event.getDamager()))
+        if (AscendNationsHelper.playerIsAdmin((Player) event.getDamager()))
             return;
 
         if (NationVariables.instance.getProtectedMobs().contains(event.getEntity().getType().name()) &&
@@ -131,7 +131,7 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        if (playerExempt(event.getPlayer()))
+        if (AscendNationsHelper.playerIsAdmin(event.getPlayer()))
             return;
 
         if (entityProtected(event.getRightClicked(), event.getPlayer()))
@@ -173,7 +173,7 @@ public class ClaimProtectionEvents implements Listener {
     }
 
     private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim, boolean redstone, boolean rift) {
-        if (playerExempt(player))
+        if (AscendNationsHelper.playerIsAdmin(player))
             return false;
 
         if (rift && RiftConfig.getRift(block.getChunk().getChunkKey()) != null) {
@@ -245,16 +245,5 @@ public class ClaimProtectionEvents implements Listener {
         }
 
         return false;
-    }
-
-    public boolean playerExempt(Player player) {
-        switch (player.getGameMode()) {
-            case CREATIVE:
-            case SPECTATOR:
-                return true;
-
-            default:
-                return false;
-        }
     }
 }
