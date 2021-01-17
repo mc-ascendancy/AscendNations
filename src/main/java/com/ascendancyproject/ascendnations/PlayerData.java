@@ -12,6 +12,7 @@ public class PlayerData {
 
     private String language;
     private boolean languageDefined;
+    private boolean nationChat;
 
     private final NationMemberPower power;
 
@@ -46,5 +47,13 @@ public class PlayerData {
 
     public NationMemberPower getPower() {
         return power;
+    }
+
+    public boolean isNationChat() {
+        return nationChat;
+    }
+
+    public void setNationChat(boolean nationChat) {
+        this.nationChat = nationChat;
     }
 }

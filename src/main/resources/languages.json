@@ -24,7 +24,8 @@
 				"status": "status",
 				"unclaim": "unclaim",
 				"map": "map",
-				"home": "capital"
+				"home": "capital",
+				"chat": "chat"
 			},
 			"lines": {
 				"prefix": "&8[&bNations&8]&r",
@@ -205,7 +206,11 @@
 				"nationMap": "[prefix] Showing all owned chunks for 20 seconds.",
 				"nationMapExpired": "[prefix] Map expired, hiding beacons.",
 				"nationHome": "[prefix] Teleported to your capital at the cost of [passivePowerLost] passive power.",
-				"nationHomeNoHome": "[prefix] Your nation does not have a capital yet!"
+				"nationHomeNoHome": "[prefix] Your nation does not have a capital yet!",
+				"nationChat": "[prefix] Enabled nation chat.\nNow only your fellow nation members see your messages.",
+				"nationChatDisabled": "[prefix] Disabled nation chat.\nNow everyone will see your messages.",
+				"nationChatFormat": "&8[&bNation Chat&8]&r [message]",
+				"errorNationChatNoNation": "[prefix] You must be in a nation to use nation chat.\nTo disable nation chat, try: /nation chat"
 			}
 		},
 		"nl": {
@@ -231,7 +236,8 @@
 				"status": "toestand",
 				"unclaim": "nietclaimen",
 				"map": "kaart",
-				"home": "kapitaal"
+				"home": "kapitaal",
+				"chat": "chatten"
 			},
 			"lines": {
 				"prefix": "&8[&bLanden&8]&r",
