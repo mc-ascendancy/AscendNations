@@ -21,6 +21,8 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -35,9 +37,6 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (playerExempt(event.getPlayer()))
-            return;
-
         if (!event.hasBlock() || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
             return;
 
@@ -62,9 +61,6 @@ public class ClaimProtectionEvents implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onBlockIgnite(BlockIgniteEvent event) {
         if (event.getPlayer() != null) {
-            if (playerExempt(event.getPlayer()))
-                return;
-
             if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
                 event.setCancelled(true);
         } else {
@@ -75,19 +71,25 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (playerExempt(event.getPlayer()))
-            return;
-
         if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false, true))
             event.setCancelled(true);
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (playerExempt(event.getPlayer()))
-            return;
-
         if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), true, false, true))
+            event.setCancelled(true);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerBucketEmpty(PlayerBucketEmptyEvent event) {
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false, true))
+            event.setCancelled(true);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerBucketFill(PlayerBucketFillEvent event) {
+        if (blockProtectedPlayer(event.getBlock(), event.getPlayer(), false, false, true))
             event.setCancelled(true);
     }
 
@@ -171,6 +173,9 @@ public class ClaimProtectionEvents implements Listener {
     }
 
     private boolean blockProtectedPlayer(Block block, Player player, boolean protectClaim, boolean redstone, boolean rift) {
+        if (playerExempt(player))
+            return false;
+
         if (rift && RiftConfig.getRift(block.getChunk().getChunkKey()) != null) {
             Language.sendMessage(player, "blockProtectedRift");
             return true;
