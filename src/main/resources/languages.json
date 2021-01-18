@@ -24,7 +24,7 @@
 				"status": "status",
 				"unclaim": "unclaim",
 				"map": "map",
-				"home": "capital",
+				"home": "home",
 				"chat": "chat"
 			},
 			"lines": {
@@ -213,41 +213,6 @@
 				"nationChatDisabled": "[prefix] Disabled nation chat.\nNow everyone will see your messages.",
 				"nationChatFormat": "&8[&bNation Chat&8]&r [message]",
 				"errorNationChatNoNation": "[prefix] You must be in a nation to use nation chat.\nTo disable nation chat, try: /nation chat"
-			}
-		},
-		"nl": {
-			"name": "nederlands",
-			"commands": {
-				"appoint": "aanstellen",
-				"claim": "beweren",
-				"create": "creeren",
-				"rename": "hernoemen",
-				"demote": "degraderen",
-				"disband": "ontbinden",
-				"help": "helpen",
-				"invite": "nodigen",
-				"kick": "trap",
-				"leave": "vertrekken",
-				"list": "lijst",
-				"members": "leden",
-				"message": "bericht",
-				"outposts": "buitenposten",
-				"permission": "toestemming",
-				"power": "kracht",
-				"promote": "promoten",
-				"status": "toestand",
-				"unclaim": "nietclaimen",
-				"map": "kaart",
-				"home": "kapitaal",
-				"chat": "chatten"
-			},
-			"lines": {
-				"prefix": "&8[&bLanden&8]&r",
-				"nationCreated": "[prefix] [nationName] gevormd.",
-				"blockHomeSubcommand": "huis",
-				"blockOutpostSubcommand": "buitenpost",
-				"nationListPageSubcommand": "<bladzijde>",
-				"chunkUnclaimForceSubcommand": "dwingen"
 			}
 		}
 	}
