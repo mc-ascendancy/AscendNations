@@ -17,6 +17,7 @@ commands:
     usage: /<command> [create] [disband] [invite] [claim] [power]
     aliases:
       - nations
+      - n
   language:
     description: Update your language.
     usage: /<command> <language>

@@ -36,14 +36,19 @@ public class NationCommandHome extends NationCommand {
             }
         }
 
-        player.teleport(player.getWorld().getBlockAtKey(nation.getHome()).getLocation().add(0, 1, 0));
+        player.teleport(player.getWorld().getBlockAtKey(nation.getHome()).getLocation().add(0.5, 1, 0.5));
 
         int passivePowerLost = Math.min(NationVariables.instance.getHomePowerCost(), playerData.getPower().getPassivePower());
         playerData.getPower().subtractPassivePower(passivePowerLost);
 
+        Language.sendMessage(player, "nationHome", new String[]{"passivePowerLost", Integer.toString(passivePowerLost)});
+
+        if (passivePowerLost != NationVariables.instance.getHomePowerCost()) {
+            playerData.getPower().resetPassivePowerTicker();
+            Language.sendMessage(player, "nationHomePowerReset");
+        }
+
         if (passivePowerLost != 0)
             nation.getPower().recalculate(nation);
-
-        Language.sendMessage(player, "nationHome", new String[]{"passivePowerLost", Integer.toString(passivePowerLost)});
     }
 }

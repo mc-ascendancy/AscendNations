@@ -46,6 +46,10 @@ public class NationMemberPower {
         return true;
     }
 
+    public void resetPassivePowerTicker() {
+        ticksUntilPassiveGain = NationVariables.instance.getMemberPassiveGainFrequency();
+    }
+
     public boolean incrementBonusPower() {
         if (bonusPower >= NationVariables.instance.getMaxMemberBonusPower())
             return false;

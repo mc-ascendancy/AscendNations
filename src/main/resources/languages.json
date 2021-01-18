@@ -208,8 +208,9 @@
 				"nationHome": "[prefix] Teleported to your capital at the cost of [passivePowerLost] passive power.",
 				"nationHomeNoHome": "[prefix] Your nation does not have a capital yet!",
 				"nationHomeInCombat": "[prefix] You may not teleport to your capital while in combat.",
-				"nationChat": "[prefix] Enabled nation chat.\nNow, only your fellow nation members see your messages.",
-				"nationChatDisabled": "[prefix] Disabled nation chat.\nNow, everyone will see your messages.",
+				"nationHomePowerReset": "[prefix] As you did not fully cover the cost of the teleportation, your passive power timer has reset.",
+				"nationChat": "[prefix] Enabled nation chat.\nNow only your fellow nation members see your messages.",
+				"nationChatDisabled": "[prefix] Disabled nation chat.\nNow everyone will see your messages.",
 				"nationChatFormat": "&8[&bNation Chat&8]&r [message]",
 				"errorNationChatNoNation": "[prefix] You must be in a nation to use nation chat.\nTo disable nation chat, try: /nation chat"
 			}

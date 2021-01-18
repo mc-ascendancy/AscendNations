@@ -2,6 +2,7 @@ package com.ascendancyproject.ascendnations;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 
 import java.time.Duration;
 
@@ -92,5 +93,16 @@ public class AscendNationsHelper {
                 (location.getBlockZ() & 0xF) << 4 |
                 (location.getBlockY() & 0xF)
         );
+    }
+
+    public static boolean playerIsAdmin(Player player) {
+        switch (player.getGameMode()) {
+            case CREATIVE:
+            case SPECTATOR:
+                return true;
+
+            default:
+                return false;
+        }
     }
 }
