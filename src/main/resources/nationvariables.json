@@ -41,7 +41,15 @@
 		"COW",
 		"MOOSHROOM",
 		"RABBIT",
-		"POLAR_BEAR"
+		"POLAR_BEAR",
+		"CAT",
+		"DONKEY", 
+		"HORSE", 
+		"LLAMA", 
+		"MULE", 
+		"OCELOT", 
+		"PARROT", 
+		"SKELETON_HORSE"
 	],
 	"protectedBlocks": [
 		"FURNACE",
@@ -136,11 +144,9 @@
 		"IRON_TRAPDOOR"
 	],
 	"goodSpawnBlocks": [
-		"SAND",
 		"GRASS_BLOCK",
 		"GRASS",
-		"TALL_GRASS",
-		"ICE"
+		"TALL_GRASS"
 	],
 	"saveFrequency": 6000,
 	"mapBeaconLevitation": 3,
