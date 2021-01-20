@@ -15,6 +15,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
@@ -34,7 +35,7 @@ public class ClaimProtectionEvents implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!event.hasBlock() || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
+        if (!event.hasBlock() || (event.getAction().equals(Action.LEFT_CLICK_BLOCK)))
             return;
 
         if (event.hasItem() && event.getItem().getType().equals(Material.BONE_MEAL))
@@ -45,6 +46,19 @@ public class ClaimProtectionEvents implements Listener {
             return;
 
         if (blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true, true, false))
+            event.setCancelled(true);
+    }
+
+    @EventHandler(
+            ignoreCancelled = true,
+            priority = EventPriority.LOW
+    )
+    public void blockDiamondHoe(PlayerInteractEvent event) {
+        // Allow blocking of left clicking block when the player has a diamond hoe.
+        // See issue #50 for more details.
+        if (event.getAction().equals(Action.LEFT_CLICK_BLOCK) &&
+                event.hasItem() && event.getItem().getType().equals(Material.DIAMOND_HOE) &&
+                blockProtectedPlayer(event.getClickedBlock(), event.getPlayer(), true, false, true))
             event.setCancelled(true);
     }
 
