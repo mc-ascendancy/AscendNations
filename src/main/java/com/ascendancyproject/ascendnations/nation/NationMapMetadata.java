@@ -44,10 +44,10 @@ public class NationMapMetadata extends MetadataValueAdapter {
             if (!chunk.isLoaded())
                 continue;
 
-            Block zeroBlock = chunk.getBlock(0, chunkY.get(i), 0);
+            Block zeroBlock = chunk.getBlock(0, Byte.toUnsignedInt(chunkY.get(i)), 0);
 
             PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.MULTI_BLOCK_CHANGE);
-            packet.getSectionPositions().writeSafely(0, new BlockPosition(zeroBlock.getX() >> 4, chunkY.get(i) >> 4, zeroBlock.getZ() >> 4));
+            packet.getSectionPositions().writeSafely(0, new BlockPosition(zeroBlock.getX() >> 4, Byte.toUnsignedInt(chunkY.get(i)) >> 4, zeroBlock.getZ() >> 4));
 
             ArrayList<WrappedBlockData> blocks = new ArrayList<>();
             ArrayList<Short> positions = new ArrayList<>();

@@ -177,6 +177,10 @@
 				"errorNationMessageUnknownField": "[prefix] Unknown field [field].",
 				"defaultMessageEntry": "Entering [nationName]'s territory.",
 				"defaultMessageExit": "Exiting [nationName]'s territory.",
+				"titleEntry": "",
+				"titleEntrySub": "&7Entering &f[nationName]&7's territory.",
+				"titleExit": "",
+				"titleExitSub": "&7Exiting &f[nationName]&7's territory.",
 				"nationMembers": "&l[nationName]'s Members&r\n \nChancellor: [chancellor]\nCommanders: [commanders]\nCitizens: [citizens]",
 				"errorNationMembersNotFound": "[prefix] Could not find that nation; it must have been disbanded.",
 				"nationList": "&lNations [pageStart]-[pageEnd] of [nationCount]&r",
@@ -212,6 +216,7 @@
 				"nationChat": "[prefix] Enabled nation chat.\nNow only your fellow nation members see your messages.",
 				"nationChatDisabled": "[prefix] Disabled nation chat.\nNow everyone will see your messages.",
 				"nationChatFormat": "&8[&bNation Chat&8]&r [message]",
+				"nationChatMessagePrefix": "&f",
 				"errorNationChatNoNation": "[prefix] You must be in a nation to use nation chat.\nTo disable nation chat, try: /nation chat"
 			}
 		}
