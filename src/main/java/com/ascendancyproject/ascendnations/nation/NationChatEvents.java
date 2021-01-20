@@ -31,6 +31,9 @@ public class NationChatEvents implements Listener {
         }
 
         Nation nation = PersistentData.instance.getNations().get(playerData.getNationUUID());
-        nation.broadcast("nationChatFormat", new String[]{"message", event.getFormat().replace("%2$s", event.getMessage())});
+        nation.broadcast("nationChatFormat",
+                new String[]{"message", event.getFormat().replace("%2$s",
+                        Language.formatDefault("nationChatMessagePrefix") + event.getMessage())
+        });
     }
 }

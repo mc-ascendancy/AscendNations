@@ -212,6 +212,7 @@
 				"nationChat": "[prefix] Enabled nation chat.\nNow only your fellow nation members see your messages.",
 				"nationChatDisabled": "[prefix] Disabled nation chat.\nNow everyone will see your messages.",
 				"nationChatFormat": "&8[&bNation Chat&8]&r [message]",
+				"nationChatMessagePrefix": "&f",
 				"errorNationChatNoNation": "[prefix] You must be in a nation to use nation chat.\nTo disable nation chat, try: /nation chat"
 			}
 		},
