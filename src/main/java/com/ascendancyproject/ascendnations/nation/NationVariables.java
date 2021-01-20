@@ -79,6 +79,10 @@ public class NationVariables {
 
     private int homePowerCost;
 
+    private int titleFadeIn;
+    private int titleStay;
+    private int titleFadeOut;
+
     public static void init(File file, AscendNations plugin) {
         if (!file.exists())
             plugin.saveResource(location, false);
@@ -286,5 +290,17 @@ public class NationVariables {
 
     public int getHomePowerCost() {
         return homePowerCost;
+    }
+
+    public int getTitleFadeIn() {
+        return titleFadeIn;
+    }
+
+    public int getTitleStay() {
+        return titleStay;
+    }
+
+    public int getTitleFadeOut() {
+        return titleFadeOut;
     }
 }

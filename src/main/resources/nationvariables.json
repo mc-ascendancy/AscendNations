@@ -57,5 +57,8 @@
 	"mapBeaconGlassHome": "LIGHT_BLUE_STAINED_GLASS",
 	"mapBeaconGlassOutpost": "MAGENTA_STAINED_GLASS",
 	"mapDuration": 20000,
-	"homePowerCost": 1
+	"homePowerCost": 1,
+	"titleFadeIn": 10,
+	"titleStay": 40,
+	"titleFadeOut": 10
 }

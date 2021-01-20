@@ -4,6 +4,7 @@ import com.ascendancyproject.ascendnations.AscendNations;
 import com.ascendancyproject.ascendnations.PersistentData;
 import com.ascendancyproject.ascendnations.language.Language;
 import com.ascendancyproject.ascendnations.nation.Nation;
+import com.ascendancyproject.ascendnations.nation.NationVariables;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,11 +46,27 @@ public class ClaimChunksEvents implements Listener {
         if (fromUUID != null && !fromUUID.equals(toUUID)) {
             Nation nation = PersistentData.instance.getNations().get(fromUUID);
             player.sendMessage(Language.format(player, "prefix") + " " + nation.getMessages().get("exit"));
+
+            player.sendTitle(
+                    Language.format(player, "titleExit", new String[]{"nationName", nation.getName()}),
+                    Language.format(player, "titleExitSub", new String[]{"nationName", nation.getName()}),
+                    NationVariables.instance.getTitleFadeIn(),
+                    NationVariables.instance.getTitleStay(),
+                    NationVariables.instance.getTitleFadeOut()
+            );
         }
 
         if (toUUID != null && !toUUID.equals(fromUUID)) {
             Nation nation = PersistentData.instance.getNations().get(toUUID);
             player.sendMessage(Language.format(player, "prefix") + " " + nation.getMessages().get("entry"));
+
+            player.sendTitle(
+                    Language.format(player, "titleEntry", new String[]{"nationName", nation.getName()}),
+                    Language.format(player, "titleEntrySub", new String[]{"nationName", nation.getName()}),
+                    NationVariables.instance.getTitleFadeIn(),
+                    NationVariables.instance.getTitleStay(),
+                    NationVariables.instance.getTitleFadeOut()
+            );
         }
     }
 }
