@@ -117,6 +117,7 @@ Field | Description
 `resupplyHealth`                         | the amount of health a resupply minecart has.  
 `resupplyReminderFrequency`              | the amount of ticks between each resupply reminder.  
 `protectedMobs`                          | the mobs which are invulnerable inside claimed land.  
+`exemptMobDamageCause`                   | the mob damage causes which mobs are not protected from.
 `protectedBlocks`                        | the blocks which are protected from right-click events inside claimed land.  
 `goodSpawnBlocks`                        | blocks which players are able to spawn on top of.
 `saveFrequency`                          | the amount of ticks between each autosave of `nations.json`.

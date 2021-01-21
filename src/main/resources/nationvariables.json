@@ -52,6 +52,13 @@
 		"SKELETON_HORSE",
 		"BEE"
 	],
+	"exemptMobDamageCause": [
+		"FIRE",
+		"FIRE_TICK",
+		"HOT_FLOOR",
+		"LAVA",
+		"LIGHTNING"
+	],
 	"protectedBlocks": [
 		"FURNACE",
 		"BLAST_FURNACE",
