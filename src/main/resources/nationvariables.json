@@ -37,6 +37,13 @@
 	"protectedMobs": [
 		"CHICKEN"
 	],
+	"exemptMobDamageCause": [
+		"FIRE",
+		"FIRE_TICK",
+		"HOT_FLOOR",
+		"LAVA",
+		"LIGHTNING"
+	],
 	"protectedBlocks": [
 		"FURNACE",
 		"CHEST",
