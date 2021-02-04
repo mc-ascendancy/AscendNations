@@ -9,7 +9,9 @@ import com.ascendancyproject.ascendnations.events.NationScriptEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -43,6 +45,9 @@ public class NationOutpost {
 
     public void tick(Nation nation, Long key) {
         if (resupplyState.equals(NationOutpostResupply.InProgress)) {
+            if (minecartUUID == null)
+                return;
+
             World world = Bukkit.getWorld("world");
 
             Minecart minecart = (Minecart) world.getEntity(minecartUUID);
@@ -63,7 +68,7 @@ public class NationOutpost {
             resupplyState = NationOutpostResupply.InProgress;
             resupplyExpiry = System.currentTimeMillis() + NationVariables.instance.getResupplyTimeout();
 
-            spawnMinecart(nation, key, false);
+            spawnMinecart(nation, key, false, false);
 
             nation.broadcast("resupplySpawned",
                     new String[]{"outpostNumber", Integer.toString(number)},
@@ -99,7 +104,7 @@ public class NationOutpost {
         resupplyState = NationOutpostResupply.Satisfied;
     }
 
-    public void spawnMinecart(Nation nation, Long key, boolean respawn) {
+    public void spawnMinecart(Nation nation, Long key, boolean respawn, boolean force) {
         if (respawn)
             nation.broadcast("resupplyRespawn",
                     new String[]{"outpostNumber", Integer.toString(number)},
@@ -108,13 +113,17 @@ public class NationOutpost {
 
         World world = Bukkit.getWorld("world");
 
-        Minecart minecart = world.spawn(world.getBlockAtKey(nation.getHome()).getLocation().add(0, 1, 0), Minecart.class);
+        // Only spawn the Minecart in if the home chunk is loaded.
+        // If it isn't, an event will watch for the home being loaded and spawn the Minecart in then.
+        if (force || world.isChunkLoaded(Block.getBlockKeyX(nation.getHome()) >> 4, Block.getBlockKeyZ(nation.getHome()) >> 4)) {
+            Minecart minecart = (Minecart) world.spawnEntity(world.getBlockAtKey(nation.getHome()).getLocation().add(0, 1, 0), EntityType.MINECART);
 
-        PersistentDataContainer data = minecart.getPersistentDataContainer();
-        data.set(nbtKeyHealth, PersistentDataType.DOUBLE, NationVariables.instance.getResupplyHealth());
-        data.set(nbtKeyOutpost, PersistentDataType.LONG, key);
+            PersistentDataContainer data = minecart.getPersistentDataContainer();
+            data.set(nbtKeyHealth, PersistentDataType.DOUBLE, NationVariables.instance.getResupplyHealth());
+            data.set(nbtKeyOutpost, PersistentDataType.LONG, key);
 
-        minecartUUID = minecart.getUniqueId();
+            minecartUUID = minecart.getUniqueId();
+        }
     }
 
     public void destroy(Nation nation, Long key) {

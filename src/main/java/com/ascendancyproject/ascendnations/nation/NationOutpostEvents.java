@@ -11,6 +11,7 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class NationOutpostEvents implements Listener {
@@ -42,15 +43,16 @@ public class NationOutpostEvents implements Listener {
         }
 
         Nation nation = PersistentData.instance.getNations().get(ClaimChunks.chunks.get(Nation.getOutpostChunk(outpost)));
-        nation.getOutposts().get(outpost).spawnMinecart(nation, outpost, true);
+        nation.getOutposts().get(outpost).spawnMinecart(nation, outpost, true, false);
 
         event.getVehicle().remove();
     }
 
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent event) {
-        // Despawn expired minecarts.
+        spawnUnspawnedMinecarts(event);
 
+        // Despawn expired minecarts.
         for (Entity entity : event.getChunk().getEntities()) {
             PersistentDataContainer data = entity.getPersistentDataContainer();
             Long key = data.get(NationOutpost.nbtKeyOutpost, PersistentDataType.LONG);
@@ -70,5 +72,20 @@ public class NationOutpostEvents implements Listener {
             if (outpost == null || outpost.getMinecartUUID() != entity.getUniqueId())
                 entity.remove();
         }
+    }
+
+    private void spawnUnspawnedMinecarts(ChunkLoadEvent event) {
+        Long key = event.getChunk().getChunkKey();
+
+        UUID nationUUID = ClaimChunks.chunks.get(key);
+        if (nationUUID == null)
+            return;
+
+        Nation nation = PersistentData.instance.getNations().get(nationUUID);
+
+        // Spawn in Minecarts that weren't spawned in due to the home chunk being unloaded.
+        for (Map.Entry<Long, NationOutpost> entry : nation.getOutposts().entrySet())
+            if (entry.getValue().getResupplyState().equals(NationOutpostResupply.InProgress) && entry.getValue().getMinecartUUID() == null)
+                entry.getValue().spawnMinecart(nation, entry.getKey(), false, true);
     }
 }
