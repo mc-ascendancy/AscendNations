@@ -1,5 +1,22 @@
 # AscendNations
-AscendNations - The Ascendancy Project's nations plugin developed by [Froogo](https://froogo.co.uk).
+AscendNations - [The Ascendancy Project's](https://ascendancyproject.com/) nations plugin developed by [Froogo](https://froogo.co.uk).
+
+### Brief description
+This plugin was originally developed and funded by
+[The Ascendancy Project, LLC.](https://ascendancyproject.com/) in late 2020 through early 2021.
+Similarities may be seen to other faction-style plugins, but with a strong focus on Civilization gameplay.
+
+This plugin was originally a closed-source internal plugin for Ascendancy, however, due to the closure of Ascendancy,
+the plugin is now deprecated and open-source.
+
+### License
+*This is not legal advice from a lawyer, but a developer's understanding of the license.*
+This plugin is under [the GNU AGPLv3](LICENSE.md), which allows
+commercial use, modification, distribution, patent use, and private use.
+This, however, is under the clause that when the plugin is provided on a server,
+the source code must be afforded to all players, including all modifications to the original works made by the server.
+
+The plugin may be used in commercial servers with no additional requirements.
 
 ### Index
 - [Installation](#installation)
